@@ -1,0 +1,31 @@
+server {
+	listen 443 ssl spdy default_server;
+	listen [::]:443 ssl spdy default_server;
+	server_name _;
+
+	ssl on;
+	ssl_certificate /etc/nginx/ssl/ssl.crt;
+	ssl_certificate_key /etc/nginx/ssl/ssl.key;
+	ssl_trusted_certificate /etc/nginx/ssl/ssl.ocsp.crt;
+	add_header Strict-Transport-Security max-age=31536000;
+
+	root /opt/librenms/html;
+
+	location ~* \.(png|bmp|gif|jpg|jpeg|txt|html|ico|css|js)$ {
+		expires 4w;
+	}
+
+	location / {
+		try_files $uri $uri/ @backend;
+	}
+
+	location @backend {
+		rewrite ^(.+)$ /index.php/$1 last;
+	}
+
+	location ~ ^/(.*\.php).*$ {
+		include fastcgi_params;
+		fastcgi_pass unix:/var/run/php5-fpm.sock;
+		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+	}
+}

@@ -1,0 +1,10 @@
+#!/bin/bash -eu
+
+SSL_CERT=/etc/nginx/ssl/ssl.crt
+SSL_KEY=/etc/nginx/ssl/ssl.key
+
+if [ -f "$SSL_CERT" ] && [ -f "$SSL_KEY" ]; then
+    ln -s /etc/nginx/sites-available/librenms.https /etc/nginx/sites-enabled/librenms.https
+fi
+
+exec /usr/sbin/nginx

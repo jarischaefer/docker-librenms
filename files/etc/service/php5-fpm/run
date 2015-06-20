@@ -1,0 +1,34 @@
+#!/bin/bash -e
+
+CONF_FILE=/opt/librenms/config.php
+CUSTOM_CONF_FILE=/opt/librenms/config.custom.php
+
+function addConfig() {
+	KEY="$1"
+	VALUE="$2"
+
+	if [ -n "$VALUE" ]; then
+		if grep -q "$KEY" "$CONF_FILE"; then
+			sed -i "s|.*$KEY.*|$KEY = '$VALUE';|g" "$CONF_FILE"
+		else
+			NON_ESCAPED_KEY=$(echo "$KEY" | tr -d '\\')
+			echo "$NON_ESCAPED_KEY = '$VALUE';" >> "$CONF_FILE"
+		fi
+	fi
+}
+
+addConfig "\$config\['db_host'\]" "$DB_HOST"
+addConfig "\$config\['db_user'\]" "$DB_USER"
+addConfig "\$config\['db_pass'\]" "$DB_PASS"
+addConfig "\$config\['db_name'\]" "$DB_NAME"
+addConfig "\$config\['memcached'\]\['enable'\]" "$MEMCACHED_ENABLE"
+addConfig "\$config\['memcached'\]\['host'\]" "$MEMCACHED_HOST"
+addConfig "\$config\['memcached'\]\['port'\]" "$MEMCACHED_PORT"
+addConfig "\$config\['base_url'\]" "$BASE_URL"
+addConfig "\$config\['update'\]" "$UPDATE"
+
+if [ -f "$CUSTOM_CONF_FILE" ]; then
+    cat "$CUSTOM_CONF_FILE" >> "$CONF_FILE"
+fi
+
+exec /usr/sbin/php5-fpm --nodaemonize --fpm-config /etc/php5/fpm/php-fpm.conf

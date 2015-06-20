@@ -1,0 +1,25 @@
+server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+	server_name _;
+
+	root /opt/librenms/html;
+
+	location ~* \.(png|bmp|gif|jpg|jpeg|txt|html|ico|css|js)$ {
+		expires 4w;
+	}
+
+	location / {
+		try_files $uri $uri/ @backend;
+	}
+
+	location @backend {
+		rewrite ^(.+)$ /index.php/$1 last;
+	}
+
+	location ~ ^/(.*\.php).*$ {
+		include fastcgi_params;
+		fastcgi_pass unix:/var/run/php5-fpm.sock;
+		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+	}
+}
