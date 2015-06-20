@@ -6,7 +6,7 @@ server {
 	ssl on;
 	ssl_certificate /etc/nginx/ssl/ssl.crt;
 	ssl_certificate_key /etc/nginx/ssl/ssl.key;
-	ssl_trusted_certificate /etc/nginx/ssl/ssl.ocsp.crt;
+	#ssl_trusted_certificate /etc/nginx/ssl/ssl.ocsp.crt;
 	add_header Strict-Transport-Security max-age=31536000;
 
 	root /opt/librenms/html;
