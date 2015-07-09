@@ -47,7 +47,7 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E5267A6C && \
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ADD files/etc /etc/
-RUN chmod -R +x /etc/service  && chmod 644 /etc/cron.d/librenms
+RUN chmod -R +x /etc/service && chmod 644 /etc/cron.d/librenms
 
 EXPOSE 80
 EXPOSE 443

@@ -7,17 +7,18 @@ This is a generic docker container for [LibreNMS](http://www.librenms.org/).
 
 ## Basic commands to run the container
 
-    docker run \  
-        -d \  
+    docker run \
+        -d \
         -p 80:80 \
-        -e DB_HOST=db \  
-        -e DB_NAME=librenms \  
-        -e DB_USER=librenms \  
-        -e DB_PASS=secret \  
-        -e BASE_URL=http://localhost \  
-        -v /my/persistent/directory/logs:/opt/librenms/logs \  
-        -v /my/persistent/directory/rrd:/opt/librenms/rrd \  
-        --name librenms \  
+        -e DB_HOST=db \
+        -e DB_NAME=librenms \
+        -e DB_USER=librenms \
+        -e DB_PASS=secret \
+        -e BASE_URL=http://localhost \
+        --link my-database-container:db \
+        -v /my/persistent/directory/logs:/opt/librenms/logs \
+        -v /my/persistent/directory/rrd:/opt/librenms/rrd \
+        --name librenms \
         jarischaefer/docker-librenms
 
 ## SSL
@@ -34,6 +35,7 @@ You'll also have to change BASE_URL.
         -e DB_USER=librenms \
         -e DB_PASS=secret \
         -e BASE_URL=https://localhost \
+        --link my-database-container:db \
         -v /my/persistent/directory/logs:/opt/librenms/logs \
         -v /my/persistent/directory/rrd:/opt/librenms/rrd \
         -v /my/persistent/directory/ssl:/etc/nginx/ssl:ro \
@@ -68,6 +70,7 @@ The following example shows how to ignore some common interface names.
         -e DB_USER=librenms \
         -e DB_PASS=secret \
         -e BASE_URL=https://localhost \
+        --link my-database-container:db \
         -v /my/persistent/directory/logs:/opt/librenms/logs \
         -v /my/persistent/directory/rrd:/opt/librenms/rrd \
         -v /my/persistent/directory/ssl:/etc/nginx/ssl:ro \
