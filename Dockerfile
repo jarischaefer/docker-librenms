@@ -3,12 +3,12 @@
 # Mounts:
 #	- /opt/librenms/logs
 #	- /opt/librenms/rrd
-#   - /opt/librenms/config.custom.php
+#	- /opt/librenms/config.custom.php
 #	- /etc/nginx/ssl
 #
 ################
 
-FROM phusion/baseimage:0.9.16
+FROM phusion/baseimage:0.9.17
 MAINTAINER Jari Schäfer <jari.schaefer@gmail.com>
 
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E5267A6C && \
@@ -47,7 +47,8 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E5267A6C && \
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ADD files/etc /etc/
-RUN chmod -R +x /etc/service && chmod 644 /etc/cron.d/librenms
+RUN	chmod -R +x /etc/service && \
+	chmod 644 /etc/cron.d/librenms
 
 EXPOSE 80
 EXPOSE 443
