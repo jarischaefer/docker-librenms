@@ -11,8 +11,9 @@
 FROM phusion/baseimage:0.9.17
 MAINTAINER Jari Schäfer <jari.schaefer@gmail.com>
 
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E5267A6C && \
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E5267A6C C300EE8C && \
 	echo 'deb http://ppa.launchpad.net/ondrej/php5-5.6/ubuntu trusty main' > /etc/apt/sources.list.d/ondrej-php56.list && \
+	echo 'deb http://ppa.launchpad.net/nginx/development/ubuntu trusty main' > /etc/apt/sources.list.d/nginx.list && \
 	apt-get update && \
 	apt-get -yq dist-upgrade && \
 	apt-get -yq install --no-install-recommends \
@@ -42,6 +43,7 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E5267A6C && \
 	cd /opt && \
 	git clone --depth 1 https://github.com/librenms/librenms.git librenms && \
 	cp /opt/librenms/config.php.default /opt/librenms/config.php && \
+	sed -i 's/#$config\['"'"'update'"'"'\]/$config['"'"'update'"'"']/g' /opt/librenms/config.php && \
 	apt-get -yq autoremove --purge && \
 	apt-get clean && \
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
