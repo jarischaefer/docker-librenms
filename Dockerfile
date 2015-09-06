@@ -11,7 +11,7 @@
 FROM phusion/baseimage:0.9.17
 MAINTAINER Jari Schäfer <jari.schaefer@gmail.com>
 
-RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E5267A6C C300EE8C && \
+RUN	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E5267A6C C300EE8C && \
 	echo 'deb http://ppa.launchpad.net/ondrej/php5-5.6/ubuntu trusty main' > /etc/apt/sources.list.d/ondrej-php56.list && \
 	echo 'deb http://ppa.launchpad.net/nginx/development/ubuntu trusty main' > /etc/apt/sources.list.d/nginx.list && \
 	apt-get update && \
@@ -52,5 +52,4 @@ ADD files/etc /etc/
 RUN	chmod -R +x /etc/service && \
 	chmod 644 /etc/cron.d/librenms
 
-EXPOSE 80
-EXPOSE 443
+EXPOSE 80 443
