@@ -21,9 +21,21 @@ This is a generic docker container for [LibreNMS](http://www.librenms.org/).
 		--name librenms \
 		jarischaefer/docker-librenms
 
+## Initial setup
+
+Unless there is an existing LibreNMS database, you need to run the setup script manually.
+
+Creating the database:
+
+	docker exec librenms sh -c "cd /opt/librenms && php /opt/librenms/build-base.php"
+
+Creating an initial admin user:
+
+	docker exec librenms php /opt/librenms/adduser.php admin admin 10 test@example.com
+
 ## SSL
 
-Mount another directory containing ssl.key, ssl.crt and optionally ssl.ocsp.crt to enable https.
+Mount another directory containing ssl.key, ssl.crt and optionally ssl.ocsp.crt to enable HTTPS.
 You'll also have to change BASE_URL.
 
 	docker run \
