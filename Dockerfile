@@ -8,7 +8,7 @@
 #
 ################
 
-FROM phusion/baseimage:0.9.17
+FROM phusion/baseimage:0.9.18
 MAINTAINER Jari Schäfer <jari.schaefer@gmail.com>
 
 RUN	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E5267A6C C300EE8C && \
