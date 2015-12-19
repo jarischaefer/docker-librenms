@@ -31,4 +31,10 @@ if [ -f "$CUSTOM_CONF_FILE" ]; then
     cat "$CUSTOM_CONF_FILE" >> "$CONF_FILE"
 fi
 
-exec /usr/sbin/php5-fpm --nodaemonize --fpm-config /etc/php5/fpm/php-fpm.conf
+echo "Starting PHP backend..."
+
+if [ ! -d /run/php ]; then
+	mkdir "/run/php"
+fi
+
+exec /usr/sbin/php-fpm7.0 --nodaemonize --fpm-config /etc/php/7.0/fpm/php-fpm.conf
