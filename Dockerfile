@@ -11,6 +11,8 @@
 FROM phusion/baseimage:0.9.18
 MAINTAINER Jari Schäfer <jari.schaefer@gmail.com>
 
+EXPOSE 80 443
+
 RUN	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E5267A6C C300EE8C && \
 	echo 'deb http://ppa.launchpad.net/ondrej/php/ubuntu trusty main' > /etc/apt/sources.list.d/ondrej-php7.list && \
 	echo 'deb http://ppa.launchpad.net/nginx/development/ubuntu trusty main' > /etc/apt/sources.list.d/nginx.list && \
@@ -56,6 +58,7 @@ RUN	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E5267A6C C300EE8C &
 	useradd librenms -d /opt/librenms -M -r -g www-data && \
 	cd /opt && \
 	git clone --depth 1 https://github.com/librenms/librenms.git librenms && \
+	rm -rf /opt/librenms/.git && \
 	cp /opt/librenms/config.php.default /opt/librenms/config.php && \
 	sed -i 's/#$config\['"'"'update'"'"'\]/$config['"'"'update'"'"']/g' /opt/librenms/config.php && \
 	apt-get -yq autoremove --purge && \
@@ -65,5 +68,3 @@ RUN	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E5267A6C C300EE8C &
 ADD files/etc /etc/
 RUN	chmod -R +x /etc/service && \
 	chmod 644 /etc/cron.d/librenms
-
-EXPOSE 80 443
