@@ -17,6 +17,7 @@ The container runs nginx 1.9+ with HTTP/2 support and PHP 7.0 FPM.
 		-e DB_USER=librenms \
 		-e DB_PASS=secret \
 		-e BASE_URL=http://localhost \
+		-e POLLERS=16 \
 		--link my-database-container:db \
 		-v /my/persistent/directory/logs:/opt/librenms/logs \
 		-v /my/persistent/directory/rrd:/opt/librenms/rrd \
@@ -49,6 +50,7 @@ You'll also have to change BASE_URL.
 		-e DB_USER=librenms \
 		-e DB_PASS=secret \
 		-e BASE_URL=https://localhost \
+		-e POLLERS=16 \
 		--link my-database-container:db \
 		-v /my/persistent/directory/logs:/opt/librenms/logs \
 		-v /my/persistent/directory/rrd:/opt/librenms/rrd \
@@ -60,6 +62,7 @@ You'll also have to change BASE_URL.
 
 The following keys can be passed directly via the -e switch:
 
+* BASE_URL
 * DB_HOST
 * DB_USER
 * DB_PASS
@@ -67,7 +70,7 @@ The following keys can be passed directly via the -e switch:
 * MEMCACHED_ENABLE
 * MEMCACHED_HOST
 * MEMCACHED_PORT
-* BASE_URL
+* POLLERS
 * UPDATE
 
 ## Custom config
@@ -84,6 +87,7 @@ The following example shows how to ignore some common interface names.
 		-e DB_USER=librenms \
 		-e DB_PASS=secret \
 		-e BASE_URL=https://localhost \
+		-e POLLERS=16 \
 		--link my-database-container:db \
 		-v /my/persistent/directory/logs:/opt/librenms/logs \
 		-v /my/persistent/directory/rrd:/opt/librenms/rrd \

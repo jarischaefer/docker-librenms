@@ -1,0 +1,7 @@
+#!/bin/bash -e
+
+if [ -z "$POLLERS" ]; then
+	POLLERS=8
+fi
+
+sed -i "s/PLACEHOLDER_POLLERS/$POLLERS/g" /etc/cron.d/librenms
