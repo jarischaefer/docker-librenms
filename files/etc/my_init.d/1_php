@@ -30,3 +30,7 @@ addConfig "\$config\['memcached'\]\['host'\]" "$MEMCACHED_HOST"
 addConfig "\$config\['memcached'\]\['port'\]" "$MEMCACHED_PORT"
 addConfig "\$config\['base_url'\]" "$BASE_URL"
 addConfig "\$config\['update'\]" "$UPDATE"
+
+if [ -f "$CUSTOM_CONF_FILE" ]; then
+	cat "$CUSTOM_CONF_FILE" >> "$CONF_FILE"
+fi
