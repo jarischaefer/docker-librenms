@@ -17,7 +17,7 @@ RUN	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E5267A6C C300EE8C &
 	echo 'deb http://ppa.launchpad.net/ondrej/php/ubuntu trusty main' > /etc/apt/sources.list.d/ondrej-php7.list && \
 	echo 'deb http://ppa.launchpad.net/nginx/development/ubuntu trusty main' > /etc/apt/sources.list.d/nginx.list && \
 	apt-get update && \
-	apt-get -yq purge openssh-server && \
+	apt-get -yq purge openssh-.* && \
 	apt-get -yq autoremove --purge && \
 	apt-get -yq dist-upgrade && \
 	apt-get -yq install --no-install-recommends \
@@ -59,8 +59,8 @@ RUN	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E5267A6C C300EE8C &
 	echo 'include_path = ".:/usr/share/php:/usr/lib/php/pear"' >> /etc/php/7.0/cli/php.ini && \
 	useradd librenms -d /opt/librenms -M -r -g www-data && \
 	cd /opt && \
-	git clone --depth 1 https://github.com/librenms/librenms.git librenms && \
-	rm -rf /opt/librenms/.git && \
+	curl -ssL "https://github.com/librenms/librenms/archive/201605.tar.gz" | tar xzf - && \
+	mv librenms-201605 librenms && \
 	cp /opt/librenms/config.php.default /opt/librenms/config.php && \
 	sed -i 's/#$config\['"'"'update'"'"'\]/$config['"'"'update'"'"']/g' /opt/librenms/config.php && \
 	apt-get -yq autoremove --purge && \
