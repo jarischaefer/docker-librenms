@@ -1,25 +1,30 @@
 server {
-	listen 80 default_server;
-	listen [::]:80 default_server;
+	listen      80;
 	server_name _;
-
-	root /opt/librenms/html;
-
-	location ~* \.(png|bmp|gif|jpg|jpeg|txt|html|ico|css|js)$ {
-		expires 4w;
-	}
+	root        /opt/librenms/html;
+	index       index.php;
+	
+	access_log  /opt/librenms/logs/access_log;
+	error_log   /opt/librenms/logs/error_log;
 
 	location / {
-		try_files $uri $uri/ @backend;
+		try_files $uri $uri/ @librenms;
 	}
 
-	location @backend {
-		rewrite ^(.+)$ /index.php/$1 last;
-	}
-
-	location ~ ^/(.*\.php).*$ {
+	location ~ \.php {
+		fastcgi_param PATH_INFO $fastcgi_path_info;
 		include fastcgi_params;
+		fastcgi_split_path_info ^(.+\.php)(/.+)$;
 		fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
 		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+	}
+
+	location ~ /\.ht {
+		deny all;
+	}
+
+	location @librenms {
+		rewrite api/v0(.*)$ /api_v0.php/$1 last;
+		rewrite ^(.+)$ /index.php/$1 last;
 	}
 }
