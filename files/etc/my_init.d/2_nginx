@@ -1,0 +1,14 @@
+#!/bin/bash -eu
+
+CONF_FILE=/etc/nginx/sites-available/librenms.https
+SSL_CERT=/etc/nginx/ssl/ssl.crt
+SSL_KEY=/etc/nginx/ssl/ssl.key
+SSL_OCSP=/etc/nginx/ssl/ssl.ocsp.crt
+
+if [ -f "$SSL_CERT" ] && [ -f "$SSL_KEY" ]; then
+    if [ -f "$SSL_OCSP" ]; then
+        sed -i 's/#ssl_trusted_certificate/ssl_trusted_certificate/g' "$CONF_FILE"
+    fi
+
+    ln -s "$CONF_FILE" /etc/nginx/sites-enabled/librenms.https
+fi

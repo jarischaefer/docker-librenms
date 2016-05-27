@@ -2,30 +2,31 @@ server {
 	listen 443 ssl http2 default_server;
 	listen [::]:443 ssl http2 default_server;
 	server_name _;
+	root /opt/librenms/html;
 
 	ssl on;
 	ssl_certificate /etc/nginx/ssl/ssl.crt;
 	ssl_certificate_key /etc/nginx/ssl/ssl.key;
 	#ssl_trusted_certificate /etc/nginx/ssl/ssl.ocsp.crt;
-	add_header Strict-Transport-Security max-age=31536000;
-
-	root /opt/librenms/html;
-
-	location ~* \.(png|bmp|gif|jpg|jpeg|txt|html|ico|css|js)$ {
-		expires 4w;
-	}
 
 	location / {
-		try_files $uri $uri/ @backend;
+		try_files $uri $uri/ @librenms;
 	}
 
-	location @backend {
-		rewrite ^(.+)$ /index.php/$1 last;
-	}
-
-	location ~ ^/(.*\.php).*$ {
+	location ~ \.php {
+		fastcgi_param PATH_INFO $fastcgi_path_info;
 		include fastcgi_params;
+		fastcgi_split_path_info ^(.+\.php)(/.+)$;
 		fastcgi_pass unix:/var/run/php/php7.0-fpm.sock;
 		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+	}
+
+	location ~ /\.ht {
+		deny all;
+	}
+
+	location @librenms {
+		rewrite api/v0(.*)$ /api_v0.php/$1 last;
+		rewrite ^(.+)$ /index.php/$1 last;
 	}
 }

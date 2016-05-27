@@ -1,11 +1,8 @@
 server {
-	listen      80;
+	listen 80 default_server;
+	listen [::]:80 default_server;
 	server_name _;
-	root        /opt/librenms/html;
-	index       index.php;
-	
-	access_log  /opt/librenms/logs/access_log;
-	error_log   /opt/librenms/logs/error_log;
+	root /opt/librenms/html;
 
 	location / {
 		try_files $uri $uri/ @librenms;
