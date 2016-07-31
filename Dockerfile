@@ -59,8 +59,8 @@ RUN	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E5267A6C C300EE8C &
 	echo 'include_path = ".:/usr/share/php:/usr/lib/php/pear"' >> /etc/php/7.0/cli/php.ini && \
 	useradd librenms -d /opt/librenms -M -r -g www-data && \
 	cd /opt && \
-	curl -ssL "https://github.com/librenms/librenms/archive/201607.tar.gz" | tar xzf - && \
-	mv librenms-201607 librenms && \
+	curl -ssL "https://github.com/librenms/librenms/archive/201608.tar.gz" | tar xzf - && \
+	mv librenms-201608 librenms && \
 	cp /opt/librenms/config.php.default /opt/librenms/config.php && \
 	sed -i 's/#$config\['"'"'update'"'"'\]/$config['"'"'update'"'"']/g' /opt/librenms/config.php && \
 	apt-get -yq autoremove --purge && \
