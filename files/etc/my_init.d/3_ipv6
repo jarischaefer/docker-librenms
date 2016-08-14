@@ -1,0 +1,6 @@
+#!/bin/bash -e
+
+if [ -n "$DISABLE_IPV6" ]; then
+	sed -i 's/listen \[::\]:80/#listen [::]:80/g' /etc/nginx/sites-enabled/librenms.http
+	sed -i 's/listen \[::\]:443/#listen [::]:443/g' /etc/nginx/sites-available/librenms.https
+fi
