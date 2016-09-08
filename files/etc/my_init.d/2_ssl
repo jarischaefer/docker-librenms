@@ -1,5 +1,11 @@
 #!/bin/bash -eu
 
+LOCK_FILE=/etc/my_init_locks.d/2_ssl.lock
+
+if [ -f "$LOCK_FILE" ]; then
+	exit 0
+fi
+
 CONF_FILE=/etc/nginx/sites-available/librenms.https
 SSL_CERT=/etc/nginx/ssl/ssl.crt
 SSL_KEY=/etc/nginx/ssl/ssl.key
@@ -12,3 +18,5 @@ if [ -f "$SSL_CERT" ] && [ -f "$SSL_KEY" ]; then
 
     ln -s "$CONF_FILE" /etc/nginx/sites-enabled/librenms.https
 fi
+
+touch "$LOCK_FILE"

@@ -1,6 +1,14 @@
 #!/bin/bash -e
 
+LOCK_FILE=/etc/my_init_locks.d/3_ipv6.lock
+
+if [ -f "$LOCK_FILE" ]; then
+	exit 0
+fi
+
 if [ -n "$DISABLE_IPV6" ]; then
 	sed -i 's/listen \[::\]:80/#listen [::]:80/g' /etc/nginx/sites-enabled/librenms.http
 	sed -i 's/listen \[::\]:443/#listen [::]:443/g' /etc/nginx/sites-available/librenms.https
 fi
+
+touch "$LOCK_FILE"

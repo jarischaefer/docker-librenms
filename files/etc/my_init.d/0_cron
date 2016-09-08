@@ -1,7 +1,15 @@
 #!/bin/bash -e
 
+LOCK_FILE=/etc/my_init_locks.d/0_cron.lock
+
+if [ -f "$LOCK_FILE" ]; then
+	exit 0
+fi
+
 if [ -z "$POLLERS" ]; then
 	POLLERS=8
 fi
 
 sed -i "s/PLACEHOLDER_POLLERS/$POLLERS/g" /etc/cron.d/librenms
+
+touch "$LOCK_FILE"
