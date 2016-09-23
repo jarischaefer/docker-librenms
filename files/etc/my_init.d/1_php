@@ -7,7 +7,7 @@ if [ -f "$LOCK_FILE" ]; then
 fi
 
 function requireConfig() {
-	if [ -z "$1" ]; then
+	if [ -z ${!1} ]; then
 		echo "Error: $1 is unset"
 		exit 1
     fi
