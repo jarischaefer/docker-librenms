@@ -71,7 +71,6 @@ The following keys can be passed directly via the -e switch:
 * MEMCACHED_HOST
 * MEMCACHED_PORT
 * POLLERS
-* UPDATE
 * DISABLE_IPV6
 
 ## Custom config

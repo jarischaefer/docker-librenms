@@ -17,11 +17,7 @@ requireConfig DB_HOST
 requireConfig DB_USER
 requireConfig DB_PASS
 requireConfig DB_NAME
-requireConfig MEMCACHED_ENABLE
-requireConfig MEMCACHED_HOST
-requireConfig MEMCACHED_PORT
 requireConfig BASE_URL
-requireConfig UPDATE
 
 if [ -f /opt/librenms/config.custom.php ]; then
 	cat /opt/librenms/config.custom.php >> /opt/librenms/config.php
