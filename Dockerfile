@@ -28,6 +28,8 @@ RUN	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E5267A6C C300EE8C &
 		php7.0-gd \
 		php7.0-curl \
 		php7.0-opcache \
+		php7.0-ldap \
+		php7.0-memcached \
 		php-imagick \
 		php-pear \
 		php-net-ipv4 \
@@ -55,19 +57,18 @@ RUN	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E5267A6C C300EE8C &
 	sed -i 's/pm.start_servers = 2/pm.start_servers = 4/g' /etc/php/7.0/fpm/pool.d/www.conf && \
 	sed -i 's/pm.min_spare_servers = 1/pm.min_spare_servers = 4/g' /etc/php/7.0/fpm/pool.d/www.conf && \
 	sed -i 's/pm.max_spare_servers = 3/pm.max_spare_servers = 8/g' /etc/php/7.0/fpm/pool.d/www.conf && \
+	sed -i 's/;clear_env/clear_env/g' /etc/php/7.0/fpm/pool.d/www.conf && \
 	echo 'include_path = ".:/usr/share/php:/usr/lib/php/pear"' >> /etc/php/7.0/fpm/php.ini && \
 	echo 'include_path = ".:/usr/share/php:/usr/lib/php/pear"' >> /etc/php/7.0/cli/php.ini && \
 	useradd librenms -d /opt/librenms -M -r -g www-data && \
 	cd /opt && \
 	curl -ssL "https://github.com/librenms/librenms/archive/20160828.tar.gz" | tar xzf - && \
 	mv librenms-20160828 librenms && \
-	cp /opt/librenms/config.php.default /opt/librenms/config.php && \
-	sed -i 's/#$config\['"'"'update'"'"'\]/$config['"'"'update'"'"']/g' /opt/librenms/config.php && \
 	apt-get -yq autoremove --purge && \
 	apt-get clean && \
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-ADD files/etc /etc/
+ADD files /
 RUN	chmod -R +x /etc/my_init.d /etc/service && \
 	chmod 644 /etc/cron.d/librenms
 
