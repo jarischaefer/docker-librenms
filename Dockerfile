@@ -74,4 +74,4 @@ ADD files /
 RUN	chmod -R +x /etc/my_init.d /etc/service && \
 	chmod 644 /etc/cron.d/librenms
 
-VOLUME ["/opt/librenms/logs", "/opt/librenms/rrd", "/etc/nginx/ssl"]
+VOLUME ["/opt/librenms/logs", "/opt/librenms/rrd", "/etc/nginx/ssl", "/var/log/nginx"]
