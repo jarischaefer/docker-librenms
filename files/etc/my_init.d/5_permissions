@@ -1,0 +1,3 @@
+#!/bin/bash -eu
+
+chown -R librenms:librenms /opt/librenms/logs /opt/librenms/rrd
