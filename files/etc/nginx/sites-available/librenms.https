@@ -4,7 +4,6 @@ server {
 	server_name _;
 	root /opt/librenms/html;
 
-	ssl on;
 	ssl_certificate /etc/nginx/ssl/ssl.crt;
 	ssl_certificate_key /etc/nginx/ssl/ssl.key;
 	#ssl_trusted_certificate /etc/nginx/ssl/ssl.ocsp.crt;
