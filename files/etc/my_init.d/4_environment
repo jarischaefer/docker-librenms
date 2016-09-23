@@ -7,7 +7,7 @@ if [ -f "$LOCK_FILE" ]; then
 fi
 
 function addConfig() {
-	if [ -n ${!1} ]; then
+	if [ -n "${!1}" ]; then
 		echo "export $1=${!1}" >> /etc/librenms_environment
 	fi
 }
