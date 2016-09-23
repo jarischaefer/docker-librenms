@@ -10,7 +10,7 @@ function requireConfig() {
 	if [ -z ${!1} ]; then
 		echo "Error: $1 is unset"
 		exit 1
-    fi
+	fi
 }
 
 requireConfig DB_HOST
