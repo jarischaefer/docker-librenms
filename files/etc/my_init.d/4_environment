@@ -1,0 +1,24 @@
+#!/bin/bash -e
+
+LOCK_FILE=/etc/my_init_locks.d/4_environment.lock
+
+if [ -f "$LOCK_FILE" ]; then
+	exit 0
+fi
+
+function addConfig() {
+	if [ -n ${!1} ]; then
+		echo "${!1}" >> /etc/librenms_environment
+	fi
+}
+
+addConfig DB_HOST
+addConfig DB_USER
+addConfig DB_PASS
+addConfig DB_NAME
+addConfig BASE_URL
+addConfig MEMCACHED_ENABLE
+addConfig MEMCACHED_HOST
+addConfig MEMCACHED_PORT
+
+touch "$LOCK_FILE"
