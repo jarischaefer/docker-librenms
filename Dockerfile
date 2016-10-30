@@ -63,8 +63,8 @@ RUN	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E5267A6C C300EE8C &
 	useradd librenms -d /opt/librenms -M -r && \
 	usermod -a -G librenms www-data && \
 	cd /opt && \
-	curl -ssL "https://github.com/librenms/librenms/archive/201609.01.tar.gz" | tar xzf - && \
-	mv librenms-201609.01 librenms && \
+	curl -ssL "https://github.com/librenms/librenms/archive/1.21.tar.gz" | tar xzf - && \
+	mv librenms-1.21 librenms && \
 	chown -R librenms:librenms /opt/librenms && \
 	apt-get -yq autoremove --purge && \
 	apt-get clean && \
