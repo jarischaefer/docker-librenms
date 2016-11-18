@@ -5,7 +5,9 @@ Docker image for LibreNMS
 
 This is a generic docker container for [LibreNMS](http://www.librenms.org/).
 
-The container runs nginx 1.11+ with HTTP/2 support and PHP 7.0 FPM.
+The container runs nginx 1.11+ with HTTP/2 support and PHP 7.0 FPM
+with [OPCache](http://php.net/manual/en/book.opcache.php) for maximum
+performance.
 
 ## Basic commands to run the container
 
@@ -26,9 +28,20 @@ The container runs nginx 1.11+ with HTTP/2 support and PHP 7.0 FPM.
 
 ## Initial setup
 
-Unless there is an existing LibreNMS database, you need to run the setup script manually.
+### Database configuration
 
-Creating the database:
+You should read the [LibreNMS installation docs](http://docs.librenms.org/Installation/Installation-Ubuntu-1604-Nginx/)
+for the latest instructions regarding database setup.
+
+As of November 2016, the following is still a requirement:
+
+> NOTE: Whilst we are working on ensuring LibreNMS is compatible with MySQL strict mode, for now, please disable this after mysql is installed.
+
+### Database schema
+
+Make sure the database exists before running these commands.
+
+Creating the tables:
 
 	docker exec librenms sh -c "cd /opt/librenms && php /opt/librenms/build-base.php"
 
@@ -76,7 +89,8 @@ The following keys can be passed directly via the -e switch:
 ## Custom config
 
 To configure more advanced settings, you may use another mount.
-The following example shows how to ignore some common interface names.
+The following example demonstrates how temporary or otherwise undesired
+interfaces may be ignored.
 
 	docker run \
 		-d \
@@ -116,9 +130,15 @@ The start script automatically appends the contents of config.custom.php to conf
 
 ## Running in production
 
-You should probably use a reverse proxy like [jwilder/nginx-proxy](https://github.com/jwilder/nginx-proxy) for production.
-Alerting via email may be somewhat difficult to setup right.
-It is recommended you [link](https://docs.docker.com/userguide/dockerlinks/) an SMTP server and use that for your alerts.
+The commands above are purely for illustrative purposes.
+You should customize them to fit your environment.
+
+Also, please note that...
+
+* Alerting via email is supported via SMTP only.
+* Publicly accessible installations should be put behind
+[jwilder/nginx-proxy](https://github.com/jwilder/nginx-proxy) or
+similar proxies for better access control and security hardening.
 
 ## License
 
