@@ -1,13 +1,3 @@
-################
-#
-# Mounts:
-#	- /opt/librenms/logs
-#	- /opt/librenms/rrd
-#	- /opt/librenms/config.custom.php
-#	- /etc/nginx/ssl
-#
-################
-
 FROM phusion/baseimage:0.9.19
 MAINTAINER Jari Schäfer <jari.schaefer@gmail.com>
 
@@ -46,25 +36,15 @@ RUN	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E5267A6C C300EE8C &
 		sendmail \
 		git && \
 	rm -rf /etc/nginx/sites-available/* /etc/nginx/sites-enabled/* && \
-	sed -i 's/;opcache.enable=0/opcache.enable=1/g' /etc/php/7.0/fpm/php.ini && \
-	sed -i 's/;opcache.fast_shutdown=0/opcache.fast_shutdown=1/g' /etc/php/7.0/fpm/php.ini && \
-	sed -i 's/;opcache.enable_file_override=0/opcache.enable_file_override=1/g' /etc/php/7.0/fpm/php.ini && \
-	sed -i 's/;opcache.revalidate_path=0/opcache.revalidate_path=1/g' /etc/php/7.0/fpm/php.ini && \
-	sed -i 's/;opcache.load_comments=0/opcache.load_comments=0/g' /etc/php/7.0/fpm/php.ini && \
-	sed -i 's/;opcache.save_comments=0/opcache.save_comments=0/g' /etc/php/7.0/fpm/php.ini && \
-	sed -i 's/;opcache.revalidate_freq=2/opcache.revalidate_freq=60/g' /etc/php/7.0/fpm/php.ini && \
 	sed -i 's/pm.max_children = 5/pm.max_children = 24/g' /etc/php/7.0/fpm/pool.d/www.conf && \
 	sed -i 's/pm.start_servers = 2/pm.start_servers = 4/g' /etc/php/7.0/fpm/pool.d/www.conf && \
 	sed -i 's/pm.min_spare_servers = 1/pm.min_spare_servers = 4/g' /etc/php/7.0/fpm/pool.d/www.conf && \
 	sed -i 's/pm.max_spare_servers = 3/pm.max_spare_servers = 8/g' /etc/php/7.0/fpm/pool.d/www.conf && \
 	sed -i 's/;clear_env/clear_env/g' /etc/php/7.0/fpm/pool.d/www.conf && \
-	echo 'include_path = ".:/usr/share/php:/usr/lib/php/pear"' >> /etc/php/7.0/fpm/php.ini && \
-	echo 'include_path = ".:/usr/share/php:/usr/lib/php/pear"' >> /etc/php/7.0/cli/php.ini && \
 	useradd librenms -d /opt/librenms -M -r && \
 	usermod -a -G librenms www-data && \
-	cd /opt && \
-	curl -ssL "https://github.com/librenms/librenms/archive/1.21.tar.gz" | tar xzf - && \
-	mv librenms-1.21 librenms && \
+	curl -ssL "https://github.com/librenms/librenms/archive/1.22.tar.gz" | tar xz -C /opt && \
+	mv /opt/librenms-1.22 /opt/librenms && \
 	chown -R librenms:librenms /opt/librenms && \
 	apt-get -yq autoremove --purge && \
 	apt-get clean && \
