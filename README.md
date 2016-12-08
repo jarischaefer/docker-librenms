@@ -116,7 +116,7 @@ The example config contains the following:
 ```
 // config.custom.php
 
-$config['bad_if_regexp'][] = '/^docker[0-9]+$/';
+$config['bad_if_regexp'][] = '/^docker[\w]+$/';
 $config['bad_if_regexp'][] = '/^lxcbr[0-9]+$/';
 $config['bad_if_regexp'][] = '/^veth.*$/';
 $config['bad_if_regexp'][] = '/^virbr.*$/';
