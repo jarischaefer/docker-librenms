@@ -1,4 +1,4 @@
 #!/bin/bash -eu
 
 chown -R librenms:librenms /opt/librenms/logs /opt/librenms/rrd
-chmod -R 775 /opt/librenms/logs /opt/librenms/rrd
+chmod -R u=rwX,g=rwX,o=rX /opt/librenms/logs /opt/librenms/rrd
