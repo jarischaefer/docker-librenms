@@ -30,6 +30,7 @@ RUN	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E5267A6C C300EE8C &
 		imagemagick \
 		whois \
 		mtr-tiny \
+		nagios-plugins \
 		nmap \
 		python-mysqldb \
 		rrdtool \
