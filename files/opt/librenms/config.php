@@ -15,7 +15,7 @@ $config['enable_billing'] = 1;
 $config['show_services'] = 1;
 $config['update'] = 0;
 
-$config['nagios_plugins']   = "/usr/lib/nagios/plugins"
+$config['nagios_plugins']   = "/usr/lib/nagios/plugins";
 
 $config['memcached']['enable'] = filter_var(getenv('MEMCACHED_ENABLE'), FILTER_VALIDATE_BOOLEAN);
 $config['memcached']['host'] = getenv('MEMCACHED_HOST');
