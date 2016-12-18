@@ -1,6 +1,6 @@
 #!/bin/bash -eu
 
-LOCK_FILE=/var/lock/2_ssl.lock
+LOCK_FILE=/var/lock/1_ssl.lock
 
 if [ -f "$LOCK_FILE" ]; then
 	exit 0
@@ -12,11 +12,11 @@ SSL_KEY=/etc/nginx/ssl/ssl.key
 SSL_OCSP=/etc/nginx/ssl/ssl.ocsp.crt
 
 if [ -f "$SSL_CERT" ] && [ -f "$SSL_KEY" ]; then
-    if [ -f "$SSL_OCSP" ]; then
-        sed -i 's/#ssl_trusted_certificate/ssl_trusted_certificate/g' "$CONF_FILE"
-    fi
+	if [ -f "$SSL_OCSP" ]; then
+		sed -i 's/#ssl_trusted_certificate/ssl_trusted_certificate/g' "$CONF_FILE"
+	fi
 
-    ln -s "$CONF_FILE" /etc/nginx/sites-enabled/librenms.https
+	ln -s "$CONF_FILE" /etc/nginx/sites-enabled/librenms.https
 fi
 
 touch "$LOCK_FILE"

@@ -1,11 +1,5 @@
 #!/bin/bash -e
 
-LOCK_FILE=/var/lock/1_php.lock
-
-if [ -f "$LOCK_FILE" ]; then
-	exit 0
-fi
-
 function requireConfig() {
 	if [ -z ${!1} ]; then
 		echo "Error: $1 is unset"
@@ -19,12 +13,8 @@ requireConfig DB_PASS
 requireConfig DB_NAME
 requireConfig BASE_URL
 
+cp /opt/librenms/config.docker.php /opt/librenms/config.php
+
 if [ -f /opt/librenms/config.custom.php ]; then
 	cat /opt/librenms/config.custom.php >> /opt/librenms/config.php
 fi
-
-if [ ! -d /run/php ]; then
-	mkdir /run/php
-fi
-
-touch "$LOCK_FILE"
