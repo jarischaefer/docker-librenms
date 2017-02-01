@@ -46,8 +46,8 @@ RUN	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E5267A6C C300EE8C &
 	sed -i 's/;clear_env/clear_env/g' /etc/php/7.0/fpm/pool.d/www.conf && \
 	useradd librenms -d /opt/librenms -M -r && \
 	usermod -a -G librenms www-data && \
-	curl -ssL "https://github.com/librenms/librenms/archive/1.23.tar.gz" | tar xz -C /opt && \
-	mv /opt/librenms-1.23 /opt/librenms && \
+	curl -ssL "https://github.com/librenms/librenms/archive/1.24.tar.gz" | tar xz -C /opt && \
+	mv /opt/librenms-1.24 /opt/librenms && \
 	chown -R librenms:librenms /opt/librenms && \
 	apt-get -yq autoremove --purge && \
 	apt-get clean && \
