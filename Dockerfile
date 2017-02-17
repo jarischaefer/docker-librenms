@@ -11,7 +11,7 @@ RUN	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E5267A6C C300EE8C &
 	apt-get -yq autoremove --purge && \
 	apt-get -yq dist-upgrade && \
 	apt-get -yq install --no-install-recommends \
-		bind-utils \
+		bind9utils \
 		nginx \
 		php7.0-cli \
 		php7.0-fpm \
