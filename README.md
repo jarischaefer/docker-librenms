@@ -30,7 +30,7 @@ performance.
 
 ### Database configuration
 
-If you don't have a MySQL server setup either in Docker or elsewhere then you can create a docker container [here](MySQL.md).
+If you don't have a MySQL server setup either in Docker or elsewhere then you can create a docker container [here](MYSQL.md).
 
 You should read the [LibreNMS installation docs](http://docs.librenms.org/Installation/Installation-Ubuntu-1604-Nginx/)
 for the latest instructions regarding database setup.
