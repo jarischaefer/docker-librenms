@@ -5,7 +5,7 @@ docker run \
         --name librenms-mysql \
         -d \
         -e MYSQL_ROOT_PASSWORD=supersecret \
-        -P mysql:latest
+        -P mysql:5.6 --sql-mode=""
 ```
 
 Now you need to create a user and the database (replace supersecret with your root password and secret with the password you will use within your librenms container):
