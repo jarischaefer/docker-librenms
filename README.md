@@ -142,6 +142,11 @@ Also, please note that...
 * Publicly accessible installations should be put behind
 [jwilder/nginx-proxy](https://github.com/jwilder/nginx-proxy) or
 similar proxies for better access control and security hardening.
+* There is no user present in LibreNMS on first initial setup, you should create one by issuing:
+```
+sudo docker attach librenms
+php /opt/librenms/adduser.php %USER% %PASS% 10
+```
 
 ## License
 
