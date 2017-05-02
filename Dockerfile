@@ -1,4 +1,4 @@
-FROM phusion/baseimage:0.9.20
+FROM phusion/baseimage:0.9.21
 MAINTAINER Jari Schäfer <jari.schaefer@gmail.com>
 
 EXPOSE 80 443
@@ -47,8 +47,8 @@ RUN	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E5267A6C C300EE8C &
 	sed -i 's/;clear_env/clear_env/g' /etc/php/7.0/fpm/pool.d/www.conf && \
 	useradd librenms -d /opt/librenms -M -r && \
 	usermod -a -G librenms www-data && \
-	curl -ssL "https://github.com/librenms/librenms/archive/1.26.tar.gz" | tar xz -C /opt && \
-	mv /opt/librenms-1.26 /opt/librenms && \
+	curl -ssL "https://github.com/librenms/librenms/archive/1.27.tar.gz" | tar xz -C /opt && \
+	mv /opt/librenms-1.27 /opt/librenms && \
 	chown -R librenms:librenms /opt/librenms && \
 	apt-get -yq autoremove --purge && \
 	apt-get clean && \
