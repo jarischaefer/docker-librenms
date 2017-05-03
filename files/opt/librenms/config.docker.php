@@ -1,6 +1,7 @@
 <?php
 
 $config['db_host'] = getenv('DB_HOST');
+$config['db_port'] = intval(getenv('DB_PORT') ?: 3306);
 $config['db_user'] = getenv('DB_USER');
 $config['db_pass'] = getenv('DB_PASS');
 $config['db_name'] = getenv('DB_NAME');
@@ -22,5 +23,5 @@ $config['rrdcached'] = "unix:/var/run/rrdcached/rrdcached.sock";
 
 $config['memcached']['enable'] = filter_var(getenv('MEMCACHED_ENABLE'), FILTER_VALIDATE_BOOLEAN);
 $config['memcached']['host'] = getenv('MEMCACHED_HOST');
-$config['memcached']['port'] = getenv('MEMCACHED_PORT') ?: 11211;
+$config['memcached']['port'] = intval(getenv('MEMCACHED_PORT') ?: 11211);
 $config['memcached']['ttl'] = 240;

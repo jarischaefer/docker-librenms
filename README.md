@@ -79,6 +79,7 @@ The following keys can be passed directly via the -e switch:
 
 * BASE_URL
 * DB_HOST
+* DB_PORT
 * DB_USER
 * DB_PASS
 * DB_NAME
