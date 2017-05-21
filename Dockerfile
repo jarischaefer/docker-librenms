@@ -1,6 +1,7 @@
 FROM phusion/baseimage:0.9.22
 
 ARG LIBRENMS_VERSION=72a0d8202aa15e4474ae95a904b076c6e5f151e7
+ENV TZ=UTC
 EXPOSE 80 443
 
 RUN	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E5267A6C C300EE8C && \
@@ -21,6 +22,8 @@ RUN	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E5267A6C C300EE8C &
 		php7.0-opcache \
 		php7.0-ldap \
 		php7.0-memcached \
+		php7.0-snmp \
+		php7.0-mcrypt \
 		php-imagick \
 		php-pear \
 		php-net-ipv4 \
@@ -58,7 +61,7 @@ RUN	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E5267A6C C300EE8C &
 
 ADD files /
 RUN	chmod -R +x /etc/my_init.d /etc/service && \
-    chown -R librenms:librenms /opt/librenms && \
+	chown -R librenms:librenms /opt/librenms && \
 	chmod 644 /etc/cron.d/librenms
 
 VOLUME ["/opt/librenms/logs", "/opt/librenms/rrd", "/etc/nginx/ssl", "/var/log/nginx"]

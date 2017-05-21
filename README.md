@@ -20,6 +20,7 @@ performance.
 		-e DB_PASS=secret \
 		-e BASE_URL=http://localhost \
 		-e POLLERS=16 \
+		-e TZ=UTC \
 		--link my-database-container:db \
 		-v /my/persistent/directory/logs:/opt/librenms/logs \
 		-v /my/persistent/directory/rrd:/opt/librenms/rrd \
@@ -66,6 +67,7 @@ You'll also have to change BASE_URL.
 		-e DB_PASS=secret \
 		-e BASE_URL=https://localhost \
 		-e POLLERS=16 \
+		-e TZ=UTC \
 		--link my-database-container:db \
 		-v /my/persistent/directory/logs:/opt/librenms/logs \
 		-v /my/persistent/directory/rrd:/opt/librenms/rrd \
@@ -106,6 +108,7 @@ interfaces may be ignored.
 		-e DB_PASS=secret \
 		-e BASE_URL=https://localhost \
 		-e POLLERS=16 \
+		-e TZ=UTC \
 		--link my-database-container:db \
 		-v /my/persistent/directory/logs:/opt/librenms/logs \
 		-v /my/persistent/directory/rrd:/opt/librenms/rrd \
