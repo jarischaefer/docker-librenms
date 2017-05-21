@@ -5,7 +5,7 @@ Docker image for LibreNMS
 
 This is a generic docker container for [LibreNMS](http://www.librenms.org/).
 
-The container runs nginx 1.11+ with HTTP/2 support and PHP 7.0 FPM
+The container runs nginx 1.11+ with HTTP/2 support and PHP 7.1 FPM
 with [OPCache](http://php.net/manual/en/book.opcache.php) and [rrdcached](https://oss.oetiker.ch/rrdtool/doc/rrdcached.en.html)  for maximum
 performance.
 
