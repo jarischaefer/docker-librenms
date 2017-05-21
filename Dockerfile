@@ -1,5 +1,6 @@
 FROM phusion/baseimage:0.9.22
 
+ARG LIBRENMS_VERSION=72a0d8202aa15e4474ae95a904b076c6e5f151e7
 EXPOSE 80 443
 
 RUN	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E5267A6C C300EE8C && \
@@ -46,15 +47,18 @@ RUN	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E5267A6C C300EE8C &
 	sed -i 's/;clear_env/clear_env/g' /etc/php/7.0/fpm/pool.d/www.conf && \
 	useradd librenms -d /opt/librenms -M -r && \
 	usermod -a -G librenms www-data && \
-	curl -ssL "https://github.com/librenms/librenms/archive/1.27.tar.gz" | tar xz -C /opt && \
-	mv /opt/librenms-1.27 /opt/librenms && \
+	git clone -b master -n https://github.com/librenms/librenms.git /opt/librenms && \
+	cd /opt/librenms && \
+	git checkout "$LIBRENMS_VERSION" && \
 	chown -R librenms:librenms /opt/librenms && \
+	chmod u+s /usr/bin/fping /usr/bin/fping6 && \
 	apt-get -yq autoremove --purge && \
 	apt-get clean && \
 	rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ADD files /
 RUN	chmod -R +x /etc/my_init.d /etc/service && \
+    chown -R librenms:librenms /opt/librenms && \
 	chmod 644 /etc/cron.d/librenms
 
 VOLUME ["/opt/librenms/logs", "/opt/librenms/rrd", "/etc/nginx/ssl", "/var/log/nginx"]
