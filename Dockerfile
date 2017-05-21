@@ -1,5 +1,4 @@
-FROM phusion/baseimage:0.9.21
-MAINTAINER Jari Schäfer <jari.schaefer@gmail.com>
+FROM phusion/baseimage:0.9.22
 
 EXPOSE 80 443
 
