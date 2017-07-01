@@ -13,6 +13,7 @@ function addConfig() {
 }
 
 addConfig DB_HOST
+addConfig DB_PORT
 addConfig DB_USER
 addConfig DB_PASS
 addConfig DB_NAME
