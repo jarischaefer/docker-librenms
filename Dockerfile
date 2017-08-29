@@ -41,7 +41,9 @@ RUN	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E5267A6C C300EE8C &
 		rrdtool \
 		sendmail \
 		smbclient \
-		git && \
+		git \
+		python-ipaddress \
+		python-memcache && \
 	rm -rf /etc/nginx/sites-available/* /etc/nginx/sites-enabled/* && \
 	sed -i 's/pm.max_children = 5/pm.max_children = 24/g' /etc/php/7.1/fpm/pool.d/www.conf && \
 	sed -i 's/pm.start_servers = 2/pm.start_servers = 4/g' /etc/php/7.1/fpm/pool.d/www.conf && \
