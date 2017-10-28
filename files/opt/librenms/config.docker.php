@@ -25,3 +25,7 @@ $config['memcached']['enable'] = filter_var(getenv('MEMCACHED_ENABLE'), FILTER_V
 $config['memcached']['host'] = getenv('MEMCACHED_HOST');
 $config['memcached']['port'] = intval(getenv('MEMCACHED_PORT') ?: 11211);
 $config['memcached']['ttl'] = 240;
+
+foreach (glob(__DIR__ . '/conf.d/*.php') as $file) {
+	include $file;
+}

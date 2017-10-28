@@ -85,11 +85,12 @@ The following keys can be passed directly via the -e switch:
 * DB_USER
 * DB_PASS
 * DB_NAME
+* DISABLE_IPV6
+* ENABLE_SYSLOG
 * MEMCACHED_ENABLE
 * MEMCACHED_HOST
 * MEMCACHED_PORT
 * POLLERS
-* DISABLE_IPV6
 * TZ
 
 ## Custom config
