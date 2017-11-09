@@ -22,8 +22,8 @@ performance.
 		-e POLLERS=16 \
 		-e TZ=UTC \
 		--link my-database-container:db \
-		-v /my/persistent/directory/logs:/opt/librenms/logs \
-		-v /my/persistent/directory/rrd:/opt/librenms/rrd \
+		-v /data/logs:/opt/librenms/logs \
+		-v /data/rrd:/opt/librenms/rrd \
 		--name librenms \
 		jarischaefer/docker-librenms
 
@@ -69,9 +69,9 @@ You'll also have to change BASE_URL.
 		-e POLLERS=16 \
 		-e TZ=UTC \
 		--link my-database-container:db \
-		-v /my/persistent/directory/logs:/opt/librenms/logs \
-		-v /my/persistent/directory/rrd:/opt/librenms/rrd \
-		-v /my/persistent/directory/ssl:/etc/nginx/ssl:ro \
+		-v /data/logs:/opt/librenms/logs \
+		-v /data/rrd:/opt/librenms/rrd \
+		-v /data/ssl:/etc/nginx/ssl:ro \
 		--name librenms \
 		jarischaefer/docker-librenms
 
@@ -95,9 +95,10 @@ The following keys can be passed directly via the -e switch:
 
 ## Custom config
 
-To configure more advanced settings, you may use another mount.
-The following example demonstrates how temporary or otherwise undesired
-interfaces may be ignored.
+You may apply custom configuration by mounting files matching
+*.php in /opt/librenms/conf.d.
+
+Notice config.interfaces.php below:
 
 	docker run \
 		-d \
@@ -111,18 +112,16 @@ interfaces may be ignored.
 		-e POLLERS=16 \
 		-e TZ=UTC \
 		--link my-database-container:db \
-		-v /my/persistent/directory/logs:/opt/librenms/logs \
-		-v /my/persistent/directory/rrd:/opt/librenms/rrd \
-		-v /my/persistent/directory/ssl:/etc/nginx/ssl:ro \
-		-v /my/persistent/directory/config.custom.php:/opt/librenms/config.custom.php:ro \
+		-v /data/logs:/opt/librenms/logs \
+		-v /data/rrd:/opt/librenms/rrd \
+		-v /data/ssl:/etc/nginx/ssl:ro \
+		-v /data/config.interfaces.php:/opt/librenms/conf.d/config.interfaces.php \
 		--name librenms \
 		jarischaefer/docker-librenms
 
-Notice the line -v /my/persistent/directory/config.custom.php:/opt/librenms/config.custom.php:ro.
-The example config contains the following:
-
+config.interfaces.php:
 ```
-// config.custom.php
+<?php
 
 $config['bad_if_regexp'][] = '/^docker[\w]+$/';
 $config['bad_if_regexp'][] = '/^lxcbr[0-9]+$/';
@@ -133,8 +132,6 @@ $config['bad_if_regexp'][] = '/^macvtap.*$/';
 $config['bad_if_regexp'][] = '/gre.*$/';
 $config['bad_if_regexp'][] = '/tun[0-9]+$/';
 ```
-
-The start script automatically appends the contents of config.custom.php to config.php.
 
 ## Running in production
 

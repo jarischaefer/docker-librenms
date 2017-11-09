@@ -64,7 +64,7 @@ RUN	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E5267A6C C300EE8C &
 
 ADD files /
 RUN	chmod -R +x /etc/my_init.d /etc/service && \
-	chown librenms:librenms /opt/librenms && \
+	find /opt/librenms \( ! -user librenms -o ! -group librenms \) -exec chown librenms:librenms {} \; && \
 	chmod 644 /etc/cron.d/librenms
 
 VOLUME ["/opt/librenms/logs", "/opt/librenms/rrd", "/etc/nginx/ssl", "/var/log/nginx"]

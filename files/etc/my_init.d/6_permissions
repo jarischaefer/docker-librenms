@@ -1,4 +1,10 @@
-#!/bin/bash -eu
+#!/bin/bash -u
 
-chown -R librenms:librenms /opt/librenms/logs /opt/librenms/rrd
-chmod -R u=rwX,g=rwX,o=rX /opt/librenms/logs /opt/librenms/rrd
+if [ -f /opt/librenms/config.custom.php ]; then
+	chown librenms:librenms /opt/librenms/config.custom.php
+fi
+
+chown -R librenms:librenms /opt/librenms/conf.d /opt/librenms/logs /opt/librenms/rrd
+chmod -R u=rwX,g=rwX,o=rX /opt/librenms/conf.d /opt/librenms/logs /opt/librenms/rrd
+
+exit 0

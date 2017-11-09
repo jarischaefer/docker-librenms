@@ -8,7 +8,7 @@ fi
 
 if [ "$ENABLE_SYSLOG" == "1" ] || [ "$ENABLE_SYSLOG" == "true" ]; then
 	ln -sf /etc/librenms/syslog/librenms.syslog.conf /etc/syslog-ng/conf.d/librenms.syslog.conf
-	ln -sf /etc/librenms/syslog/syslog.conf.php /opt/librenms/conf.d/syslog.conf.php
+	ln -sf /etc/librenms/syslog/syslog.conf.php /opt/librenms/conf.internal.d/syslog.conf.php
 fi
 
 touch "$LOCK_FILE"

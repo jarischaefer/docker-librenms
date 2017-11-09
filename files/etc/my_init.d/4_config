@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash
 
 function requireConfig() {
 	if [ -z ${!1} ]; then
@@ -13,8 +13,10 @@ requireConfig DB_PASS
 requireConfig DB_NAME
 requireConfig BASE_URL
 
-cp /opt/librenms/config.docker.php /opt/librenms/config.php
-
 if [ -f /opt/librenms/config.custom.php ]; then
-	cat /opt/librenms/config.custom.php >> /opt/librenms/config.php
+	echo -e "\033[1;33mWARNING: Detected deprecated config.custom.php file, please check the docs\033[0m" >&2
+
+	echo "<?php" > /opt/librenms/conf.internal.d/config.custom.php
+	cat /opt/librenms/config.custom.php >> /opt/librenms/conf.internal.d/config.custom.php
+	chown librenms:librenms /opt/librenms/conf.internal.d/config.custom.php
 fi
