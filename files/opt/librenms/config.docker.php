@@ -26,6 +26,12 @@ $config['memcached']['host'] = getenv('MEMCACHED_HOST');
 $config['memcached']['port'] = intval(getenv('MEMCACHED_PORT') ?: 11211);
 $config['memcached']['ttl'] = 240;
 
-foreach (glob(__DIR__ . '/conf.d/*.php') as $file) {
+
+// include custom config
+
+$configFiles = glob(__DIR__ . '/conf.d/*.php');
+natcasesort($configFiles);
+
+foreach ($configFiles as $file) {
 	include $file;
 }
