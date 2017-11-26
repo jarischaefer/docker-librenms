@@ -123,7 +123,7 @@ config.interfaces.php:
 ```
 <?php
 
-$config['bad_if_regexp'][] = '/^docker[\w]+$/';
+$config['bad_if_regexp'][] = '/^docker[-\w].*$/';
 $config['bad_if_regexp'][] = '/^lxcbr[0-9]+$/';
 $config['bad_if_regexp'][] = '/^veth.*$/';
 $config['bad_if_regexp'][] = '/^virbr.*$/';
