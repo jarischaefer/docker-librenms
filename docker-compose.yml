@@ -6,8 +6,8 @@ services:
     ports:
       - "80:80"
     volumes:
-      - /my/persistent/directory/logs:/opt/librenms/logs \
-      - /my/persistent/directory/rrd:/opt/librenms/rrd \
+      - /my/persistent/directory/logs:/opt/librenms/logs
+      - /my/persistent/directory/rrd:/opt/librenms/rrd
     environment:
       - DB_HOST=db
       - DB_NAME=librenms
