@@ -6,10 +6,37 @@ if [ -f "$LOCK_FILE" ]; then
 	exit 0
 fi
 
-if [ -z "$POLLERS" ]; then
-	POLLERS=8
+if [ "$DISCOVERY_ENABLE" = "false" ]; then
+	sed -i "/discovery.php/d" /etc/cron.d/librenms
 fi
 
-sed -i "s/PLACEHOLDER_POLLERS/$POLLERS/g" /etc/cron.d/librenms
+if [ "$DAILY_ENABLE" = "false" ]; then
+	sed -i "/daily.sh/d" /etc/cron.d/librenms
+fi
+
+if [ "$ALERTS_ENABLE" = "false" ]; then
+	sed -i "/alerts.php/d" /etc/cron.d/librenms
+fi
+
+if [ "$POLL_BILLING_ENABLE" = "false" ]; then
+	sed -i "/poll-billing.php/d" /etc/cron.d/librenms
+fi
+
+if [ "$BILLING_CALCULATE_ENABLE" = "false" ]; then
+	sed -i "/billing-calculate.php/d" /etc/cron.d/librenms
+fi
+
+if [ "$CHECK_SERVICES_ENABLE" = "false" ]; then
+	sed -i "/check-services.php/d" /etc/cron.d/librenms
+fi
+
+if [ "$POLLERS_ENABLE" = "false" ]; then
+	sed -i "/poller-wrapper.py/d" /etc/cron.d/librenms
+else
+	if [ -z "$POLLERS" ]; then
+		POLLERS=8
+	fi
+	sed -i "s/PLACEHOLDER_POLLERS/$POLLERS/g" /etc/cron.d/librenms
+fi
 
 touch "$LOCK_FILE"

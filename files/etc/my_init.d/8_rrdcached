@@ -1,0 +1,13 @@
+#!/bin/bash -e
+
+LOCK_FILE=/var/lock/0_rrdcached.lock
+
+if [ -f "$LOCK_FILE" ]; then
+	exit 0
+fi
+
+if [ "$RRDCACHED_ENABLE" = "false" ]; then
+	rm -rf /etc/service/rrdcached
+fi
+
+touch "$LOCK_FILE"
