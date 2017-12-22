@@ -101,6 +101,7 @@ The following keys can be passed directly via the -e switch:
 * CHECK_SERVICES_ENABLE
 * POLLERS_ENABLE
 * RRDCACHED_ENABLE
+* SKIP_CHOWN
 
 ## Custom config
 
