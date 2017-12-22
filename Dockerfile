@@ -14,16 +14,15 @@ RUN	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E5267A6C C300EE8C &
 	apt-get -yq install --no-install-recommends \
 		dnsutils \
 		nginx \
-		php7.1-cli \
-		php7.1-fpm \
-		php7.1-mysql \
-		php7.1-gd \
-		php7.1-curl \
-		php7.1-opcache \
-		php7.1-ldap \
-		php7.1-memcached \
-		php7.1-snmp \
-		php7.1-mcrypt \
+		php7.2-cli \
+		php7.2-fpm \
+		php7.2-mysql \
+		php7.2-gd \
+		php7.2-curl \
+		php7.2-opcache \
+		php7.2-ldap \
+		php7.2-memcached \
+		php7.2-snmp \
 		php-imagick \
 		php-pear \
 		php-net-ipv4 \
@@ -46,11 +45,11 @@ RUN	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E5267A6C C300EE8C &
 		python-memcache \
 		sudo && \
 	rm -rf /etc/nginx/sites-available/* /etc/nginx/sites-enabled/* && \
-	sed -i 's/pm.max_children = 5/pm.max_children = 24/g' /etc/php/7.1/fpm/pool.d/www.conf && \
-	sed -i 's/pm.start_servers = 2/pm.start_servers = 4/g' /etc/php/7.1/fpm/pool.d/www.conf && \
-	sed -i 's/pm.min_spare_servers = 1/pm.min_spare_servers = 4/g' /etc/php/7.1/fpm/pool.d/www.conf && \
-	sed -i 's/pm.max_spare_servers = 3/pm.max_spare_servers = 8/g' /etc/php/7.1/fpm/pool.d/www.conf && \
-	sed -i 's/;clear_env/clear_env/g' /etc/php/7.1/fpm/pool.d/www.conf && \
+	sed -i 's/pm.max_children = 5/pm.max_children = 24/g' /etc/php/7.2/fpm/pool.d/www.conf && \
+	sed -i 's/pm.start_servers = 2/pm.start_servers = 4/g' /etc/php/7.2/fpm/pool.d/www.conf && \
+	sed -i 's/pm.min_spare_servers = 1/pm.min_spare_servers = 4/g' /etc/php/7.2/fpm/pool.d/www.conf && \
+	sed -i 's/pm.max_spare_servers = 3/pm.max_spare_servers = 8/g' /etc/php/7.2/fpm/pool.d/www.conf && \
+	sed -i 's/;clear_env/clear_env/g' /etc/php/7.2/fpm/pool.d/www.conf && \
 	useradd librenms -d /opt/librenms -M -r && \
 	usermod -a -G librenms www-data && \
 	git clone -b master -n https://github.com/librenms/librenms.git /opt/librenms && \
