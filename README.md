@@ -5,9 +5,9 @@ Docker image for LibreNMS
 
 This is a generic docker container for [LibreNMS](http://www.librenms.org/).
 
-The container runs nginx 1.11+ with HTTP/2 support and PHP 7.1 FPM
-with [OPCache](http://php.net/manual/en/book.opcache.php) and [rrdcached](https://oss.oetiker.ch/rrdtool/doc/rrdcached.en.html)  for maximum
-performance.
+The container runs nginx 1.13+ with HTTP/2 support and PHP 7.1 FPM
+with [OPCache](http://php.net/manual/en/book.opcache.php) and
+[rrdcached](https://oss.oetiker.ch/rrdtool/doc/rrdcached.en.html) for maximum performance.
 
 ## Basic commands to run the container
 
@@ -31,7 +31,8 @@ performance.
 
 ### Database configuration
 
-If you don't have a MySQL server setup either in Docker or elsewhere then you can create a docker container [here](MYSQL.md).
+If you don't have a MySQL server setup either in Docker or elsewhere
+then you can create a docker container [here](MYSQL.md).
 
 You should read the [LibreNMS installation docs](http://docs.librenms.org/Installation/Installation-Ubuntu-1604-Nginx/)
 for the latest instructions regarding database setup.
@@ -143,7 +144,7 @@ $config['bad_if_regexp'][] = '/tun[0-9]+$/';
 
 ## Disabling cron jobs or the local rrdcached instance
 
-If you plan to use container for a distributed LibreNMS installation, you may want to disable some of
+If you plan to use this container for a distributed LibreNMS installation, you may want to disable some of
 the [default cron jobs](https://github.com/jarischaefer/docker-librenms/blob/master/files/etc/cron.d/librenms),
 or the local rrdcached daemon.
 
