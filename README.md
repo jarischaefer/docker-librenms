@@ -168,6 +168,17 @@ or the local rrdcached daemon.
 		--name librenms \
 		jarischaefer/docker-librenms
 
+## Executing commands inside the container
+
+Make sure you `source` the environment variables from /etc/librenms_environment
+prior to executing commands inside the container.
+
+This is an example demonstrating how to run the validation script.
+
+	su - librenms
+	source /etc/librenms_environment
+	cd /opt/librenms
+	php validate.php
 
 ## Running in production
 
