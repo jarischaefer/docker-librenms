@@ -92,6 +92,14 @@ The following keys can be passed directly via the -e switch:
 * MEMCACHED_PORT
 * POLLERS
 * TZ
+* DISCOVERY_ENABLE
+* DAILY_ENABLE
+* ALERTS_ENABLE
+* POLL_BILLING_ENABLE
+* BILLING_CALCULATE_ENABLE
+* CHECK_SERVICES_ENABLE
+* POLLERS_ENABLE
+* RRDCACHED_ENABLE
 
 ## Custom config
 
@@ -132,6 +140,33 @@ $config['bad_if_regexp'][] = '/^macvtap.*$/';
 $config['bad_if_regexp'][] = '/gre.*$/';
 $config['bad_if_regexp'][] = '/tun[0-9]+$/';
 ```
+
+## Disabling cron jobs or the local rrdcached instance
+
+If you plan to use container for a distributed LibreNMS installation, you may want to disable some of
+the [default cron jobs](https://github.com/jarischaefer/docker-librenms/blob/master/files/etc/cron.d/librenms),
+or the local rrdcached daemon.
+
+	docker run \
+		-d \
+		-p 80:80 \
+		-e DB_HOST=db \
+		-e DB_NAME=librenms \
+		-e DB_USER=librenms \
+		-e DB_PASS=secret \
+		-e BASE_URL=http://localhost \
+		-e POLLERS=16 \
+		-e TZ=UTC \
+		-e DAILY_ENABLE=false \
+		-e ALERTS_ENABLE=false \
+		-e CHECK_SERVICES_ENABLE=false \
+		-e RRDCACHED_ENABLE=false \
+		--link my-database-container:db \
+		-v /data/logs:/opt/librenms/logs \
+		-v /data/rrd:/opt/librenms/rrd \
+		--name librenms \
+		jarischaefer/docker-librenms
+
 
 ## Running in production
 
