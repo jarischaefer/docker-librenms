@@ -1,4 +1,4 @@
-33	*/6	*	*	*	librenms	. /etc/librenms_environment; /opt/librenms/discovery.php -h all >> /dev/null 2>&1
+33	*/6	*	*	*	librenms	. /etc/librenms_environment; /opt/librenms/cronic /opt/librenms/discovery-wrapper.py 1
 */5	*	*	*	*	librenms	. /etc/librenms_environment; /opt/librenms/discovery.php -h new >> /dev/null 2>&1
 */5	*	*	*	*	librenms	. /etc/librenms_environment; /opt/librenms/cronic /opt/librenms/poller-wrapper.py PLACEHOLDER_POLLERS
 15	0	*	*	*	librenms	. /etc/librenms_environment; /opt/librenms/daily.sh >> /dev/null 2>&1
