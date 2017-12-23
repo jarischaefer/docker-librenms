@@ -23,6 +23,8 @@ RUN	apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E5267A6C C300EE8C &
 		php7.2-ldap \
 		php7.2-memcached \
 		php7.2-snmp \
+		php7.2-xml \
+		php7.2-zip \
 		php-imagick \
 		php-pear \
 		php-net-ipv4 \
