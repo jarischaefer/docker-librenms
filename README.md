@@ -94,6 +94,7 @@ The following keys can be passed directly via the -e switch:
 * POLLERS
 * TZ
 * DISCOVERY_ENABLE
+* DISCOVERY_THREADS
 * DAILY_ENABLE
 * ALERTS_ENABLE
 * POLL_BILLING_ENABLE
@@ -101,6 +102,8 @@ The following keys can be passed directly via the -e switch:
 * CHECK_SERVICES_ENABLE
 * POLLERS_ENABLE
 * RRDCACHED_ENABLE
+* NGINX_ENABLE
+* PHPFPM_ENABLE
 * SKIP_CHOWN
 
 ## Custom config
@@ -147,7 +150,8 @@ $config['bad_if_regexp'][] = '/tun[0-9]+$/';
 
 If you plan to use this container for a distributed LibreNMS installation, you may want to disable some of
 the [default cron jobs](https://github.com/jarischaefer/docker-librenms/blob/master/files/etc/cron.d/librenms),
-or the local rrdcached daemon.
+or the local rrdcached, nginx and php-fpm services. You could also increase the number of `discovery-wrapper.py`
+threads.
 
 	docker run \
 		-d \
@@ -159,10 +163,13 @@ or the local rrdcached daemon.
 		-e BASE_URL=http://localhost \
 		-e POLLERS=16 \
 		-e TZ=UTC \
+		-e DISCOVERY_THREADS=2 \
 		-e DAILY_ENABLE=false \
 		-e ALERTS_ENABLE=false \
 		-e CHECK_SERVICES_ENABLE=false \
 		-e RRDCACHED_ENABLE=false \
+		-e NGINX_ENABLE=false \
+		-e PHPFPM_ENABLE=false \
 		--link my-database-container:db \
 		-v /data/logs:/opt/librenms/logs \
 		-v /data/rrd:/opt/librenms/rrd \
