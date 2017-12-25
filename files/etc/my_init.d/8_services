@@ -10,4 +10,12 @@ if [ "$RRDCACHED_ENABLE" = "false" ]; then
 	rm -rf /etc/service/rrdcached
 fi
 
+if [ "$NGINX_ENABLE" = "false" ]; then
+        rm -rf /etc/service/nginx
+fi
+
+if [ "$PHPFPM_ENABLE" = "false" ]; then
+        rm -rf /etc/service/php-fpm
+fi
+
 touch "$LOCK_FILE"
