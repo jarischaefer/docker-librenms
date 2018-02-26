@@ -4,4 +4,18 @@ echo "Starting rrdcached..."
 
 rm -rf /var/run/rrdcached.pid
 
-exec rrdcached -g -w 1800 -z 1800 -f 3600 -s librenms -U librenms -G librenms -B -R -j /var/tmp -l unix:/var/run/rrdcached/rrdcached.sock -t 4 -F -b /opt/librenms/rrd
+exec rrdcached \
+	-g \
+	-w 1800 \
+	-z 1800 \
+	-f 3600 \
+	-s librenms \
+	-U librenms \
+	-G librenms \
+	-B \
+	-R \
+	-j /var/tmp \
+	-t 4 \
+	-F \
+	-b /opt/librenms/rrd \
+	-l "$RRDCACHED_LISTEN"
