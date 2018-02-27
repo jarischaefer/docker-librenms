@@ -2,8 +2,8 @@ FROM jarischaefer/baseimage-librenms:1.0
 
 ARG LIBRENMS_VERSION=ff92960c64dccad16aee7dcd9af4a49362176dfa
 ENV TZ=UTC \
-    RRDCACHED_LISTEN=unix:/var/run/rrdcached/rrdcached.sock \
-    RRDCACHED_CONNECT=unix:/var/run/rrdcached/rrdcached.sock
+	RRDCACHED_LISTEN=unix:/var/run/rrdcached/rrdcached.sock \
+	RRDCACHED_CONNECT=unix:/var/run/rrdcached/rrdcached.sock
 EXPOSE 80 443
 
 RUN	git clone -b master -n https://github.com/librenms/librenms.git /opt/librenms && \

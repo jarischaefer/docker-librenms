@@ -10,10 +10,10 @@ if [ "$DISCOVERY_ENABLE" = "false" ]; then
 	sed -i "/discovery.php/d" /etc/cron.d/librenms
 	sed -i "/discovery-wrapper.py/d" /etc/cron.d/librenms
 else
-        if [ -z "$DISCOVERY_THREADS" ]; then
-                DISCOVERY_THREADS=1
-        fi
-        sed -i "s/PLACEHOLDER_DISCOVERY_THREADS/$DISCOVERY_THREADS/g" /etc/cron.d/librenms
+	if [ -z "$DISCOVERY_THREADS" ]; then
+		DISCOVERY_THREADS=1
+	fi
+	sed -i "s/PLACEHOLDER_DISCOVERY_THREADS/$DISCOVERY_THREADS/g" /etc/cron.d/librenms
 fi
 
 if [ "$DAILY_ENABLE" = "false" ]; then
