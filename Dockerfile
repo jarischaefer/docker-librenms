@@ -1,4 +1,4 @@
-FROM jarischaefer/baseimage-librenms:1.0
+FROM jarischaefer/baseimage-librenms:1.1
 
 ARG LIBRENMS_VERSION=ff02fced6e2bfa78776c5458d73079800916c58a
 ENV TZ=UTC \
@@ -6,9 +6,8 @@ ENV TZ=UTC \
 	RRDCACHED_CONNECT=unix:/var/run/rrdcached/rrdcached.sock
 EXPOSE 80 443
 
-RUN	git clone -b master -n https://github.com/librenms/librenms.git /opt/librenms && \
-	cd /opt/librenms && \
-	git checkout "$LIBRENMS_VERSION" && \
+RUN cd /opt && \
+	composer create-project --no-dev --keep-vcs librenms/librenms librenms dev-master#${LIBRENMS_VERSION} && \
 	chown -R librenms:librenms /opt/librenms
 
 ADD files /
