@@ -8,6 +8,7 @@ EXPOSE 80 443
 
 RUN cd /opt && \
 	composer create-project --no-dev --keep-vcs librenms/librenms librenms ${LIBRENMS_VERSION} && \
+	composer clear-cache && \
 	chown -R librenms:librenms /opt/librenms
 
 ADD files /
