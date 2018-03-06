@@ -82,34 +82,59 @@ You'll also have to change BASE_URL.
 
 The following keys can be passed directly via the -e switch:
 
-* BASE_URL
-* DB_HOST
-* DB_PORT
-* DB_USER
-* DB_PASS
-* DB_NAME
-* DISABLE_IPV6
-* ENABLE_SYSLOG
-* MEMCACHED_ENABLE
-* MEMCACHED_HOST
-* MEMCACHED_PORT
-* POLLERS
-* TZ
-* DISCOVERY_ENABLE
-* DISCOVERY_THREADS
-* DAILY_ENABLE
-* ALERTS_ENABLE
-* POLL_BILLING_ENABLE
-* BILLING_CALCULATE_ENABLE
-* CHECK_SERVICES_ENABLE
-* POLLERS_ENABLE
-* RRDCACHED_ENABLE
-* RRDCACHED_CONNECT
-* RRDCACHED_LISTEN
-* NGINX_ENABLE
-* PHPFPM_ENABLE
-* SNMP_SCAN_ENABLE
-* SKIP_CHOWN
+### Basic configuration
+
+|Key                     |Default                               |Description                   
+|------------------------|--------------------------------------|------------------------------
+|BASE_URL                |                                      |Base URL for LibreNMS (e.g. http://192.168.0.1:8080)        
+|DB_HOST                 |                                      |MySQL IP or hostname
+|DB_PORT                 |3306                                  |MySQL port
+|DB_NAME                 |                                      |MySQL database name
+|DB_USER                 |                                      |MySQL user
+|DB_PASS                 |                                      |MySQL password
+|TZ                      |UTC                                   |Timezone (e.g. Europe/Zurich)
+
+### Enabling/disabling container features
+
+|Key                     |Default                               |Description                   
+|------------------------|--------------------------------------|------------------------------
+|DISABLE_IPV6            |false                                 |Disable nginx IPv6 socket
+|MEMCACHED_ENABLE        |false                                 |Enable memcached
+|MEMCACHED_HOST          |                                      |memcached IP or hostname
+|MEMCACHED_PORT          |11211                                 |memcached port
+|NGINX_ENABLE            |true                                  |Enable nginx
+|PHPFPM_ENABLE           |true                                  |Enable PHP-FPM
+|RRDCACHED_ENABLE        |true                                  |Enable rrdcached
+|RRDCACHED_CONNECT       |unix:/var/run/rrdcached/rrdcached.sock|rrdcached TCP or unix socket where LibreNMS connects to
+|RRDCACHED_LISTEN        |unix:/var/run/rrdcached/rrdcached.sock|rrdcached TCP or unix socket where rrdcached listens on
+|SKIP_CHOWN              |false                                 |Disable (slow) `chown`ing of files at startup (might help with network storage)
+
+### Enabling/disabling LibreNMS features
+
+|Key                     |Default                               |Description                   
+|------------------------|--------------------------------------|------------------------------
+|ALERTS_ENABLE           |true                                  |Enable LibreNMS alerts
+|BILLING_CALCULATE_ENABLE|true                                  |Enable LibreNMS billing calculation
+|CHECK_SERVICES_ENABLE   |true                                  |Enable LibreNMS service checks
+|DAILY_ENABLE            |true                                  |Enable LibreNMS daily script
+|DISCOVERY_ENABLE        |true                                  |Enable LibreNMS discovery
+|DISCOVERY_THREADS       |1                                     |Number of threads for discovery
+|ENABLE_SYSLOG           |false                                 |Enable LibreNMS syslog ([see here](#syslog))
+|POLL_BILLING_ENABLE     |true                                  |Enable LibreNMS billing polling
+|POLLERS_ENABLE          |true                                  |Enable LibreNMS polling
+|POLLERS                 |8                                     |Number of LibreNMS pollers
+|SNMP_SCAN_ENABLE        |false                                 |Enable cron for [snmp-scan](https://docs.librenms.org/#Extensions/Auto-Discovery/#snmp-scan)
+
+### syslog
+
+These are instructions for the [LibreNMS syslog extension](https://docs.librenms.org/#Extensions/Syslog/).
+
+* Pass ENABLE_SYSLOG=true
+* Publish port 514 (both TCP and UDP)
+* Configure the remote host whose logs should be gathered (rsyslog example)
+  * Create /etc/rsyslog.d/60-librenms.conf
+  * Add `*.* @example.com:514`
+
 
 ## Custom config
 
