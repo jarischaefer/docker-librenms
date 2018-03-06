@@ -1,0 +1,1 @@
+*/5 *	*	*	*	librenms	. /etc/librenms_environment; /opt/librenms/snmp-scan.py >> /dev/null 2>&1

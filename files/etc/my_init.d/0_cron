@@ -45,4 +45,8 @@ else
 	sed -i "s/PLACEHOLDER_POLLERS/$POLLERS/g" /etc/cron.d/librenms
 fi
 
+if [ "$SNMP_SCAN_ENABLE" = "true" ]; then
+	ln -sf /etc/librenms/cron/snmp-scan /etc/cron.d/snmp-scan
+fi
+
 touch "$LOCK_FILE"

@@ -106,6 +106,7 @@ The following keys can be passed directly via the -e switch:
 * RRDCACHED_LISTEN
 * NGINX_ENABLE
 * PHPFPM_ENABLE
+* SNMP_SCAN_ENABLE
 * SKIP_CHOWN
 
 ## Custom config

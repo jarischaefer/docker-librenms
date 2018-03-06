@@ -14,6 +14,6 @@ RUN cd /opt && \
 ADD files /
 RUN	chmod -R +x /etc/my_init.d /etc/service && \
 	find /opt/librenms \( ! -user librenms -o ! -group librenms \) -exec chown librenms:librenms {} \; && \
-	chmod 644 /etc/cron.d/librenms
+	chmod 644 /etc/cron.d/* /etc/librenms/cron/snmp-scan
 
 VOLUME ["/opt/librenms/logs", "/opt/librenms/rrd", "/etc/nginx/ssl", "/var/log/nginx"]
