@@ -13,6 +13,7 @@ with [OPCache](http://php.net/manual/en/book.opcache.php) and
 
 	docker run \
 		-d \
+		-h librenms \
 		-p 80:80 \
 		-e DB_HOST=db \
 		-e DB_NAME=librenms \
@@ -60,6 +61,7 @@ You'll also have to change BASE_URL.
 
 	docker run \
 		-d \
+		-h librenms \
 		-p 80:80 \
 		-p 443:443 \
 		-e DB_HOST=db \
@@ -118,6 +120,7 @@ Notice config.interfaces.php below:
 
 	docker run \
 		-d \
+		-h librenms \
 		-p 80:80 \
 		-p 443:443 \
 		-e DB_HOST=db \
@@ -158,6 +161,7 @@ threads.
 
 	docker run \
 		-d \
+		-h librenms \
 		-p 80:80 \
 		-e DB_HOST=db \
 		-e DB_NAME=librenms \
