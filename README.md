@@ -124,6 +124,7 @@ The following keys can be passed directly via the -e switch:
 |POLLERS_ENABLE          |true                                  |Enable LibreNMS polling
 |POLLERS                 |8                                     |Number of LibreNMS pollers
 |SNMP_SCAN_ENABLE        |false                                 |Enable cron for [snmp-scan](https://docs.librenms.org/#Extensions/Auto-Discovery/#snmp-scan)
+|SNMP_SCAN_CRON          |0 0 * * *                             |Cron schedule for snmp-scan
 
 ### syslog
 

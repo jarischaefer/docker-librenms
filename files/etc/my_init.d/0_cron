@@ -46,6 +46,7 @@ else
 fi
 
 if [ "$SNMP_SCAN_ENABLE" = "true" ]; then
+    sed -i "s/PLACEHOLDER_CRON/$SNMP_SCAN_CRON/g" /etc/librenms/cron/snmp-scan
 	ln -sf /etc/librenms/cron/snmp-scan /etc/cron.d/snmp-scan
 fi
 

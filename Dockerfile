@@ -3,7 +3,8 @@ FROM jarischaefer/baseimage-librenms:1.3
 ARG LIBRENMS_VERSION=1.37
 ENV	TZ=UTC \
 	RRDCACHED_LISTEN=unix:/var/run/rrdcached/rrdcached.sock \
-	RRDCACHED_CONNECT=unix:/var/run/rrdcached/rrdcached.sock
+	RRDCACHED_CONNECT=unix:/var/run/rrdcached/rrdcached.sock \
+	SNMP_SCAN_CRON="0 0 * * *"
 EXPOSE 80 443
 
 RUN	cd /opt && \
