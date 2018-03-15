@@ -8,7 +8,9 @@ ENV	TZ=UTC \
 EXPOSE 80 443
 
 RUN	cd /opt && \
+	composer global require hirak/prestissimo && \
 	composer create-project --no-dev --keep-vcs librenms/librenms librenms ${LIBRENMS_VERSION} && \
+	composer global remove hirak/prestissimo && \
 	composer clear-cache && \
 	chown -R librenms:librenms /opt/librenms
 
