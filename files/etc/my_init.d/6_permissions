@@ -1,9 +1,9 @@
-#!/bin/sh
+#!/bin/bash -e
 
 # Create a new librenms user and remap it to the given UID
 if [ ! -z "$PUID" ]; then
 	if [ -z "$PGID" ]; then
-	    PGID=${PUID}
+		PGID=${PUID}
 	fi
 
 	deluser librenms
