@@ -16,6 +16,7 @@ addConfig DB_HOST
 addConfig DB_PORT
 addConfig DB_USER
 addConfig DB_PASS
+addConfig DB_PASS_FILE
 addConfig DB_NAME
 addConfig BASE_URL
 addConfig MEMCACHED_ENABLE

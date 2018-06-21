@@ -92,6 +92,7 @@ The following keys can be passed directly via the -e switch:
 |DB_NAME                 |                                      |MySQL database name
 |DB_USER                 |                                      |MySQL user
 |DB_PASS                 |                                      |MySQL password
+|DB_PASS_FILE            |                                      |MySQL password via secret
 |TZ                      |UTC                                   |Timezone (e.g. Europe/Zurich)
 
 ### Enabling/disabling container features

@@ -3,7 +3,11 @@
 $config['db_host'] = getenv('DB_HOST');
 $config['db_port'] = intval(getenv('DB_PORT') ?: 3306);
 $config['db_user'] = getenv('DB_USER');
-$config['db_pass'] = getenv('DB_PASS');
+if (getenv('DB_PASS_FILE')) {
+    $config['db_pass'] = file_get_contents(getenv('DB_PASS_FILE'));
+} else {
+    $config['db_pass'] = getenv('DB_PASS');
+}
 $config['db_name'] = getenv('DB_NAME');
 $config['db']['extension'] = 'mysqli';
 
