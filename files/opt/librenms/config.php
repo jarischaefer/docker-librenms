@@ -4,7 +4,7 @@ $config['db_host'] = getenv('DB_HOST');
 $config['db_port'] = intval(getenv('DB_PORT') ?: 3306);
 $config['db_user'] = getenv('DB_USER');
 if (getenv('DB_PASS_FILE')) {
-    $config['db_pass'] = file_get_contents(getenv('DB_PASS_FILE'));
+    $config['db_pass'] = trim(file_get_contents(getenv('DB_PASS_FILE')));
 } else {
     $config['db_pass'] = getenv('DB_PASS');
 }
