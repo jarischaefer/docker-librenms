@@ -9,7 +9,7 @@ function requireConfig() {
 
 requireConfig DB_HOST
 requireConfig DB_USER
-if [ -z DB_PASS_FILE ]; then
+if [ -z "$DB_PASS_FILE" ]; then
     requireConfig DB_PASS
 fi
 requireConfig DB_NAME
