@@ -1,4 +1,4 @@
-FROM jarischaefer/baseimage-librenms:1.6
+FROM jarischaefer/baseimage-librenms:1.7
 
 ARG LIBRENMS_VERSION=1.41
 ENV	TZ=UTC \
