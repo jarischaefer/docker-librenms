@@ -5,11 +5,20 @@ Docker image for LibreNMS
 
 This is a generic docker container for [LibreNMS](http://www.librenms.org/).
 
-The container runs nginx 1.13+ with HTTP/2 support and PHP 7.2 FPM
+The container runs nginx 1.15+ with HTTP/2 support and PHP 7.2 FPM
 with [OPCache](http://php.net/manual/en/book.opcache.php) and
 [rrdcached](https://oss.oetiker.ch/rrdtool/doc/rrdcached.en.html) for maximum performance.
 
-## Basic commands to run the container
+## Running the container
+
+The examples below do not cover all of the available configuration options,
+check the appropriate section in the docs for a complete list.
+
+### Linked database container
+
+In the example below the linked container is named `my-database-container`
+and its alias inside the container is `db`.
+Make sure `DB_HOST` matches the alias if you intend to modify it.
 
 	docker run \
 		-d \
@@ -20,9 +29,23 @@ with [OPCache](http://php.net/manual/en/book.opcache.php) and
 		-e DB_USER=librenms \
 		-e DB_PASS=secret \
 		-e BASE_URL=http://localhost \
-		-e POLLERS=16 \
-		-e TZ=UTC \
 		--link my-database-container:db \
+		-v /data/logs:/opt/librenms/logs \
+		-v /data/rrd:/opt/librenms/rrd \
+		--name librenms \
+		jarischaefer/docker-librenms
+
+### Remote database
+
+	docker run \
+		-d \
+		-h librenms \
+		-p 80:80 \
+		-e DB_HOST=x.x.x.x \
+		-e DB_NAME=librenms \
+		-e DB_USER=librenms \
+		-e DB_PASS=secret \
+		-e BASE_URL=http://localhost \
 		-v /data/logs:/opt/librenms/logs \
 		-v /data/rrd:/opt/librenms/rrd \
 		--name librenms \
@@ -56,8 +79,8 @@ Creating an initial admin user:
 
 ## SSL
 
-Mount another directory containing ssl.key, ssl.crt and optionally ssl.ocsp.crt to enable HTTPS.
-You'll also have to change BASE_URL.
+Mount another directory containing `ssl.key`, `ssl.crt` and optionally `ssl.ocsp.crt` to enable HTTPS.
+You'll also have to change `BASE_URL`.
 
 	docker run \
 		-d \
@@ -69,8 +92,6 @@ You'll also have to change BASE_URL.
 		-e DB_USER=librenms \
 		-e DB_PASS=secret \
 		-e BASE_URL=https://localhost \
-		-e POLLERS=16 \
-		-e TZ=UTC \
 		--link my-database-container:db \
 		-v /data/logs:/opt/librenms/logs \
 		-v /data/rrd:/opt/librenms/rrd \
@@ -80,7 +101,7 @@ You'll also have to change BASE_URL.
 
 ## Environment config
 
-The following keys can be passed directly via the -e switch:
+The following keys can be passed directly via the `-e` switch:
 
 ### Basic configuration
 
@@ -131,19 +152,19 @@ The following keys can be passed directly via the -e switch:
 
 These are instructions for the [LibreNMS syslog extension](https://docs.librenms.org/#Extensions/Syslog/).
 
-* Pass ENABLE_SYSLOG=true
-* Publish port 514 (both TCP and UDP)
+* Add `-e ENABLE_SYSLOG=true` to your docker run command
+* Add `-p 514:514` and `-p 514:514/udp` to your docker run command
 * Configure the remote host whose logs should be gathered (rsyslog example)
   * Create /etc/rsyslog.d/60-librenms.conf
   * Add `*.* @example.com:514`
 
-
 ## Custom config
 
 You may apply custom configuration by mounting files matching
-*.php in /opt/librenms/conf.d.
+`*.php` in `/opt/librenms/conf.d`.
 
-Notice config.interfaces.php below:
+In the example below `/data/config.interfaces.php` on the host
+is mounted inside the container at `/opt/librenms/conf.d/config.interfaces.php`.
 
 	docker run \
 		-d \
@@ -155,8 +176,6 @@ Notice config.interfaces.php below:
 		-e DB_USER=librenms \
 		-e DB_PASS=secret \
 		-e BASE_URL=https://localhost \
-		-e POLLERS=16 \
-		-e TZ=UTC \
 		--link my-database-container:db \
 		-v /data/logs:/opt/librenms/logs \
 		-v /data/rrd:/opt/librenms/rrd \
@@ -165,7 +184,7 @@ Notice config.interfaces.php below:
 		--name librenms \
 		jarischaefer/docker-librenms
 
-config.interfaces.php:
+**config.interfaces.php**
 ```
 <?php
 
