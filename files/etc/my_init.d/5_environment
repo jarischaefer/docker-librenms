@@ -8,7 +8,7 @@ fi
 
 function addConfig() {
 	if [ -n "${!1}" ]; then
-		echo "export $1=${!1}" >> /etc/librenms_environment
+		echo "export $1=\"${!1}\"" >> /etc/librenms_environment
 	fi
 }
 
@@ -35,5 +35,7 @@ addConfig RRDCACHED_CONNECT
 addConfig RRDCACHED_LISTEN
 addConfig NGINX_ENABLE
 addConfig PHPFPM_ENABLE
+addConfig WEATHERMAP_ENABLE
+addConfig WEATHERMAP_CRON
 
 touch "$LOCK_FILE"

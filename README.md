@@ -147,6 +147,8 @@ The following keys can be passed directly via the `-e` switch:
 |POLLERS                 |8                                     |Number of LibreNMS pollers
 |SNMP_SCAN_ENABLE        |false                                 |Enable cron for [snmp-scan](https://docs.librenms.org/#Extensions/Auto-Discovery/#snmp-scan)
 |SNMP_SCAN_CRON          |0 0 * * *                             |Cron schedule for snmp-scan
+|WEATHERMAP_ENABLE       |false                                 |Enable cron for [weathermap](https://github.com/librenms-plugins/Weathermap) ([see here](#Weathermap))
+|WEATHERMAP_CRON         |*/5 * * * *                           |Cron schedule for weathermap
 
 ### syslog
 
@@ -157,6 +159,18 @@ These are instructions for the [LibreNMS syslog extension](https://docs.librenms
 * Configure the remote host whose logs should be gathered (rsyslog example)
   * Create /etc/rsyslog.d/60-librenms.conf
   * Add `*.* @example.com:514`
+
+### Weathermap
+
+These are instructions for the [LibreNMS weathermap plugin](https://github.com/librenms-plugins/Weathermap).
+
+The weathermap plugin requires additional mounts to persist its data.
+* `/opt/librenms/html/plugins/Weathermap/configs` for the configs
+* `/opt/librenms/html/plugins/Weathermap/output` for the generated data
+
+Make sure you set *Output Image Filename* to `output/example.png` and
+*Output HTML Filename* to `output/example.html` in the *Map Properties*
+configuration section so the files are persisted in the `output` directory.
 
 ## Custom config
 

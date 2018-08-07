@@ -50,4 +50,9 @@ if [ "$SNMP_SCAN_ENABLE" = "true" ]; then
 	ln -sf /etc/librenms/cron/snmp-scan /etc/cron.d/snmp-scan
 fi
 
+if [ "$WEATHERMAP_ENABLE" = "true" ]; then
+	sed -i "s@PLACEHOLDER_CRON@$WEATHERMAP_CRON@g" /etc/librenms/cron/weathermap
+	ln -sf /etc/librenms/cron/weathermap /etc/cron.d/weathermap
+fi
+
 touch "$LOCK_FILE"

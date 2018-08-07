@@ -20,10 +20,14 @@ if [ -z "$SKIP_CHOWN" ]; then
 		chown librenms:librenms /opt/librenms/config.custom.php
 	fi
 
-	chown -R librenms:librenms /opt/librenms/conf.d /opt/librenms/logs /opt/librenms/rrd || true
-	chmod -R u=rwX,g=rwX,o=rX /opt/librenms/conf.d /opt/librenms/logs /opt/librenms/rrd || true
 	# Note || true after the chown avoids potential problems
 	# when mounting volumes via NFS
+
+	chown -R librenms:librenms /opt/librenms/conf.d /opt/librenms/logs /opt/librenms/rrd || true
+	chmod -R u=rwX,g=rwX,o=rX /opt/librenms/conf.d /opt/librenms/logs /opt/librenms/rrd || true
+
+	chown -R www-data:librenms /opt/librenms/html/plugins/Weathermap/configs /opt/librenms/html/plugins/Weathermap/output || true
+	chmod -R u=rwX,g=rwX,o=rX /opt/librenms/html/plugins/Weathermap/configs /opt/librenms/html/plugins/Weathermap/output || true
 fi
 
 exit 0
