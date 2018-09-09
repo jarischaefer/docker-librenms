@@ -10,8 +10,8 @@ if [ ! -z "$PUID" ]; then
 	delgroup www-data librenms
 	delgroup librenms
 	groupadd --gid ${PGID} librenms
-	usermod -a -G librenms www-data
-	useradd librenms -g librenms -d /opt/librenms -M -r -u ${PUID}
+	usermod --append --groups librenms www-data
+	useradd librenms --gid librenms --home-dir /opt/librenms --system --shell /bin/bash --uid ${PUID}
 fi
 
 # Don't `chown` if SKIP_CHOWN is set (Useful for NFS mounted shares) 
