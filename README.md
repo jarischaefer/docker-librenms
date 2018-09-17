@@ -1,6 +1,10 @@
 # docker-librenms
 Docker image for LibreNMS
 
+**This document refers to the master branch and does not necessarily correspond to the version that you are running.**
+It is recommended to extract the readme from your preferred release's source code archive. 
+Releases are listed on the [Releases page](https://github.com/jarischaefer/docker-librenms/releases).
+
 ## About
 
 This is a generic docker container for [LibreNMS](http://www.librenms.org/).
@@ -8,6 +12,56 @@ This is a generic docker container for [LibreNMS](http://www.librenms.org/).
 The container runs nginx 1.15+ with HTTP/2 support and PHP 7.2 FPM
 with [OPCache](http://php.net/manual/en/book.opcache.php) and
 [rrdcached](https://oss.oetiker.ch/rrdtool/doc/rrdcached.en.html) for maximum performance.
+
+## Initial setup
+
+### Database - Prerequisites
+
+If you don't have a MySQL server setup either in Docker or elsewhere
+then you can create a docker container [here](MYSQL.md).
+
+You should read the [LibreNMS installation docs](http://docs.librenms.org/Installation/Installation-Ubuntu-1604-Nginx/)
+for the latest instructions regarding database setup.
+
+As of November 2016, the following is still a requirement:
+
+> NOTE: Whilst we are working on ensuring LibreNMS is compatible with MySQL strict mode, for now, please disable this after mysql is installed.
+
+### Generating an encryption key
+
+You must first generate a unique encryption key.
+
+**Generating the key**
+
+	docker run --rm jarischaefer/docker-librenms generate_key
+
+**Output example**
+
+	base64:Q0+ZV56/5Uwz79vsvS4ZfwQFOty3e9DJEouEy+IXvz8=
+
+Make sure you keep the key secret, because anyone in possession of it can decrypt sensitive data.
+
+The key must be passed via the `APP_KEY` environment variable in the `docker run` command.
+
+### Database - Creating LibreNMS tables
+
+You should have a MySQL server running at this point.
+Make sure the database, user and permissions exist before running the commands.
+
+Next, follow the instructions for [running the container](#running-the-container).
+Once the container is up and running, you may use the following commands
+to populate the database and create an admin user.
+
+**Creating the tables**
+
+	docker exec librenms setup_database
+
+**Creating an initial admin user**
+
+	docker exec librenms create_admin
+
+* User: admin
+* Password: admin
 
 ## Running the container
 
@@ -24,6 +78,7 @@ Make sure `DB_HOST` matches the alias if you intend to modify it.
 		-d \
 		-h librenms \
 		-p 80:80 \
+		-e APP_KEY=the_secret_key_you_have_generated \
 		-e DB_HOST=db \
 		-e DB_NAME=librenms \
 		-e DB_USER=librenms \
@@ -41,6 +96,7 @@ Make sure `DB_HOST` matches the alias if you intend to modify it.
 		-d \
 		-h librenms \
 		-p 80:80 \
+		-e APP_KEY=the_secret_key_you_have_generated \
 		-e DB_HOST=x.x.x.x \
 		-e DB_NAME=librenms \
 		-e DB_USER=librenms \
@@ -50,32 +106,6 @@ Make sure `DB_HOST` matches the alias if you intend to modify it.
 		-v /data/rrd:/opt/librenms/rrd \
 		--name librenms \
 		jarischaefer/docker-librenms
-
-## Initial setup
-
-### Database configuration
-
-If you don't have a MySQL server setup either in Docker or elsewhere
-then you can create a docker container [here](MYSQL.md).
-
-You should read the [LibreNMS installation docs](http://docs.librenms.org/Installation/Installation-Ubuntu-1604-Nginx/)
-for the latest instructions regarding database setup.
-
-As of November 2016, the following is still a requirement:
-
-> NOTE: Whilst we are working on ensuring LibreNMS is compatible with MySQL strict mode, for now, please disable this after mysql is installed.
-
-### Database schema
-
-Make sure the database exists before running these commands.
-
-Creating the tables:
-
-	docker exec librenms sh -c "cd /opt/librenms && php /opt/librenms/build-base.php"
-
-Creating an initial admin user:
-
-	docker exec librenms php /opt/librenms/adduser.php admin admin 10 test@example.com
 
 ## SSL
 
@@ -87,6 +117,7 @@ You'll also have to change `BASE_URL`.
 		-h librenms \
 		-p 80:80 \
 		-p 443:443 \
+		-e APP_KEY=the_secret_key_you_have_generated \
 		-e DB_HOST=db \
 		-e DB_NAME=librenms \
 		-e DB_USER=librenms \
@@ -107,6 +138,7 @@ The following keys can be passed directly via the `-e` switch:
 
 |Key                     |Default                               |Description                   
 |------------------------|--------------------------------------|------------------------------
+|APP_KEY                 |                                      |Secret encryption key
 |BASE_URL                |                                      |Base URL for LibreNMS (e.g. http://192.168.0.1:8080)        
 |DB_HOST                 |                                      |MySQL IP or hostname
 |DB_PORT                 |3306                                  |MySQL port
@@ -185,6 +217,7 @@ is mounted inside the container at `/opt/librenms/conf.d/config.interfaces.php`.
 		-h librenms \
 		-p 80:80 \
 		-p 443:443 \
+		-e APP_KEY=the_secret_key_you_have_generated \
 		-e DB_HOST=db \
 		-e DB_NAME=librenms \
 		-e DB_USER=librenms \
@@ -223,6 +256,7 @@ threads.
 		-d \
 		-h librenms \
 		-p 80:80 \
+		-e APP_KEY=the_secret_key_you_have_generated \
 		-e DB_HOST=db \
 		-e DB_NAME=librenms \
 		-e DB_USER=librenms \

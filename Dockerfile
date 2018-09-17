@@ -15,10 +15,11 @@ RUN	cd /opt && \
 	composer clear-cache && \
 	cd /opt/librenms/html/plugins && \
 	git clone --depth 1 https://github.com/librenms-plugins/Weathermap.git && \
+	cp /opt/librenms/.env.example /opt/librenms/.env && \
 	chown -R librenms:librenms /opt/librenms
 
 ADD files /
-RUN	chmod -R +x /etc/my_init.d /etc/service && \
+RUN	chmod -R +x /etc/my_init.d /etc/service /usr/local/bin && \
 	find /opt/librenms \( ! -user librenms -o ! -group librenms \) -exec chown librenms:librenms {} \; && \
 	chmod 644 /etc/cron.d/* /etc/librenms/cron/*
 

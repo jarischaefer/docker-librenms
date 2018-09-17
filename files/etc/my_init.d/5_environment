@@ -12,6 +12,7 @@ function addConfig() {
 	fi
 }
 
+addConfig APP_KEY
 addConfig DB_HOST
 addConfig DB_PORT
 addConfig DB_USER
