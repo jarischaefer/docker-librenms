@@ -10,6 +10,7 @@ services:
       - /my/persistent/directory/logs:/opt/librenms/logs
       - /my/persistent/directory/rrd:/opt/librenms/rrd
     environment:
+      - APP_KEY=REPLACE-WITH-GENERATED-KEY
       - DB_HOST=db
       - DB_NAME=librenms
       - DB_USER=librenms

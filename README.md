@@ -41,7 +41,8 @@ You must first generate a unique encryption key.
 
 Make sure you keep the key secret, because anyone in possession of it can decrypt sensitive data.
 
-The key must be passed via the `APP_KEY` environment variable in the `docker run` command.
+The key (including `base64:`) must be passed via the `APP_KEY` environment variable
+in the `docker run` command.
 
 ### Database - Creating LibreNMS tables
 
@@ -72,7 +73,8 @@ check the appropriate section in the docs for a complete list.
 
 In the example below the linked container is named `my-database-container`
 and its alias inside the container is `db`.
-Make sure `DB_HOST` matches the alias if you intend to modify it.
+Make sure `my-database-container` matches the MySQL container's name and `DB_HOST`
+matches its alias inside the container if you intend to modify it.
 
 	docker run \
 		-d \
