@@ -173,6 +173,7 @@ The following keys can be passed directly via the `-e` switch:
 |BILLING_CALCULATE_ENABLE|true                                  |Enable LibreNMS billing calculation
 |CHECK_SERVICES_ENABLE   |true                                  |Enable LibreNMS service checks
 |DAILY_ENABLE            |true                                  |Enable LibreNMS daily script
+|DAILY_ON_STARTUP        |false                                 |Enable LibreNMS daily script on startup
 |DISCOVERY_ENABLE        |true                                  |Enable LibreNMS discovery
 |DISCOVERY_THREADS       |1                                     |Number of threads for discovery
 |ENABLE_SYSLOG           |false                                 |Enable LibreNMS syslog ([see here](#syslog))

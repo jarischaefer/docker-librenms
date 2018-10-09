@@ -1,0 +1,6 @@
+#!/bin/bash -e
+
+if [ "$DAILY_ON_STARTUP" = "true" ]; then
+	cd /opt/librenms
+	/sbin/setuser librenms ./daily.sh
+fi
