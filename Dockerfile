@@ -16,6 +16,7 @@ RUN	cd /opt && \
 	cd /opt/librenms/html/plugins && \
 	git clone --depth 1 https://github.com/librenms-plugins/Weathermap.git && \
 	cp /opt/librenms/.env.example /opt/librenms/.env && \
+	cd /opt/librenms && php artisan key:generate && \
 	chown -R librenms:librenms /opt/librenms
 
 ADD files /

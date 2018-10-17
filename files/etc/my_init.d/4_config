@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source /opt/librenms/.env
+
 function requireConfig() {
 	if [ -z ${!1} ]; then
 		echo "Error: $1 is unset"
