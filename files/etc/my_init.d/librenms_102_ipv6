@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-LOCK_FILE=/var/lock/2_ipv6.lock
+LOCK_FILE=/var/lock/librenms_ipv6.lock
 
 if [ -f "$LOCK_FILE" ]; then
 	exit 0

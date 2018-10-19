@@ -1,6 +1,6 @@
 #!/bin/bash -eu
 
-LOCK_FILE=/var/lock/1_ssl.lock
+LOCK_FILE=/var/lock/librenms_ssl.lock
 
 if [ -f "$LOCK_FILE" ]; then
 	exit 0

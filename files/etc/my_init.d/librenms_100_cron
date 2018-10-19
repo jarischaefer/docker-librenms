@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-LOCK_FILE=/var/lock/0_cron.lock
+LOCK_FILE=/var/lock/librenms_cron.lock
 
 if [ -f "$LOCK_FILE" ]; then
 	exit 0

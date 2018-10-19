@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-LOCK_FILE=/var/lock/8_services.lock
+LOCK_FILE=/var/lock/librenms_services.lock
 
 if [ -f "$LOCK_FILE" ]; then
 	exit 0

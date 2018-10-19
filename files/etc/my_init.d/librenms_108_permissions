@@ -1,0 +1,57 @@
+#!/bin/bash -e
+
+# Create a new librenms user and remap it to the given UID
+if [ ! -z "$PUID" ]; then
+	if [ -z "$PGID" ]; then
+		PGID=${PUID}
+	fi
+
+	deluser librenms
+	delgroup www-data librenms
+	delgroup librenms
+	groupadd --gid ${PGID} librenms
+	usermod --append --groups librenms www-data
+	useradd librenms --gid librenms --home-dir /opt/librenms --system --shell /bin/bash --uid ${PUID}
+fi
+
+# avoids problems when mounting volumes via NFS
+set +e
+
+# Don't `chown` if SKIP_CHOWN is set (Useful for NFS mounted shares) 
+if [ -z "$SKIP_CHOWN" ]; then
+	if [ -f /opt/librenms/config.custom.php ]; then
+		chown librenms:librenms /opt/librenms/config.custom.php
+	fi
+
+	setfacl --recursive --default --modify g::rwX \
+		/opt/librenms/bootstrap/cache \
+		/opt/librenms/logs \
+		/opt/librenms/rrd \
+		/opt/librenms/storage
+
+	setfacl --recursive --modify g::rwX \
+		/opt/librenms/bootstrap/cache \
+		/opt/librenms/logs \
+		/opt/librenms/rrd \
+		/opt/librenms/storage
+
+	chown -R librenms:librenms \
+		/opt/librenms/bootstrap/cache \
+		/opt/librenms/conf.d \
+		/opt/librenms/html/plugins/Weathermap/configs \
+		/opt/librenms/html/plugins/Weathermap/output \
+		/opt/librenms/logs \
+		/opt/librenms/rrd \
+		/opt/librenms/storage
+
+	chmod -R -x,u=rwX,g=rwX,o=rX \
+		/opt/librenms/bootstrap/cache \
+		/opt/librenms/conf.d \
+		/opt/librenms/html/plugins/Weathermap/configs \
+		/opt/librenms/html/plugins/Weathermap/output \
+		/opt/librenms/logs \
+		/opt/librenms/rrd \
+		/opt/librenms/storage
+fi
+
+exit 0

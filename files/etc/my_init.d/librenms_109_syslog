@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-LOCK_FILE=/var/lock/7_syslog.lock
+LOCK_FILE=/var/lock/librenms_syslog.lock
 
 if [ -f "$LOCK_FILE" ]; then
 	exit 0
