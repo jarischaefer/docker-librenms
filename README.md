@@ -1,4 +1,5 @@
 # docker-librenms
+
 Docker image for LibreNMS
 
 **This document refers to the master branch and does not necessarily correspond to the version that you are running.**
@@ -108,6 +109,12 @@ matches its alias inside the container if you intend to modify it.
 		-v /data/rrd:/opt/librenms/rrd \
 		--name librenms \
 		jarischaefer/docker-librenms
+
+## Updating the container
+
+1. Pick a release from the [Releases page](https://github.com/jarischaefer/docker-librenms/releases)
+2. Run `docker pull jarischaefer/docker-librenms:{release}` and restart your container using the new version
+3. Run `docker exec librenms setup_database`
 
 ## SSL
 
