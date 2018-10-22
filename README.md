@@ -112,9 +112,25 @@ matches its alias inside the container if you intend to modify it.
 
 ## Updating the container
 
+### Pulling a new version
+
 1. Pick a release from the [Releases page](https://github.com/jarischaefer/docker-librenms/releases)
-2. Run `docker pull jarischaefer/docker-librenms:{release}` and restart your container using the new version
-3. Run `docker exec librenms setup_database`
+2. Run `docker pull jarischaefer/docker-librenms:{release}`
+3. Restart your container using the new version
+4. Follow the steps for database updates
+
+### Manual database updates (safe)
+
+Run `docker exec librenms setup_database`.
+
+### Automatic database updates (potentially unsafe)
+
+If you would like to update the database automatically on startup, you may pass `DAILY_ON_STARTUP=true`.
+Keep in mind that restarting more than one container simultaneously could result in concurrency issues
+and damage your database.
+
+The LibreNMS implementation (as of October 2018) uses a distributed lock via memcache to avoid this scenario.
+Therefore, if all containers share the same memcache instance, concurrent restarts would be safe. 
 
 ## SSL
 
