@@ -38,6 +38,7 @@ if [ -z "$SKIP_CHOWN" ]; then
 	chown -R librenms:librenms \
 		/opt/librenms/bootstrap/cache \
 		/opt/librenms/conf.d \
+		/opt/librenms/conf.internal.d \
 		/opt/librenms/html/plugins/Weathermap/configs \
 		/opt/librenms/html/plugins/Weathermap/output \
 		/opt/librenms/logs \
@@ -47,6 +48,7 @@ if [ -z "$SKIP_CHOWN" ]; then
 	chmod -R -x,u=rwX,g=rwX,o=rX \
 		/opt/librenms/bootstrap/cache \
 		/opt/librenms/conf.d \
+		/opt/librenms/conf.internal.d \
 		/opt/librenms/html/plugins/Weathermap/configs \
 		/opt/librenms/html/plugins/Weathermap/output \
 		/opt/librenms/logs \
