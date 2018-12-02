@@ -1,8 +1,5 @@
 #!/bin/bash -eu
 
-# TODO remove date.timezone once PR 9181 is available
-# https://github.com/librenms/librenms/pull/9181
-
-/sbin/setuser librenms php -d date.timezone=UTC /opt/librenms/adduser.php admin admin 10 test@example.com
+/sbin/setuser librenms php /opt/librenms/adduser.php admin admin 10 test@example.com
 
 echo "Created user admin with password admin and e-mail address test@example.com"
