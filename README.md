@@ -164,6 +164,7 @@ The following keys can be passed directly via the `-e` switch:
 |Key                     |Default                               |Description                   
 |------------------------|--------------------------------------|------------------------------
 |APP_KEY                 |                                      |Secret encryption key
+|APP_KEY_FILE            |                                      |Secret encryption key via file/secret
 |BASE_URL                |                                      |Base URL for LibreNMS (e.g. http://192.168.0.1:8080)        
 |DB_HOST                 |                                      |MySQL IP or hostname
 |DB_PORT                 |3306                                  |MySQL port

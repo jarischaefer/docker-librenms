@@ -1,22 +1,47 @@
-#!/bin/bash
+#!/bin/bash -eu
 
 function requireConfig() {
-	if [ -z ${!1} ]; then
+	if [ -z ${!1:-} ]; then
 		echo "Error: $1 is unset"
 		exit 1
 	fi
 }
 
-requireConfig APP_KEY
+if [ -z "${APP_KEY_FILE:-}" ]; then
+	requireConfig APP_KEY
+else
+	if [ ! -f "$APP_KEY_FILE" ]; then
+		echo "Error: APP_KEY_FILE not found at ${APP_KEY_FILE}"
+		exit 1
+	fi
+
+	APP_KEY=$(head -n 1 "$APP_KEY_FILE" | tr -d ' ')
+	sed -i '/^APP_KEY/d' /opt/librenms/.env
+	echo "APP_KEY=$APP_KEY" >> /opt/librenms/.env
+	echo "export APP_KEY=\"$APP_KEY\"" >> /etc/librenms_environment
+fi
+
 requireConfig DB_HOST
 requireConfig DB_USER
-if [ -z "$DB_PASS_FILE" ]; then
-    requireConfig DB_PASS
+
+if [ -z "${DB_PASS_FILE:-}" ]; then
+	requireConfig DB_PASS
+else
+	if [ ! -f "$DB_PASS_FILE" ]; then
+		echo "Error: DB_PASS_FILE not found at ${DB_PASS_FILE}"
+		exit 1
+	fi
+
+	# Unlike APP_KEY, DB_PASS is loaded inside config.php and therefore not written to .env here
+	DB_PASS=$(head -n 1 "$DB_PASS_FILE" | tr -d ' ')
+	echo "export DB_PASS=\"$DB_PASS\"" >> /etc/librenms_environment
 fi
+
 requireConfig DB_NAME
 requireConfig BASE_URL
 
-set -eu
+# Deprecated legacy config support
+# TODO remove legacy config
 
 if [ -f /opt/librenms/config.custom.php ]; then
 	echo -e "\033[1;33mWARNING: Detected deprecated config.custom.php file, please check the docs\033[0m" >&2
