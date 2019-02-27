@@ -39,10 +39,8 @@ fi
 if [ "$POLLERS_ENABLE" = "false" ]; then
 	sed -i "/poller-wrapper.py/d" /etc/cron.d/librenms
 else
-	if [ -z "$POLLERS" ]; then
-		POLLERS=8
-	fi
-	sed -i "s/PLACEHOLDER_POLLERS/$POLLERS/g" /etc/cron.d/librenms
+	sed -i "s/PLACEHOLDER_POLLERS_THREADS/$POLLERS/g" /etc/cron.d/librenms
+	sed -i "s@PLACEHOLDER_POLLERS_CRON@$POLLERS_CRON@g" /etc/cron.d/librenms
 fi
 
 if [ "$SNMP_SCAN_ENABLE" = "true" ]; then

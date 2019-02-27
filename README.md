@@ -204,6 +204,7 @@ The following keys can be passed directly via the `-e` switch:
 |POLL_BILLING_ENABLE     |true                                  |Enable LibreNMS billing polling
 |POLLERS_ENABLE          |true                                  |Enable LibreNMS polling
 |POLLERS                 |8                                     |Number of LibreNMS pollers
+|POLLERS_CRON            |*/5 * * * *                           |Cron schedule for pollers
 |SNMP_SCAN_ENABLE        |false                                 |Enable cron for [snmp-scan](https://docs.librenms.org/#Extensions/Auto-Discovery/#snmp-scan)
 |SNMP_SCAN_CRON          |0 0 * * *                             |Cron schedule for snmp-scan
 |WEATHERMAP_ENABLE       |false                                 |Enable cron for [weathermap](https://github.com/librenms-plugins/Weathermap) ([see here](#Weathermap))

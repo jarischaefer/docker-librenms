@@ -5,7 +5,9 @@ ENV	TZ=UTC \
 	RRDCACHED_LISTEN=unix:/var/run/rrdcached/rrdcached.sock \
 	RRDCACHED_CONNECT=unix:/var/run/rrdcached/rrdcached.sock \
 	SNMP_SCAN_CRON="0 0 * * *" \
-	WEATHERMAP_CRON="*/5 * * * *"
+	WEATHERMAP_CRON="*/5 * * * *" \
+	POLLERS=8 \
+	POLLERS_CRON="*/5 * * * *"
 EXPOSE 80 443
 
 RUN	cd /opt && \
