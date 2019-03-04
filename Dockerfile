@@ -1,6 +1,6 @@
 FROM jarischaefer/baseimage-librenms:2.4
 
-ARG LIBRENMS_VERSION=1.48.1
+ARG LIBRENMS_VERSION=1.49
 ENV	TZ=UTC \
 	RRDCACHED_LISTEN=unix:/var/run/rrdcached/rrdcached.sock \
 	RRDCACHED_CONNECT=unix:/var/run/rrdcached/rrdcached.sock \
