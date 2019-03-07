@@ -1,7 +1,8 @@
-FROM jarischaefer/baseimage-librenms:2.4
+FROM jarischaefer/baseimage-librenms:2.5
 
-ARG LIBRENMS_VERSION=1.49
-ENV	TZ=UTC \
+ENV	LIBRENMS_VERSION=1.49 \
+	LIBRENMS_WEATHERMAP_VERSION=5bb4fcccbaa9f5801325b9d79e811575c37fd84e \
+	TZ=UTC \
 	RRDCACHED_LISTEN=unix:/var/run/rrdcached/rrdcached.sock \
 	RRDCACHED_CONNECT=unix:/var/run/rrdcached/rrdcached.sock \
 	SNMP_SCAN_CRON="0 0 * * *" \
@@ -10,14 +11,13 @@ ENV	TZ=UTC \
 	POLLERS_CRON="*/5 * * * *"
 EXPOSE 80 443
 
-RUN	cd /opt && \
+RUN	git clone --branch ${LIBRENMS_VERSION} https://github.com/librenms/librenms.git /opt/librenms && \
 	composer global require hirak/prestissimo && \
-	composer create-project --no-dev --keep-vcs librenms/librenms librenms ${LIBRENMS_VERSION} && \
-	/opt/librenms/scripts/composer_wrapper.php install --no-dev && \
+	composer --no-interaction install --working-dir=/opt/librenms --no-dev --prefer-dist && \
 	composer global remove hirak/prestissimo && \
 	composer clear-cache && \
-	cd /opt/librenms/html/plugins && \
-	git clone --depth 1 https://github.com/librenms-plugins/Weathermap.git && \
+	curl -qsSL https://github.com/librenms-plugins/Weathermap/archive/${LIBRENMS_WEATHERMAP_VERSION}.tar.gz | tar -xz -C /opt/librenms/html/plugins && \
+	mv /opt/librenms/html/plugins/Weathermap-${LIBRENMS_WEATHERMAP_VERSION} /opt/librenms/html/plugins/Weathermap && \
 	cp /opt/librenms/.env.example /opt/librenms/.env && \
 	chown -R librenms:librenms /opt/librenms && \
 	find /opt/librenms -name '.gitignore' -type f -exec chmod -x "{}" + && \

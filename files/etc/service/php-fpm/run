@@ -6,4 +6,4 @@ if [ ! -d /run/php ]; then
 	mkdir /run/php
 fi
 
-exec /usr/sbin/php-fpm7.2 --nodaemonize --fpm-config /etc/php/7.2/fpm/php-fpm.conf
+exec /usr/sbin/php-fpm7.3 --nodaemonize --fpm-config /etc/php/7.3/fpm/php-fpm.conf
