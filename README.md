@@ -157,6 +157,8 @@ You'll also have to change `BASE_URL`.
 
 ## Environment config
 
+The container must be stopped, removed and subsequently restarted in order for configuration changes to take effect.
+
 The following keys can be passed directly via the `-e` switch:
 
 ### Basic configuration
