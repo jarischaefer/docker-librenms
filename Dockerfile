@@ -1,7 +1,7 @@
-FROM jarischaefer/baseimage-librenms:2.6
+FROM jarischaefer/baseimage-librenms:2.7
 
-ENV	LIBRENMS_VERSION=1.56 \
-	LIBRENMS_WEATHERMAP_VERSION=5bb4fcccbaa9f5801325b9d79e811575c37fd84e \
+ENV	LIBRENMS_VERSION=1.57 \
+	LIBRENMS_WEATHERMAP_VERSION=2b9e0f2e7df80b1e5eb75a1470bc657325cbb381 \
 	TZ=UTC \
 	RRDCACHED_LISTEN=unix:/var/run/rrdcached/rrdcached.sock \
 	RRDCACHED_CONNECT=unix:/var/run/rrdcached/rrdcached.sock \
