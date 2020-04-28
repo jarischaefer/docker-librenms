@@ -3,11 +3,11 @@
 if [ -n "$TZ" ]; then
 	ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-	if [ ! -f /etc/php/7.3/cli/conf.d/100-timezone.ini ]; then
-		echo "date.timezone=$TZ" > /etc/php/7.3/cli/conf.d/100-timezone.ini
+	if [ ! -f /etc/php/7.4/cli/conf.d/100-timezone.ini ]; then
+		echo "date.timezone=$TZ" > /etc/php/7.4/cli/conf.d/100-timezone.ini
 	fi
 
-	if [ ! -f /etc/php/7.3/fpm/conf.d/100-timezone.ini ]; then
-		echo "date.timezone=$TZ" > /etc/php/7.3/fpm/conf.d/100-timezone.ini
+	if [ ! -f /etc/php/7.4/fpm/conf.d/100-timezone.ini ]; then
+		echo "date.timezone=$TZ" > /etc/php/7.4/fpm/conf.d/100-timezone.ini
 	fi
 fi

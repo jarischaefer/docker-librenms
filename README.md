@@ -10,7 +10,7 @@ Releases are listed on the [Releases page](https://github.com/jarischaefer/docke
 
 This is a generic docker container for [LibreNMS](http://www.librenms.org/).
 
-The container runs nginx 1.15+ with HTTP/2 support and PHP 7.3 FPM
+The container runs nginx 1.15+ with HTTP/2 support and PHP 7.4 FPM
 with [OPCache](http://php.net/manual/en/book.opcache.php) and
 [rrdcached](https://oss.oetiker.ch/rrdtool/doc/rrdcached.en.html) for maximum performance.
 
