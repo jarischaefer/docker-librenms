@@ -12,9 +12,10 @@ ENV	LIBRENMS_VERSION=1.64.1 \
 EXPOSE 80 443
 
 RUN	git clone --branch ${LIBRENMS_VERSION} https://github.com/librenms/librenms.git /opt/librenms && \
-	composer global require hirak/prestissimo && \
+	pip3 install -r /opt/librenms/requirements.txt && \
+	composer --no-interaction global require hirak/prestissimo && \
 	composer --no-interaction install --working-dir=/opt/librenms --no-dev --prefer-dist && \
-	composer global remove hirak/prestissimo && \
+	composer --no-interaction global remove hirak/prestissimo && \
 	composer clear-cache && \
 	pip3 install -r /opt/librenms/requirements.txt && \
 	curl -qsSL https://github.com/librenms-plugins/Weathermap/archive/${LIBRENMS_WEATHERMAP_VERSION}.tar.gz | tar -xz -C /opt/librenms/html/plugins && \
