@@ -1,6 +1,6 @@
 FROM jarischaefer/baseimage-librenms:2.11
 
-ENV	LIBRENMS_VERSION=1.64.1 \
+ENV	LIBRENMS_VERSION=1.65 \
 	LIBRENMS_WEATHERMAP_VERSION=2b9e0f2e7df80b1e5eb75a1470bc657325cbb381 \
 	TZ=UTC \
 	RRDCACHED_LISTEN=unix:/var/run/rrdcached/rrdcached.sock \
@@ -8,7 +8,8 @@ ENV	LIBRENMS_VERSION=1.64.1 \
 	SNMP_SCAN_CRON="0 0 * * *" \
 	WEATHERMAP_CRON="*/5 * * * *" \
 	POLLERS=8 \
-	POLLERS_CRON="*/5 * * * *"
+	POLLERS_CRON="*/5 * * * *" \
+	INSTALL=false
 EXPOSE 80 443
 
 RUN	git clone --branch ${LIBRENMS_VERSION} https://github.com/librenms/librenms.git /opt/librenms && \
@@ -17,7 +18,7 @@ RUN	git clone --branch ${LIBRENMS_VERSION} https://github.com/librenms/librenms.
 	composer --no-interaction install --working-dir=/opt/librenms --no-dev --prefer-dist && \
 	composer --no-interaction global remove hirak/prestissimo && \
 	composer clear-cache && \
-	pip3 install -r /opt/librenms/requirements.txt && \
+	sed -i 's|"LibreNMS\\\\ComposerHelper::postInstall",|"Illuminate\\\\Foundation\\\\ComposerScripts::postInstall",\n            "LibreNMS\\\\ComposerHelper::postInstall",|g' /opt/librenms/composer.json && \
 	curl -qsSL https://github.com/librenms-plugins/Weathermap/archive/${LIBRENMS_WEATHERMAP_VERSION}.tar.gz | tar -xz -C /opt/librenms/html/plugins && \
 	mv /opt/librenms/html/plugins/Weathermap-${LIBRENMS_WEATHERMAP_VERSION} /opt/librenms/html/plugins/Weathermap && \
 	cp /opt/librenms/.env.example /opt/librenms/.env && \
