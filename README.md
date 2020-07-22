@@ -3,7 +3,7 @@
 Docker image for LibreNMS
 
 **This document refers to the master branch and does not necessarily correspond to the version that you are running.**
-It is recommended to extract the readme from your preferred release's source code archive. 
+It is recommended to extract the readme from your preferred release's source code archive.
 Releases are listed on the [Releases page](https://github.com/jarischaefer/docker-librenms/releases).
 
 ## About
@@ -21,12 +21,14 @@ with [OPCache](http://php.net/manual/en/book.opcache.php) and
 If you don't have a MySQL server setup either in Docker or elsewhere
 then you can create a docker container [here](MYSQL.md).
 
-You should read the [LibreNMS installation docs](http://docs.librenms.org/Installation/Installation-Ubuntu-1604-Nginx/)
+You should read the [LibreNMS installation docs](https://docs.librenms.org/Installation/Install-LibreNMS/)
 for the latest instructions regarding database setup.
 
-As of November 2016, the following is still a requirement:
-
-> NOTE: Whilst we are working on ensuring LibreNMS is compatible with MySQL strict mode, for now, please disable this after mysql is installed.
+As of July 2020, the following settings are required (should apply to both MariaDB and MySQL):
+```
+innodb_file_per_table=1
+lower_case_table_names=0
+```
 
 ### Generating an encryption key
 
@@ -73,7 +75,7 @@ check the appropriate section in the docs for a complete list.
 ### Linked database container
 
 In the example below the linked container is named `my-database-container`
-and its alias inside the container is `db`.
+and its alias inside the container is `database`.
 Make sure `my-database-container` matches the MySQL container's name and `DB_HOST`
 matches its alias inside the container if you intend to modify it.
 
@@ -82,12 +84,12 @@ matches its alias inside the container if you intend to modify it.
 		-h librenms \
 		-p 80:80 \
 		-e APP_KEY=the_secret_key_you_have_generated \
-		-e DB_HOST=db \
+		-e DB_HOST=database \
 		-e DB_NAME=librenms \
 		-e DB_USER=librenms \
 		-e DB_PASS=secret \
 		-e BASE_URL=http://localhost \
-		--link my-database-container:db \
+		--link my-database-container:database \
 		-v /data/logs:/opt/librenms/logs \
 		-v /data/rrd:/opt/librenms/rrd \
 		--name librenms \
@@ -130,7 +132,7 @@ Keep in mind that restarting more than one container simultaneously could result
 and damage your database.
 
 The LibreNMS implementation (as of October 2018) uses a distributed lock via memcache to avoid this scenario.
-Therefore, if all containers share the same memcache instance, concurrent restarts would be safe. 
+Therefore, if all containers share the same memcache instance, concurrent restarts would be safe.
 
 ## SSL
 
@@ -143,12 +145,12 @@ You'll also have to change `BASE_URL`.
 		-p 80:80 \
 		-p 443:443 \
 		-e APP_KEY=the_secret_key_you_have_generated \
-		-e DB_HOST=db \
+		-e DB_HOST=database \
 		-e DB_NAME=librenms \
 		-e DB_USER=librenms \
 		-e DB_PASS=secret \
 		-e BASE_URL=https://localhost \
-		--link my-database-container:db \
+		--link my-database-container:database \
 		-v /data/logs:/opt/librenms/logs \
 		-v /data/rrd:/opt/librenms/rrd \
 		-v /data/ssl:/etc/nginx/ssl:ro \
@@ -163,11 +165,11 @@ The following keys can be passed directly via the `-e` switch:
 
 ### Basic configuration
 
-|Key                     |Default                               |Description                   
+|Key                     |Default                               |Description
 |------------------------|--------------------------------------|------------------------------
 |APP_KEY                 |                                      |Secret encryption key
 |APP_KEY_FILE            |                                      |Secret encryption key via file/secret
-|BASE_URL                |                                      |Base URL for LibreNMS (e.g. http://192.168.0.1:8080)        
+|BASE_URL                |                                      |Base URL for LibreNMS (e.g. http://192.168.0.1:8080)
 |DB_HOST                 |                                      |MySQL IP or hostname
 |DB_PORT                 |3306                                  |MySQL port
 |DB_NAME                 |                                      |MySQL database name
@@ -178,7 +180,7 @@ The following keys can be passed directly via the `-e` switch:
 
 ### Enabling/disabling container features
 
-|Key                     |Default                               |Description                   
+|Key                     |Default                               |Description
 |------------------------|--------------------------------------|------------------------------
 |DISABLE_IPV6            |false                                 |Disable nginx IPv6 socket
 |MEMCACHED_ENABLE        |false                                 |Enable memcached
@@ -193,7 +195,7 @@ The following keys can be passed directly via the `-e` switch:
 
 ### Enabling/disabling LibreNMS features
 
-|Key                     |Default                               |Description                   
+|Key                     |Default                               |Description
 |------------------------|--------------------------------------|------------------------------
 |ALERTS_ENABLE           |true                                  |Enable LibreNMS alerts
 |BILLING_CALCULATE_ENABLE|true                                  |Enable LibreNMS billing calculation
@@ -248,12 +250,12 @@ is mounted inside the container at `/opt/librenms/conf.d/config.interfaces.php`.
 		-p 80:80 \
 		-p 443:443 \
 		-e APP_KEY=the_secret_key_you_have_generated \
-		-e DB_HOST=db \
+		-e DB_HOST=database \
 		-e DB_NAME=librenms \
 		-e DB_USER=librenms \
 		-e DB_PASS=secret \
 		-e BASE_URL=https://localhost \
-		--link my-database-container:db \
+		--link my-database-container:database \
 		-v /data/logs:/opt/librenms/logs \
 		-v /data/rrd:/opt/librenms/rrd \
 		-v /data/ssl:/etc/nginx/ssl:ro \
@@ -287,7 +289,7 @@ threads.
 		-h librenms \
 		-p 80:80 \
 		-e APP_KEY=the_secret_key_you_have_generated \
-		-e DB_HOST=db \
+		-e DB_HOST=database \
 		-e DB_NAME=librenms \
 		-e DB_USER=librenms \
 		-e DB_PASS=secret \
@@ -301,7 +303,7 @@ threads.
 		-e RRDCACHED_ENABLE=false \
 		-e NGINX_ENABLE=false \
 		-e PHPFPM_ENABLE=false \
-		--link my-database-container:db \
+		--link my-database-container:database \
 		-v /data/logs:/opt/librenms/logs \
 		-v /data/rrd:/opt/librenms/rrd \
 		--name librenms \
