@@ -18,4 +18,8 @@ if [ "$PHPFPM_ENABLE" = "false" ]; then
 	rm -rf /etc/service/php-fpm
 fi
 
+if [ "$SNMPTRAPD_ENABLE" != "true" ]; then
+	rm -rf /etc/service/snmptrapd
+fi
+
 touch "$LOCK_FILE"

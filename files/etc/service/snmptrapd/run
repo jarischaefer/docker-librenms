@@ -1,0 +1,15 @@
+#!/bin/bash -e
+
+if [ -z "$SNMPTRAPD_MIBDIRS" ]; then
+	SNMPTRAPD_MIBDIRS="/opt/librenms/mibs"
+fi
+
+if [ -z "$SNMPTRAPD_MIBS" ]; then
+	SNMPTRAPD_MIBS="IF-MIB"
+fi
+
+set -u
+
+echo "Starting snmptrapd..."
+
+exec /usr/sbin/snmptrapd -f -m "$SNMPTRAPD_MIBS" -M "$SNMPTRAPD_MIBDIRS"

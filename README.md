@@ -192,6 +192,9 @@ The following keys can be passed directly via the `-e` switch:
 |RRDCACHED_CONNECT       |unix:/var/run/rrdcached/rrdcached.sock|rrdcached TCP or unix socket where LibreNMS connects to
 |RRDCACHED_LISTEN        |unix:/var/run/rrdcached/rrdcached.sock|rrdcached TCP or unix socket where rrdcached listens on
 |SKIP_CHOWN              |false                                 |Disable (slow) `chown`ing of files at startup (might help with network storage)
+|SNMPTRAPD_ENABLE        |false                                 |Enable [SNMP Trap Handler](https://docs.librenms.org/Extensions/SNMP-Trap-Handler/)
+|SNMPTRAPD_MIBS          |IF-MIB                                |Passed to snmptrapd via `-m` 
+|SNMPTRAPD_MIBDIRS       |/opt/librenms/mibs                    |Passed to snmptrapd via `-M` 
 
 ### Enabling/disabling LibreNMS features
 
