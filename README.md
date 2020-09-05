@@ -195,6 +195,8 @@ The following keys can be passed directly via the `-e` switch:
 |SNMPTRAPD_ENABLE        |false                                 |Enable [SNMP Trap Handler](https://docs.librenms.org/Extensions/SNMP-Trap-Handler/)
 |SNMPTRAPD_MIBS          |IF-MIB                                |Passed to snmptrapd via `-m` 
 |SNMPTRAPD_MIBDIRS       |/opt/librenms/mibs                    |Passed to snmptrapd via `-M` 
+|LIBRENMS_SERVICE_ENABLE |false                                 |Enable librenms-service.py
+|LIBRENMS_SERVICE_OPTS   |""                                    |Options for librenms-service.py (e.g. `-v`)
 
 ### Enabling/disabling LibreNMS features
 

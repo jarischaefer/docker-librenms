@@ -1,0 +1,13 @@
+#!/bin/bash -e
+
+if [ -z "$LIBRENMS_SERVICE_OPTS" ]; then
+	LIBRENMS_SERVICE_OPTS=""
+fi
+
+opts=( $LIBRENMS_SERVICE_OPTS )
+
+set -u
+
+echo "Starting librenms-service.py..."
+cd /opt/librenms
+exec /sbin/setuser librenms /opt/librenms/librenms-service.py "${opts[@]}"

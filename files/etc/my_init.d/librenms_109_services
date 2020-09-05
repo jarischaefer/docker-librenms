@@ -22,4 +22,8 @@ if [ "$SNMPTRAPD_ENABLE" != "true" ]; then
 	rm -rf /etc/service/snmptrapd
 fi
 
+if [ "$LIBRENMS_SERVICE_ENABLE" != "true" ]; then
+	rm -rf /etc/service/librenms-service
+fi
+
 touch "$LOCK_FILE"
