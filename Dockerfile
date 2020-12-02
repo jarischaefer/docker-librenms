@@ -1,6 +1,6 @@
 FROM jarischaefer/baseimage-librenms:2.15
 
-ENV	LIBRENMS_VERSION=1.70.0 \
+ENV	LIBRENMS_VERSION=1.70.1 \
 	LIBRENMS_WEATHERMAP_VERSION=2b9e0f2e7df80b1e5eb75a1470bc657325cbb381 \
 	TZ=UTC \
 	RRDCACHED_LISTEN=unix:/var/run/rrdcached/rrdcached.sock \
