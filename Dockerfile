@@ -1,6 +1,6 @@
 FROM jarischaefer/baseimage-librenms:2.15
 
-ENV	LIBRENMS_VERSION=1.69 \
+ENV	LIBRENMS_VERSION=1.70.0 \
 	LIBRENMS_WEATHERMAP_VERSION=2b9e0f2e7df80b1e5eb75a1470bc657325cbb381 \
 	TZ=UTC \
 	RRDCACHED_LISTEN=unix:/var/run/rrdcached/rrdcached.sock \
@@ -21,6 +21,9 @@ RUN	git clone --branch ${LIBRENMS_VERSION} https://github.com/librenms/librenms.
 	sed -i 's|"LibreNMS\\\\ComposerHelper::postInstall",|"Illuminate\\\\Foundation\\\\ComposerScripts::postInstall",\n            "LibreNMS\\\\ComposerHelper::postInstall",|g' /opt/librenms/composer.json && \
 	curl -qsSL https://github.com/librenms-plugins/Weathermap/archive/${LIBRENMS_WEATHERMAP_VERSION}.tar.gz | tar -xz -C /opt/librenms/html/plugins && \
 	mv /opt/librenms/html/plugins/Weathermap-${LIBRENMS_WEATHERMAP_VERSION} /opt/librenms/html/plugins/Weathermap && \
+	ln -s /opt/librenms/lnms /usr/local/bin/lnms && \
+	cp /opt/librenms/misc/lnms-completion.bash /etc/bash_completion.d/ && \
+	cp /opt/librenms/misc/librenms.logrotate /etc/logrotate.d/librenms && \
 	cp /opt/librenms/.env.example /opt/librenms/.env && \
 	chown -R librenms:librenms /opt/librenms && \
 	find /opt/librenms -name '.gitignore' -type f -exec chmod -x "{}" + && \
