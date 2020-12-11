@@ -214,20 +214,25 @@ The following keys can be passed directly via the `-e` switch:
 |POLLERS_ENABLE          |true                                  |Enable LibreNMS polling
 |POLLERS                 |8                                     |Number of LibreNMS pollers
 |POLLERS_CRON            |*/5 * * * *                           |Cron schedule for pollers
-|SNMP_SCAN_ENABLE        |false                                 |Enable cron for [snmp-scan](https://docs.librenms.org/#Extensions/Auto-Discovery/#snmp-scan)
+|SNMP_SCAN_ENABLE        |false                                 |Enable cron for [snmp-scan](https://docs.librenms.org/Extensions/Auto-Discovery/#snmp-scan)
 |SNMP_SCAN_CRON          |0 0 * * *                             |Cron schedule for snmp-scan
 |WEATHERMAP_ENABLE       |false                                 |Enable cron for [weathermap](https://github.com/librenms-plugins/Weathermap) ([see here](#Weathermap))
 |WEATHERMAP_CRON         |*/5 * * * *                           |Cron schedule for weathermap
 
 ### syslog
 
-These are instructions for the [LibreNMS syslog extension](https://docs.librenms.org/#Extensions/Syslog/).
+These are instructions for the [LibreNMS syslog extension](https://docs.librenms.org/Extensions/Syslog/).
 
 * Add `-e ENABLE_SYSLOG=true` to your docker run command
 * Add `-p 514:514` and `-p 514:514/udp` to your docker run command
 * Configure the remote host whose logs should be gathered (rsyslog example)
   * Create /etc/rsyslog.d/60-librenms.conf
   * Add `*.* @example.com:514`
+
+Unfortunately, due to the way Docker works (more specifically, its network modes), the devices and IP addresses
+visible in LibreNMS may not be what one would expect. Instead of displaying the host's real IP address,
+it is possible that an internal address such as `172.17.0.1` is observed. More information regarding this behavior
+can be found in the [corresponding issue](https://github.com/jarischaefer/docker-librenms/issues/120).
 
 ### Weathermap
 
