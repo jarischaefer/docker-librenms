@@ -12,10 +12,12 @@ Releases are listed on the [Releases page](https://github.com/jarischaefer/docke
 
 # About
 
-This is a generic docker container for [LibreNMS](http://www.librenms.org/).
+docker-librenms is a customizable Docker image for [LibreNMS](http://www.librenms.org/) based on Ubuntu.
 
 The container runs nginx 1.15+ with HTTP/2 support and PHP 7.4 FPM with [OPCache](http://php.net/manual/en/book.opcache.php)
 and [rrdcached](https://oss.oetiker.ch/rrdtool/doc/rrdcached.en.html) for maximum performance.
+
+> :warning: ARM is not supported currently, see [here](https://github.com/jarischaefer/docker-librenms/issues/114) for more details.
 
 ---
 
@@ -173,7 +175,7 @@ Updating an existing installation requires updating both the image and the datab
 3. Restart your container using the new version
 4. Follow the steps for database updates
 
-## 1.2. Database Update
+## 1.2. Database update
 
 Automatic database updates are the most convenient solution for single-container setups.
 
@@ -193,7 +195,7 @@ Therefore, if all containers share the same memcache instance, concurrent restar
 
 # Configuration
 
-The container must be stopped, removed and subsequently restarted in order for configuration changes to take effect.
+> :warning: The container must be stopped, removed and subsequently restarted in order for configuration changes to take effect.
 
 The following keys can be passed directly via the `-e` switch:
 
@@ -326,7 +328,7 @@ threads.
 		--name librenms \
 		jarischaefer/docker-librenms
 
-# Executing commands inside the container
+## Executing commands inside the container
 
 Make sure you `source` the environment variables from /etc/librenms_environment
 prior to executing commands inside the container.
@@ -338,7 +340,7 @@ This is an example demonstrating how to run the validation script.
 	cd /opt/librenms
 	php validate.php
 
-# Running in production
+## Running in production
 
 The commands above are purely for illustrative purposes.
 You should customize them to fit your environment.
