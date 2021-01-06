@@ -87,12 +87,26 @@ Once the container is up and running, you may use the following commands to popu
 
 	docker exec librenms setup_database
 
+## 3.1. LibreNMS - Adding users
+
 **Creating an initial admin user**
 
 	docker exec librenms create_admin
 
+This creates a user with the following properties:
+
 * User: admin
 * Password: admin
+* Level: 10
+* E-Mail: admin@example.com
+
+**Creating a custom user**
+
+	docker exec librenms create_user user password level email
+	
+Example:
+
+	docker exec librenms create_user test test 10 test@example.com
 
 ---
 

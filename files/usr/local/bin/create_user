@@ -1,0 +1,10 @@
+#!/bin/bash -eu
+
+user=$1
+password=$2
+level=$3
+email=$4
+
+/sbin/setuser librenms php /opt/librenms/adduser.php "$user" "$password" "$level" "$email"
+
+echo "Created user ${user} with password ${password}, level ${level} and e-mail address ${email}"

@@ -1,5 +1,3 @@
 #!/bin/bash -eu
 
-/sbin/setuser librenms php /opt/librenms/adduser.php admin admin 10 test@example.com
-
-echo "Created user admin with password admin and e-mail address test@example.com"
+/usr/local/bin/create_user admin admin 10 admin@example.com
