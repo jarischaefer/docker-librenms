@@ -1,0 +1,9 @@
+#!/bin/bash -eu
+
+NAGIOS_PLUGINS_MOUNT=/mount/nagios_plugins
+TARGET_DIR=/usr/lib/nagios/plugins
+
+if [ -d "$NAGIOS_PLUGINS_MOUNT" ]; then
+	echo "Found directory $NAGIOS_PLUGINS_MOUNT, symlinking all entries to $TARGET_DIR"
+	find "$NAGIOS_PLUGINS_MOUNT" -maxdepth 1 -mindepth 1 -exec ln -sf '{}' "${TARGET_DIR}/" \;
+fi

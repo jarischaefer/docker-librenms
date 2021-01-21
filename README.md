@@ -342,6 +342,32 @@ threads.
 		--name librenms \
 		jarischaefer/docker-librenms
 
+## Custom Nagios plugins
+
+Nagios plugins are stored in `/usr/lib/nagios/plugins`. Choose one of the options below if you would like to add new plugins.
+See the [corresponding issue](https://github.com/jarischaefer/docker-librenms/issues/125) for more information.
+
+**Option 1 (recommended)**
+
+1. Mount a new directory to `/mount/nagios_plugins`. Example (using Docker CLI): `-v /nagios_plugins:/mount/nagios_plugins`
+2. Copy the new plugins to `/nagios_plugins` on the host
+3. Restart the container and verify that the files exist: `docker exec librenms ls -al /usr/lib/nagios/plugins`
+
+The container will automatically symlink the contents of `/mount/nagios_plugins` to `/usr/lib/nagios/plugins`.
+
+**Example**
+
+```
+docker exec librenms ls -al /usr/lib/nagios/plugins/check_xyz
+
+lrwxrwxrwx 1 root root 31 Jan 21 22:19 /usr/lib/nagios/plugins/check_xyz -> /mount/nagios_plugins/check_xyz
+```
+
+**Option 2**
+
+Make sure the plugin (file) exists on the host before starting the container (Docker creates a directory on startup by default).
+Each plugin must be mounted individually (`-v` for Docker CLI), for example: `-v /nagios_plugins/check_xyz:/usr/lib/nagios/plugins/check_xyz` 
+
 ## Executing commands inside the container
 
 Make sure you `source` the environment variables from /etc/librenms_environment
