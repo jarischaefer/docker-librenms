@@ -1,4 +1,4 @@
-FROM jarischaefer/baseimage-librenms:2.16
+FROM jarischaefer/baseimage-librenms:3.0
 
 ENV	LIBRENMS_VERSION=21.1.0 \
 	LIBRENMS_WEATHERMAP_VERSION=2b9e0f2e7df80b1e5eb75a1470bc657325cbb381 \
