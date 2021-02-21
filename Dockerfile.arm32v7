@@ -1,4 +1,5 @@
 FROM --platform=linux/arm32v7 jarischaefer/baseimage-librenms:3.1-arm32v7
+ADD qemu-arm-static /usr/bin
 
 ENV	TZ=UTC \
 	RRDCACHED_LISTEN=unix:/var/run/rrdcached/rrdcached.sock \
