@@ -1,3 +1,5 @@
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
 33	*/6	*	*	*	librenms	. /etc/librenms_environment; /opt/librenms/cronic /opt/librenms/discovery-wrapper.py PLACEHOLDER_DISCOVERY_THREADS >> /dev/null 2>&1
 */5	*	*	*	*	librenms	. /etc/librenms_environment; /opt/librenms/discovery.php -h new >> /dev/null 2>&1
 PLACEHOLDER_POLLERS_CRON	librenms	. /etc/librenms_environment; /opt/librenms/cronic /opt/librenms/poller-wrapper.py PLACEHOLDER_POLLERS_THREADS >> /dev/null 2>&1
