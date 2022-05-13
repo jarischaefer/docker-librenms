@@ -227,6 +227,8 @@ The following keys can be passed directly via the `-e` switch:
 |DB_PASS                 |                                      |MySQL password
 |DB_PASS_FILE            |                                      |MySQL password via secret
 |TZ                      |UTC                                   |Timezone (e.g. Europe/Zurich)
+|PUID                    |                                      |User ID
+|PGID                    |                                      |Group ID
 
 ## Enabling/disabling container features
 
