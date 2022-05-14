@@ -2,7 +2,7 @@
 
 function requireConfig() {
 	if [ -z ${!1:-} ]; then
-		echo "Error: $1 is unset"
+		echo "Error: $1 is unset" >&2
 		exit 1
 	fi
 }
@@ -11,7 +11,7 @@ if [ -z "${APP_KEY_FILE:-}" ]; then
 	requireConfig APP_KEY
 else
 	if [ ! -f "$APP_KEY_FILE" ]; then
-		echo "Error: APP_KEY_FILE not found at ${APP_KEY_FILE}"
+		echo "Error: APP_KEY_FILE not found at ${APP_KEY_FILE}" >&2
 		exit 1
 	fi
 
@@ -28,7 +28,7 @@ if [ -z "${DB_PASS_FILE:-}" ]; then
 	requireConfig DB_PASS
 else
 	if [ ! -f "$DB_PASS_FILE" ]; then
-		echo "Error: DB_PASS_FILE not found at ${DB_PASS_FILE}"
+		echo "Error: DB_PASS_FILE not found at ${DB_PASS_FILE}" >&2
 		exit 1
 	fi
 
