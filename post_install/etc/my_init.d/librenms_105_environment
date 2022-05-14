@@ -12,6 +12,7 @@ function addConfig() {
 	fi
 }
 
+echo 'export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"' > /etc/librenms_environment
 addConfig APP_KEY
 addConfig APP_KEY_FILE
 addConfig DB_HOST

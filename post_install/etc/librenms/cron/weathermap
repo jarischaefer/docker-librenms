@@ -1,1 +1,3 @@
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
 PLACEHOLDER_CRON	librenms	. /etc/librenms_environment; /opt/librenms/html/plugins/Weathermap/map-poller.php >> /dev/null 2>&1
