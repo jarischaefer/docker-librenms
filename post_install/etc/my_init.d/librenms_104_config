@@ -53,7 +53,7 @@ fi
 
 
 # Generate Laravel .env file from legacy config
-APP_ENV=local /sbin/setuser librenms composer run-script post-install-cmd -d /opt/librenms
+COMPOSER_PROCESS_TIMEOUT=3600 APP_ENV=local /sbin/setuser librenms composer run-script post-install-cmd -d /opt/librenms
 
 # Not deleting the directory causes validation errors in LibreNMS
 rm -rf /opt/librenms/.composer
