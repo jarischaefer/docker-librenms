@@ -41,7 +41,7 @@ requireConfig DB_NAME
 requireConfig BASE_URL
 
 # Generate Laravel .env file
-APP_ENV=local /sbin/setuser librenms composer run-script post-install-cmd -d /opt/librenms
+COMPOSER_PROCESS_TIMEOUT=3600 APP_ENV=local /sbin/setuser librenms composer run-script post-install-cmd -d /opt/librenms
 
 # Not deleting the directory causes validation errors in LibreNMS
 rm -rf /opt/librenms/.composer
