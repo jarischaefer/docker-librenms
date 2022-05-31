@@ -1,0 +1,33 @@
+#!/bin/bash
+
+setfacl --recursive --default --modify g::rwX \
+	/opt/librenms/bootstrap/cache \
+	/opt/librenms/logs \
+	/opt/librenms/rrd \
+	/opt/librenms/storage
+
+setfacl --recursive --modify g::rwX \
+	/opt/librenms/bootstrap/cache \
+	/opt/librenms/logs \
+	/opt/librenms/rrd \
+	/opt/librenms/storage
+
+chown -R librenms:librenms \
+	/opt/librenms/bootstrap/cache \
+	/opt/librenms/conf.d \
+	/opt/librenms/conf.internal.d \
+	/opt/librenms/html/plugins/Weathermap/configs \
+	/opt/librenms/html/plugins/Weathermap/output \
+	/opt/librenms/logs \
+	/opt/librenms/rrd \
+	/opt/librenms/storage
+
+chmod -R -x,u=rwX,g=rwX,o=rX \
+	/opt/librenms/bootstrap/cache \
+	/opt/librenms/conf.d \
+	/opt/librenms/conf.internal.d \
+	/opt/librenms/html/plugins/Weathermap/configs \
+	/opt/librenms/html/plugins/Weathermap/output \
+	/opt/librenms/logs \
+	/opt/librenms/rrd \
+	/opt/librenms/storage

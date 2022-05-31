@@ -17,36 +17,6 @@ fi
 # avoids problems when mounting volumes via NFS
 set +e
 
-setfacl --default --modify g::rwX \
-	/opt/librenms/bootstrap/cache \
-	/opt/librenms/logs \
-	/opt/librenms/rrd \
-	/opt/librenms/storage
-
-setfacl --modify g::rwX \
-	/opt/librenms/bootstrap/cache \
-	/opt/librenms/logs \
-	/opt/librenms/rrd \
-	/opt/librenms/storage
-
-chown librenms:librenms \
-	/opt/librenms/bootstrap/cache \
-	/opt/librenms/conf.d \
-	/opt/librenms/conf.internal.d \
-	/opt/librenms/html/plugins/Weathermap/configs \
-	/opt/librenms/html/plugins/Weathermap/output \
-	/opt/librenms/logs \
-	/opt/librenms/rrd \
-	/opt/librenms/storage
-
-chmod -x,u=rwX,g=rwX,o=rX \
-	/opt/librenms/bootstrap/cache \
-	/opt/librenms/conf.d \
-	/opt/librenms/conf.internal.d \
-	/opt/librenms/html/plugins/Weathermap/configs \
-	/opt/librenms/html/plugins/Weathermap/output \
-	/opt/librenms/logs \
-	/opt/librenms/rrd \
-	/opt/librenms/storage
+/usr/local/bin/set_permissions
 
 exit 0

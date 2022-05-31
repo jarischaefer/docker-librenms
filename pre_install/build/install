@@ -7,9 +7,7 @@ LIBRENMS_WEATHERMAP_VERSION=2b9e0f2e7df80b1e5eb75a1470bc657325cbb381
 git clone --branch ${LIBRENMS_VERSION} https://github.com/librenms/librenms.git /opt/librenms
 pip3 install -r /opt/librenms/requirements.txt
 
-composer --no-interaction global require hirak/prestissimo
 composer --no-interaction install --working-dir=/opt/librenms --no-dev --prefer-dist
-composer --no-interaction global remove hirak/prestissimo
 composer clear-cache
 
 # Workaround for initialization order
