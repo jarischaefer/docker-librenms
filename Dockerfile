@@ -1,4 +1,4 @@
-FROM jarischaefer/baseimage-librenms:4.0-snapshot
+FROM jarischaefer/baseimage-librenms:4.0
 
 ENV	TZ=UTC \
 	RRDCACHED_LISTEN=unix:/var/run/rrdcached/rrdcached.sock \

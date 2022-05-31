@@ -1,4 +1,4 @@
-FROM --platform=linux/arm32v7 jarischaefer/baseimage-librenms:4.0-snapshot-arm32v7
+FROM --platform=linux/arm32v7 jarischaefer/baseimage-librenms:4.0-arm32v7
 ADD qemu-arm-static /usr/bin
 
 ENV	TZ=UTC \
