@@ -3,8 +3,12 @@
 LIBRENMS_VERSION=${LIBRENMS_VERSION:-22.6.0}
 LIBRENMS_WEATHERMAP_VERSION=018334ac225a07a77d044a7b46af452d3242534a
 
-# Dependencies
 git clone --branch ${LIBRENMS_VERSION} https://github.com/librenms/librenms.git /opt/librenms
+
+# Dependencies
+apt update
+apt -yq dist-upgrade
+apt -yq install --no-install-recommends gcc python3-dev
 pip3 install -r /opt/librenms/requirements.txt
 
 composer --no-interaction install --working-dir=/opt/librenms --no-dev --prefer-dist
@@ -34,3 +38,15 @@ cp /opt/librenms/rrd/.gitignore /opt/helpers/default_files/rrd
 
 # Remove unnecessary files
 rm -rf /opt/librenms/tests
+
+# Cleanup
+apt -yq purge gcc python3-dev
+apt -yq autoremove --purge
+apt clean
+rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/*
+rm -f /var/log/dpkg.log /var/log/alternatives.log /var/log/bootstrap.log
+rm -f /var/log/apt/history.log /var/log/apt/term.log
+rm -rf /usr/share/man/* /usr/share/groff/* /usr/share/info/*
+rm -rf /usr/share/lintian/* /usr/share/linda/*
+find /usr/share/doc -not -type d -not -name 'copyright' -delete
+find /usr/share/doc -type d -empty -delete
