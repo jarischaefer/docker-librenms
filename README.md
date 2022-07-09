@@ -229,6 +229,8 @@ The following keys can be passed directly via the `-e` switch:
 |TZ                      |UTC                                   |Timezone (e.g. Europe/Zurich)
 |PUID                    |                                      |User ID
 |PGID                    |                                      |Group ID
+|PHP_MIN_PROCESSES       |1                                     |Minimum number of PHP-FPM workers
+|PHP_MAX_PROCESSES       |4                                     |Maximum number of PHP-FPM workers
 
 ## Enabling/disabling container features
 

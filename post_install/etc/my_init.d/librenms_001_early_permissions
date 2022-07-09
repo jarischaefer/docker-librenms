@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/sh -e
 
 # Create a new librenms user and remap it to the given UID
 if [ ! -z "$PUID" ]; then
@@ -17,6 +17,6 @@ fi
 # avoids problems when mounting volumes via NFS
 set +e
 
-/usr/local/bin/set_permissions
+/usr/local/bin/set_permissions_basic
 
 exit 0

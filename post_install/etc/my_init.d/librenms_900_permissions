@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/sh -e
 
 # Create a new librenms user and remap it to the given UID
 if [ ! -z "$PUID" ]; then
@@ -18,11 +18,7 @@ fi
 set +e
 
 # Don't `chown` if SKIP_CHOWN is set (Useful for NFS mounted shares) 
-if [ -z "$SKIP_CHOWN" ]; then
-	if [ -f /opt/librenms/config.custom.php ]; then
-		chown librenms:librenms /opt/librenms/config.custom.php
-	fi
-
+if [ "$SKIP_CHOWN" != "true" ]; then
 	/usr/local/bin/set_permissions
 fi
 

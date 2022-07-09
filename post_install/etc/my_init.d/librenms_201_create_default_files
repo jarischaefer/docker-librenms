@@ -1,4 +1,4 @@
-#!/bin/bash -eu
+#!/bin/sh -eu
 
 if [ ! -f /opt/librenms/logs/.gitignore ]; then
 	cp /opt/helpers/default_files/logs/.gitignore /opt/librenms/logs/.gitignore

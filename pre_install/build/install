@@ -1,7 +1,7 @@
-#!/bin/bash -eu
+#!/bin/sh -eu
 
-LIBRENMS_VERSION=${LIBRENMS_VERSION:-22.5.0}
-LIBRENMS_WEATHERMAP_VERSION=2b9e0f2e7df80b1e5eb75a1470bc657325cbb381
+LIBRENMS_VERSION=${LIBRENMS_VERSION:-22.6.0}
+LIBRENMS_WEATHERMAP_VERSION=018334ac225a07a77d044a7b46af452d3242534a
 
 # Dependencies
 git clone --branch ${LIBRENMS_VERSION} https://github.com/librenms/librenms.git /opt/librenms
@@ -10,7 +10,7 @@ pip3 install -r /opt/librenms/requirements.txt
 composer --no-interaction install --working-dir=/opt/librenms --no-dev --prefer-dist
 composer clear-cache
 
-# Workaround for initialization order
+# Workaround for initialization order - In EnvHelper.php line 117: Call to undefined function LibreNMS\Util\base_path()
 sed -i 's|"LibreNMS\\\\ComposerHelper::postInstall",|"Illuminate\\\\Foundation\\\\ComposerScripts::postInstall",\n            "LibreNMS\\\\ComposerHelper::postInstall",|g' /opt/librenms/composer.json
 
 # Weathermap plugin
@@ -31,3 +31,6 @@ find /opt/librenms -name '.gitignore' -type f -exec chmod -x "{}" +
 mkdir -p /opt/helpers/default_files/logs /opt/helpers/default_files/rrd
 cp /opt/librenms/logs/.gitignore /opt/helpers/default_files/logs
 cp /opt/librenms/rrd/.gitignore /opt/helpers/default_files/rrd
+
+# Remove unnecessary files
+rm -rf /opt/librenms/tests

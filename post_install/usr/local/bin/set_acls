@@ -1,0 +1,4 @@
+#!/bin/sh -u
+
+setfacl --recursive --default --modify g::rwX "$1"
+setfacl --recursive --modify g::rwX "$1"

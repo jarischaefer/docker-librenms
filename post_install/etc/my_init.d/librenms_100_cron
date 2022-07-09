@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/sh -e
 
 LOCK_FILE=/var/lock/librenms_cron.lock
 

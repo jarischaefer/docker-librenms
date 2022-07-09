@@ -1,4 +1,4 @@
-#!/bin/bash -eu
+#!/bin/sh -eu
 
 curl -qsSL "https://github.com/multiarch/qemu-user-static/releases/download/v6.1.0-8/qemu-arm-static.tar.gz" | tar -xz
 curl -qsSL "https://github.com/multiarch/qemu-user-static/releases/download/v6.1.0-8/qemu-aarch64-static.tar.gz" | tar -xz

@@ -1,3 +1,3 @@
-#!/bin/bash -eu
+#!/bin/sh -eu
 
 docker run --rm --privileged multiarch/qemu-user-static:register --reset

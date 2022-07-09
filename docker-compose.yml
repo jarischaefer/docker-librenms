@@ -1,4 +1,4 @@
-version: '2'
+version: '3.9'
 
 services:
   web:
@@ -17,17 +17,26 @@ services:
       - DB_PASS=librenms
       - POLLERS=16
       - BASE_URL=http://localhost
+      - DAILY_ON_STARTUP=true
     links:
       - mysql:db
+    depends_on:
+      mysql:
+        condition: service_healthy
   mysql:
     image: mysql:8.0
     command: --sql-mode=""
     ports:
       - "3306"
     volumes:
-      - ./persistence/mysql:/var/lib/mysql
+      - ./docker-persistence/mysql:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=password
       - MYSQL_USER=librenms
       - MYSQL_PASSWORD=librenms
       - MYSQL_DATABASE=librenms
+    healthcheck:
+      test: "mysql -h localhost -u root -p$$MYSQL_ROOT_PASSWORD -e 'USE librenms'"
+      interval: 5s
+      timeout: 5s
+      retries: 20

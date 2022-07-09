@@ -1,6 +1,8 @@
 FROM --platform=linux/arm32v7 jarischaefer/baseimage-librenms:4.0-arm32v7
 ADD qemu-arm-static /usr/bin
 
+EXPOSE 80 443
+
 ENV	TZ=UTC \
 	RRDCACHED_LISTEN=unix:/var/run/rrdcached/rrdcached.sock \
 	RRDCACHED_CONNECT=unix:/var/run/rrdcached/rrdcached.sock \
@@ -8,8 +10,9 @@ ENV	TZ=UTC \
 	WEATHERMAP_CRON="*/5 * * * *" \
 	POLLERS=8 \
 	POLLERS_CRON="*/5 * * * *" \
-	INSTALL=false
-EXPOSE 80 443
+	INSTALL=false \
+	PHP_FPM_WORKERS_MIN=1 \
+	PHP_FPM_WORKERS_MAX=4
 
 ADD pre_install /
 

@@ -1,0 +1,4 @@
+#!/bin/sh -u
+
+chown -R --no-dereference librenms:librenms "$1"
+chmod -R -x,u=rwX,g=rwX,o=rX "$1"

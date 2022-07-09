@@ -1,33 +1,10 @@
-#!/bin/bash
+#!/bin/sh -u
 
-setfacl --recursive --default --modify g::rwX \
-	/opt/librenms/bootstrap/cache \
-	/opt/librenms/logs \
-	/opt/librenms/rrd \
-	/opt/librenms/storage
+PATH=/usr/local/bin:$PATH
 
-setfacl --recursive --modify g::rwX \
-	/opt/librenms/bootstrap/cache \
-	/opt/librenms/logs \
-	/opt/librenms/rrd \
-	/opt/librenms/storage
+# Set basic permissions again since new files may be generated during configuration
+set_permissions_basic
 
-chown -R librenms:librenms \
-	/opt/librenms/bootstrap/cache \
-	/opt/librenms/conf.d \
-	/opt/librenms/conf.internal.d \
-	/opt/librenms/html/plugins/Weathermap/configs \
-	/opt/librenms/html/plugins/Weathermap/output \
-	/opt/librenms/logs \
-	/opt/librenms/rrd \
-	/opt/librenms/storage
-
-chmod -R -x,u=rwX,g=rwX,o=rX \
-	/opt/librenms/bootstrap/cache \
-	/opt/librenms/conf.d \
-	/opt/librenms/conf.internal.d \
-	/opt/librenms/html/plugins/Weathermap/configs \
-	/opt/librenms/html/plugins/Weathermap/output \
-	/opt/librenms/logs \
-	/opt/librenms/rrd \
-	/opt/librenms/storage
+# Set permissions for additional user directories
+set_acls /opt/librenms/rrd
+set_owner_and_mode /opt/librenms/rrd
