@@ -1,0 +1,6 @@
+#!/bin/sh -eu
+
+configFile=/etc/php/8.1/fpm/pool.d/www.conf
+
+sed -i "s/PLACEHOLDER_MAX_WORKERS/${PHP_FPM_WORKERS_MAX}/g" "$configFile"
+sed -i "s/PLACEHOLDER_MIN_WORKERS/${PHP_FPM_WORKERS_MIN}/g" "$configFile"

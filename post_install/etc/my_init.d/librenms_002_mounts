@@ -1,4 +1,4 @@
-#!/bin/bash -eu
+#!/bin/sh -eu
 
 NAGIOS_PLUGINS_MOUNT=/mount/nagios_plugins
 TARGET_DIR=/usr/lib/nagios/plugins

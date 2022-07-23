@@ -1,6 +1,7 @@
 #!/bin/bash -eu
+# Bash supports the ${!...} construct for indirect variable expansion
 
-function requireConfig() {
+requireConfig () {
 	if [ -z ${!1:-} ]; then
 		echo "Error: $1 is unset" >&2
 		exit 1
@@ -40,19 +41,7 @@ fi
 requireConfig DB_NAME
 requireConfig BASE_URL
 
-# Deprecated legacy config support
-# TODO remove legacy config
-
-if [ -f /opt/librenms/config.custom.php ]; then
-	echo -e "\033[1;33mWARNING: Detected deprecated config.custom.php file, please check the docs\033[0m" >&2
-
-	echo "<?php" > /opt/librenms/conf.internal.d/config.custom.php
-	cat /opt/librenms/config.custom.php >> /opt/librenms/conf.internal.d/config.custom.php
-	chown librenms:librenms /opt/librenms/conf.internal.d/config.custom.php
-fi
-
-
-# Generate Laravel .env file from legacy config
+# Generate Laravel .env file
 COMPOSER_PROCESS_TIMEOUT=3600 APP_ENV=local /sbin/setuser librenms composer run-script post-install-cmd -d /opt/librenms
 
 # Not deleting the directory causes validation errors in LibreNMS

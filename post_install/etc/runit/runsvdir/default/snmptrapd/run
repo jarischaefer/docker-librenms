@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/sh -e
 
 if [ -z "$SNMPTRAPD_MIBDIRS" ]; then
 	SNMPTRAPD_MIBDIRS="/opt/librenms/mibs"

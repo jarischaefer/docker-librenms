@@ -1,18 +1,20 @@
-#!/bin/bash -eu
+#!/bin/sh -eu
 
-LIBRENMS_VERSION=${LIBRENMS_VERSION:-22.6.0}
-LIBRENMS_WEATHERMAP_VERSION=2b9e0f2e7df80b1e5eb75a1470bc657325cbb381
+LIBRENMS_VERSION=${LIBRENMS_VERSION:-22.7.0}
+LIBRENMS_WEATHERMAP_VERSION=018334ac225a07a77d044a7b46af452d3242534a
+
+git clone --branch ${LIBRENMS_VERSION} https://github.com/librenms/librenms.git /opt/librenms
 
 # Dependencies
-git clone --branch ${LIBRENMS_VERSION} https://github.com/librenms/librenms.git /opt/librenms
+apt update
+apt -yq dist-upgrade
+apt -yq install --no-install-recommends gcc python3-dev
 pip3 install -r /opt/librenms/requirements.txt
 
-composer --no-interaction global require hirak/prestissimo
 composer --no-interaction install --working-dir=/opt/librenms --no-dev --prefer-dist
-composer --no-interaction global remove hirak/prestissimo
 composer clear-cache
 
-# Workaround for initialization order
+# Workaround for initialization order - In EnvHelper.php line 117: Call to undefined function LibreNMS\Util\base_path()
 sed -i 's|"LibreNMS\\\\ComposerHelper::postInstall",|"Illuminate\\\\Foundation\\\\ComposerScripts::postInstall",\n            "LibreNMS\\\\ComposerHelper::postInstall",|g' /opt/librenms/composer.json
 
 # Weathermap plugin
@@ -33,3 +35,18 @@ find /opt/librenms -name '.gitignore' -type f -exec chmod -x "{}" +
 mkdir -p /opt/helpers/default_files/logs /opt/helpers/default_files/rrd
 cp /opt/librenms/logs/.gitignore /opt/helpers/default_files/logs
 cp /opt/librenms/rrd/.gitignore /opt/helpers/default_files/rrd
+
+# Remove unnecessary files
+rm -rf /opt/librenms/tests
+
+# Cleanup
+apt -yq purge gcc python3-dev
+apt -yq autoremove --purge
+apt clean
+rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/cache/*
+rm -f /var/log/dpkg.log /var/log/alternatives.log /var/log/bootstrap.log
+rm -f /var/log/apt/history.log /var/log/apt/term.log
+rm -rf /usr/share/man/* /usr/share/groff/* /usr/share/info/*
+rm -rf /usr/share/lintian/* /usr/share/linda/*
+find /usr/share/doc -not -type d -not -name 'copyright' -delete
+find /usr/share/doc -type d -empty -delete

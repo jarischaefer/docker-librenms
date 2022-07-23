@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/sh -e
 
 LOCK_FILE=/var/lock/librenms_syslog.lock
 
@@ -6,11 +6,12 @@ if [ -f "$LOCK_FILE" ]; then
 	exit 0
 fi
 
-if [ "$ENABLE_SYSLOG" == "1" ] || [ "$ENABLE_SYSLOG" == "true" ]; then
+if [ "$ENABLE_SYSLOG" = "1" ] || [ "$ENABLE_SYSLOG" = "true" ]; then
+	echo "Enabling syslog"
 	ln -sf /etc/librenms/syslog/librenms.syslog.conf /etc/syslog-ng/conf.d/librenms.syslog.conf
 	ln -sf /etc/librenms/syslog/syslog.conf.php /opt/librenms/conf.internal.d/syslog.conf.php
 
-	kill -SIGHUP $(cat /var/run/syslog-ng.pid)
+	/usr/bin/kill -HUP $(cat /var/run/syslog-ng.pid)
 fi
 
 touch "$LOCK_FILE"

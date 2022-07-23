@@ -5,3 +5,4 @@ Thumbs.db
 .project
 nbproject
 !.gitignore
+docker-persistence

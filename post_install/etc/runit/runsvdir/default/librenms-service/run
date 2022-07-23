@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/sh -e
 
 if [ -z "$LIBRENMS_SERVICE_OPTS" ]; then
 	LIBRENMS_SERVICE_OPTS=""

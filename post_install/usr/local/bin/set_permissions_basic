@@ -1,0 +1,15 @@
+#!/bin/sh -u
+
+PATH=/usr/local/bin:$PATH
+
+set_acls /opt/librenms/bootstrap/cache
+set_acls /opt/librenms/logs
+set_acls /opt/librenms/storage
+
+set_owner_and_mode /opt/librenms/bootstrap/cache
+set_owner_and_mode /opt/librenms/conf.d
+set_owner_and_mode /opt/librenms/conf.internal.d
+set_owner_and_mode /opt/librenms/html/plugins/Weathermap/configs
+set_owner_and_mode /opt/librenms/html/plugins/Weathermap/output
+set_owner_and_mode /opt/librenms/logs
+set_owner_and_mode /opt/librenms/storage

@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/sh -e
 
 if [ "$DAILY_ON_STARTUP" = "true" ]; then
 	cd /opt/librenms

@@ -1,5 +1,7 @@
-FROM --platform=linux/arm32v7 jarischaefer/baseimage-librenms:3.2-arm32v7
+FROM --platform=linux/arm32v7 jarischaefer/baseimage-librenms:4.0-arm32v7
 ADD qemu-arm-static /usr/bin
+
+EXPOSE 80 443
 
 ENV	TZ=UTC \
 	RRDCACHED_LISTEN=unix:/var/run/rrdcached/rrdcached.sock \
@@ -8,8 +10,9 @@ ENV	TZ=UTC \
 	WEATHERMAP_CRON="*/5 * * * *" \
 	POLLERS=8 \
 	POLLERS_CRON="*/5 * * * *" \
-	INSTALL=false
-EXPOSE 80 443
+	INSTALL=false \
+	PHP_FPM_WORKERS_MIN=1 \
+	PHP_FPM_WORKERS_MAX=4
 
 ADD pre_install /
 
@@ -18,7 +21,7 @@ RUN	chmod +x /build/install && /build/install && rm -r /build
 ADD post_install /
 
 RUN	chmod -R +x /etc/my_init.d /etc/service /usr/local/bin && \
-	find /opt/librenms \( ! -user librenms -o ! -group librenms \) -exec chown librenms:librenms {} \; && \
+	find /opt/librenms \( ! -user librenms -o ! -group librenms \) | xargs -L25 -r chown -h librenms:librenms && \
 	chmod 644 /etc/cron.d/* /etc/librenms/cron/*
 
 VOLUME ["/opt/librenms/logs", "/opt/librenms/rrd", "/opt/librenms/storage"]

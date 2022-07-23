@@ -1,4 +1,4 @@
-#!/bin/bash -eu
+#!/bin/sh -eu
 
 echo "Starting php-fpm..."
 
@@ -6,4 +6,4 @@ if [ ! -d /run/php ]; then
 	mkdir /run/php
 fi
 
-exec /usr/sbin/php-fpm7.4 --nodaemonize --fpm-config /etc/php/7.4/fpm/php-fpm.conf
+exec /usr/sbin/php-fpm8.1 --nodaemonize --fpm-config /etc/php/8.1/fpm/php-fpm.conf

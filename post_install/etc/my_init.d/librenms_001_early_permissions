@@ -17,9 +17,6 @@ fi
 # avoids problems when mounting volumes via NFS
 set +e
 
-# Don't `chown` if SKIP_CHOWN is set (Useful for NFS mounted shares) 
-if [ "$SKIP_CHOWN" != "true" ]; then
-	/usr/local/bin/set_permissions
-fi
+/usr/local/bin/set_permissions_basic
 
 exit 0
