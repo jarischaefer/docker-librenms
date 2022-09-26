@@ -1,19 +1,5 @@
 #!/bin/sh -e
 
-# Create a new librenms user and remap it to the given UID
-if [ ! -z "$PUID" ]; then
-	if [ -z "$PGID" ]; then
-		PGID=${PUID}
-	fi
-
-	deluser librenms
-	delgroup www-data librenms
-	delgroup librenms
-	groupadd --gid ${PGID} librenms
-	usermod --append --groups librenms www-data
-	useradd librenms --gid librenms --home-dir /opt/librenms --system --shell /bin/bash --uid ${PUID}
-fi
-
 # avoids problems when mounting volumes via NFS
 set +e
 

@@ -13,3 +13,5 @@ set_owner_and_mode /opt/librenms/html/plugins/Weathermap/configs
 set_owner_and_mode /opt/librenms/html/plugins/Weathermap/output
 set_owner_and_mode /opt/librenms/logs
 set_owner_and_mode /opt/librenms/storage
+
+chmod +x /opt/librenms/lnms /opt/librenms/daily.sh /opt/librenms/librenms-service.py

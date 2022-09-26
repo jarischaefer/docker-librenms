@@ -6,17 +6,21 @@ if [ ! -z "$PUID" ]; then
 		PGID=${PUID}
 	fi
 
-	deluser librenms
-	delgroup www-data librenms
-	delgroup librenms
+	deluser librenms >/dev/null
+	delgroup www-data librenms >/dev/null
+	delgroup librenms >/dev/null
 	groupadd --gid ${PGID} librenms
 	usermod --append --groups librenms www-data
 	useradd librenms --gid librenms --home-dir /opt/librenms --system --shell /bin/bash --uid ${PUID}
+
+	# avoids problems when mounting volumes via NFS
+	set +e
+	echo "Changing owner and group..."
+	chown -R librenms:librenms /opt/librenms
 fi
 
 # avoids problems when mounting volumes via NFS
 set +e
-
 /usr/local/bin/set_permissions_basic
 
 exit 0
