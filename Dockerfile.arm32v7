@@ -1,4 +1,4 @@
-FROM --platform=linux/arm32v7 jarischaefer/baseimage-librenms:4.0-arm32v7
+FROM --platform=linux/arm32v7 jarischaefer/baseimage-librenms:4.0-1-arm32v7
 ADD qemu-arm-static /usr/bin
 
 EXPOSE 80 443
