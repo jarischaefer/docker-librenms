@@ -2,9 +2,9 @@
 
 user=$1
 password=$2
-level=$3
+role=$3
 email=$4
 
-/sbin/setuser librenms php /opt/librenms/adduser.php "$user" "$password" "$level" "$email"
+/sbin/setuser librenms php /opt/librenms/lnms user:add --password="$password" --role="$role" --email="$email" "$user"
 
-echo "Created user ${user} with password ${password}, level ${level} and e-mail address ${email}"
+echo "Created user ${user} with password ${password}, role ${role} and e-mail address ${email}"

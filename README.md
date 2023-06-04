@@ -97,16 +97,18 @@ This creates a user with the following properties:
 
 * User: admin
 * Password: admin
-* Level: 10
+* Role: admin
 * E-Mail: admin@example.com
 
 **Creating a custom user**
 
-	docker exec librenms create_user user password level email
+	docker exec librenms create_user user password role email
 	
 Example:
 
-	docker exec librenms create_user test test 10 test@example.com
+	docker exec librenms create_user admin secret admin admin@example.com
+	docker exec librenms create_user joe secret normal normal@example.com
+	docker exec librenms create_user read secret global-read read@example.com
 
 ---
 
