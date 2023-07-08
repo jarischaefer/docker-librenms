@@ -22,7 +22,7 @@ $config['update'] = 0;
 
 $config['nagios_plugins']   = "/usr/lib/nagios/plugins";
 
-$config['rrdtool_version'] = '1.7.0';
+$config['rrdtool_version'] = '1.7.2';
 $config['rrdcached'] = getenv('RRDCACHED_CONNECT') ?: "unix:/var/run/rrdcached/rrdcached.sock";
 
 $config['memcached']['enable'] = filter_var(getenv('MEMCACHED_ENABLE'), FILTER_VALIDATE_BOOLEAN);
