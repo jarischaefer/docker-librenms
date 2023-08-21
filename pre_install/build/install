@@ -1,6 +1,6 @@
 #!/bin/sh -eu
 
-LIBRENMS_VERSION=${LIBRENMS_VERSION:-23.7.0}
+LIBRENMS_VERSION=${LIBRENMS_VERSION:-23.8.0}
 LIBRENMS_WEATHERMAP_VERSION=018334ac225a07a77d044a7b46af452d3242534a
 
 git clone --branch ${LIBRENMS_VERSION} https://github.com/librenms/librenms.git /opt/librenms
