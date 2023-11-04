@@ -1,0 +1,14 @@
+#!/bin/sh -eu
+
+INIT_DONE_FILE=/var/lock/my_init.lock
+
+if [ -f "$INIT_DONE_FILE" ]; then
+	rm -f "$INIT_DONE_FILE"
+fi
+
+echo ""
+echo "\033[0;36m*******************************************************************************\033[0m"
+echo "\033[0;36mApplying configuration and starting. This may take a long time if the\033[0m"
+echo "\033[0;36munderlying storage is slow.\033[0m"
+echo "\033[0;36m*******************************************************************************\033[0m"
+echo ""

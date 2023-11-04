@@ -1,3 +1,8 @@
 #!/bin/sh -eu
 
+if [ ! -f /var/lock/my_init.lock ]; then
+	echo "Error: Startup configuration is still running. Please wait until the container is fully started." >&2
+	exit 1
+fi
+
 /sbin/setuser librenms /opt/librenms/lnms migrate --no-interaction --force --isolated --seed
