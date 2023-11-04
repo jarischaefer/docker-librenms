@@ -3,12 +3,14 @@
 LIBRENMS_VERSION=${LIBRENMS_VERSION:-23.9.1}
 LIBRENMS_WEATHERMAP_VERSION=ea60439e27985a230d9974553bb32300dc1ef0d3
 
-git clone --branch ${LIBRENMS_VERSION} https://github.com/librenms/librenms.git /opt/librenms
-
 # Dependencies
+auto-apt-proxy
 apt update
 apt -yq dist-upgrade
 apt -yq install --no-install-recommends gcc python3-dev
+
+# LibreNMS and its dependencies
+git clone --branch ${LIBRENMS_VERSION} https://github.com/librenms/librenms.git /opt/librenms
 pip3 install -r /opt/librenms/requirements.txt
 
 composer --no-interaction install --working-dir=/opt/librenms --no-dev --prefer-dist
