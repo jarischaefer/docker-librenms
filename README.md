@@ -14,7 +14,7 @@ Releases are listed on the [Releases page](https://github.com/jarischaefer/docke
 
 docker-librenms is a customizable Docker image for [LibreNMS](http://www.librenms.org/) based on Ubuntu.
 
-The container runs nginx 1.18+ with HTTP/2 support and PHP 8.1 FPM with [OPCache](http://php.net/manual/en/book.opcache.php)
+The container runs nginx 1.18+ with HTTP/2 support and PHP 8.2 FPM with [OPCache](http://php.net/manual/en/book.opcache.php)
 and [rrdcached](https://oss.oetiker.ch/rrdtool/doc/rrdcached.en.html) for maximum performance.
 
 > :warning: ARM support is experimental, see [here](https://github.com/jarischaefer/docker-librenms/issues/114) for more details.
@@ -158,7 +158,7 @@ to modify it.
 ## SSL
 
 Mount another directory containing `ssl.key`, `ssl.crt` and optionally `ssl.ocsp.crt` to enable HTTPS.
-You'll also have to change `BASE_URL`.
+You'll also have to change `BASE_URL` and add `SESSION_SECURE_COOKIE=true`.
 
 	docker run \
 		-d \
@@ -348,6 +348,49 @@ threads.
 		--name librenms \
 		jarischaefer/docker-librenms
 
+---
+
+# Troubleshooting
+
+## Executing commands inside the container
+
+Make sure you `source` the environment variables from /etc/librenms_environment
+prior to executing commands inside the container.
+
+This is an example demonstrating how to run the validation script.
+
+	su - librenms
+	source /etc/librenms_environment
+	cd /opt/librenms
+	php validate.php
+
+---
+
+# Running in production
+
+## General notes
+
+The commands above are purely for illustrative purposes.
+You should customize them to fit your environment.
+
+Also, please note that...
+
+* Alerting via email is supported via SMTP only.
+* Publicly accessible installations should be put behind
+[jwilder/nginx-proxy](https://github.com/jwilder/nginx-proxy) or
+similar proxies for better access control and security hardening.
+
+## Backups
+
+See
+[Issue #145](https://github.com/jarischaefer/docker-librenms/issues/145#issuecomment-1732171713)
+for information regarding backups. The documentation is still work in progress and will be added
+at some point in the future.
+
+---
+
+# Plugins and extensions
+
 ## Custom Nagios plugins
 
 Nagios plugins are stored in `/usr/lib/nagios/plugins`. Choose one of the options below if you would like to add new plugins.
@@ -372,35 +415,9 @@ lrwxrwxrwx 1 root root 31 Jan 21 22:19 /usr/lib/nagios/plugins/check_xyz -> /mou
 **Option 2**
 
 Make sure the plugin (file) exists on the host before starting the container (Docker creates a directory on startup by default).
-Each plugin must be mounted individually (`-v` for Docker CLI), for example: `-v /nagios_plugins/check_xyz:/usr/lib/nagios/plugins/check_xyz` 
+Each plugin must be mounted individually (`-v` for Docker CLI), for example: `-v /nagios_plugins/check_xyz:/usr/lib/nagios/plugins/check_xyz`
 
-## Executing commands inside the container
-
-Make sure you `source` the environment variables from /etc/librenms_environment
-prior to executing commands inside the container.
-
-This is an example demonstrating how to run the validation script.
-
-	su - librenms
-	source /etc/librenms_environment
-	cd /opt/librenms
-	php validate.php
-
-## Running in production
-
-The commands above are purely for illustrative purposes.
-You should customize them to fit your environment.
-
-Also, please note that...
-
-* Alerting via email is supported via SMTP only.
-* Publicly accessible installations should be put behind
-[jwilder/nginx-proxy](https://github.com/jwilder/nginx-proxy) or
-similar proxies for better access control and security hardening.
-
----
-
-# syslog
+## syslog
 
 These are instructions for the [LibreNMS syslog extension](https://docs.librenms.org/#Extensions/Syslog/).
 
@@ -415,7 +432,7 @@ visible in LibreNMS may not be what one would expect. Instead of displaying the 
 it is possible that an internal address such as `172.17.0.1` is observed. More information regarding this behavior
 can be found in the [corresponding issue](https://github.com/jarischaefer/docker-librenms/issues/120).
 
-# Weathermap
+## Weathermap
 
 These are instructions for the [LibreNMS weathermap plugin](https://github.com/librenms-plugins/Weathermap).
 
