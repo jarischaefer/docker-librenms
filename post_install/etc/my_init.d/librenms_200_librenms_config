@@ -41,6 +41,11 @@ fi
 requireConfig DB_NAME
 requireConfig BASE_URL
 
+if [[ "$BASE_URL" == https://* ]]; then
+	echo "SESSION_SECURE_COOKIE=true" >> /opt/librenms/.env
+	echo "export SESSION_SECURE_COOKIE=true" >> /etc/librenms_environment
+fi
+
 # Generate Laravel .env file
 COMPOSER_PROCESS_TIMEOUT=3600 APP_ENV=local /sbin/setuser librenms composer run-script post-install-cmd -d /opt/librenms
 
