@@ -8,4 +8,4 @@ PLACEHOLDER_POLLERS_CRON	librenms	. /etc/librenms_environment; /opt/librenms/cro
 */5	*	*	*	*	librenms	. /etc/librenms_environment; /opt/librenms/poll-billing.php >> /dev/null 2>&1
 01	*	*	*	*	librenms	. /etc/librenms_environment; /opt/librenms/billing-calculate.php >> /dev/null 2>&1
 */5	*	*	*	*	librenms	. /etc/librenms_environment; /opt/librenms/check-services.php >> /dev/null 2>&1
-*	*	*	*	*	librenms	. /etc/librenms_environment; /opt/librenms/artisan schedule:run >> /dev/null 2>&1
+*	*	*	*	*	librenms	. /etc/librenms_environment; /opt/librenms/artisan schedule:run --no-interaction --no-ansi >> /dev/null 2>&1
