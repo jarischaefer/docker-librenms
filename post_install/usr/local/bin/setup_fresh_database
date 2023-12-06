@@ -1,0 +1,13 @@
+#!/bin/bash -eu
+
+if [ ! -f /var/lock/my_init.lock ]; then
+	echo "Error: Startup configuration is still running. Please wait until the container is fully started." >&2
+	exit 1
+fi
+
+read -r -p "This will delete existing data. Continue? [y/N] "
+echo
+
+if [[ "$REPLY" =~ ^[yY]$ ]]; then
+	/sbin/setuser librenms /opt/librenms/lnms migrate:fresh --no-interaction --force --seed
+fi
