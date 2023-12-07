@@ -384,8 +384,61 @@ similar proxies for better access control and security hardening.
 
 See
 [Issue #145](https://github.com/jarischaefer/docker-librenms/issues/145#issuecomment-1732171713)
-for information regarding backups. The documentation is still work in progress and will be added
-at some point in the future.
+for information regarding backups. The documentation is still *work in progress*.
+
+### Directory structure
+
+Create a directory structure such as this:
+
+* `/srv/librenms/web/logs`
+* `/srv/librenms/web/rrd`
+* `/srv/librenms/db/data`
+
+Instead of copying multiple directories, this approach involves only `/srv/librenms`.
+
+### Temporary backup
+
+* Use this kind of backup for test environments, for example to create a copy of an existing
+installation prior to an upgrade or configuration change.
+* The output is in binary form and generally tied to a specific version of LibreNMS and the
+database. A future version of LibreNMs or the database may not be able to read the old data. For
+the database, this can be overcome by creating a dump file (see long-term backup).
+
+**Backing up**
+1. Stop the LibreNMS web container: `docker stop librenms-web`
+2. Stop the database container: `docker stop librenms-db`
+3. Copy or archive the directory: `tar -cf /srv/backup.tar -C /srv/librenms .`
+
+**Restoring**
+1. Choose and create a new directory for the data: `mkdir -p /srv/restore`
+2. Copy the directory, or extract the archive: `tar -xf /srv/backup.tar -C /srv/restore`
+3. Copy `docker-compose.yml` or other start-/stop-scripts
+4. Update the paths in `docker-compose.yml` or `docker run` to point to `/srv/restore`
+5. Update the database port on the host `docker-compose.yml` or `docker run`, e.g. `3306` to `3307`
+
+### Long-term backup
+
+* Use this kind of backup for long-term storage.
+* In contrast to temporary backups, a portion of the long-term backup is stored in text form,
+making it more portable.
+
+**Backing up**
+1. Stop the LibreNMS web container: `docker stop librenms-web`
+2. Copy or archive the web directory: `tar -cf /srv/backup.tar -C /srv/librenms/web .`
+3. Dump the database: `mysqldump --host=127.0.0.1 --port=3306 --user=librenms -p --single-transaction librenms > /srv/backup.sql`
+
+**Restoring**
+1. Choose and create a new directory for the data: `mkdir -p /srv/restore`
+2. Copy `docker-compose.yml` or other start-/stop-scripts
+3. Update the paths in `docker-compose.yml` or `docker run` to point to `/srv/restore`
+4. Update the database port on the host `docker-compose.yml` or `docker run`, e.g. `3306` to `3307`
+5. Start the database container. Stop the web container if it is also started
+6. Make sure you can log in from the host to the database container. There should be an empty
+`librenms` database, otherwise create it and grant privileges:
+`mysql --host=127.0.0.1 --port=3307 --user=librenms -p`
+7. Restore the dump: `cat /srv/backup.sql | mysql --host=127.0.0.1 --port=3307 --user=librenms -p librenms`
+8. Remove any unwanted files: `rm -r /srv/restore/web && mkdir -p /srv/restore/web`
+9. Copy the directory, or extract the archive: `tar -xf /srv/backup.tar -C /srv/restore/web`
 
 ---
 
