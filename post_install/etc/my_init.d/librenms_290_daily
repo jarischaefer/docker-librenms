@@ -2,6 +2,6 @@
 
 if [ "$DAILY_ON_STARTUP" = "true" ]; then
 	cd /opt/librenms
-	/sbin/setuser librenms ./lnms migrate --force
+	/sbin/setuser librenms ./lnms migrate --force --no-interaction
 	/sbin/setuser librenms ./daily.sh
 fi

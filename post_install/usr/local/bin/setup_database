@@ -5,4 +5,4 @@ if [ ! -f /var/lock/my_init.lock ]; then
 	exit 1
 fi
 
-/sbin/setuser librenms /opt/librenms/lnms migrate --no-interaction --force --isolated --seed
+/sbin/setuser librenms /opt/librenms/lnms migrate --no-interaction --force --seed
