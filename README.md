@@ -217,63 +217,65 @@ The following keys can be passed directly via the `-e` switch:
 
 ## Basic configuration
 
-|Key                     |Default                               |Description
-|------------------------|--------------------------------------|------------------------------
-|APP_KEY                 |                                      |Secret encryption key
-|APP_KEY_FILE            |                                      |Secret encryption key via file/secret
-|BASE_URL                |                                      |Base URL for LibreNMS (e.g. http://192.168.0.1:8080)
-|DB_HOST                 |                                      |MySQL IP or hostname
-|DB_PORT                 |3306                                  |MySQL port
-|DB_NAME                 |                                      |MySQL database name
-|DB_USER                 |                                      |MySQL user
-|DB_PASS                 |                                      |MySQL password
-|DB_PASS_FILE            |                                      |MySQL password via secret
-|TZ                      |UTC                                   |Timezone (e.g. Europe/Zurich)
-|PUID                    |                                      |User ID
-|PGID                    |                                      |Group ID
-|PHP_FPM_WORKERS_MIN     |1                                     |Minimum number of PHP-FPM workers
-|PHP_FPM_WORKERS_MAX     |4                                     |Maximum number of PHP-FPM workers
+| Key                 | Default | Description                                          |
+|---------------------|---------|------------------------------------------------------|
+| APP_KEY             |         | Secret encryption key                                |
+| APP_KEY_FILE        |         | Secret encryption key via file/secret                |
+| BASE_URL            |         | Base URL for LibreNMS (e.g. http://192.168.0.1:8080) |
+| DB_HOST             |         | MySQL IP or hostname                                 |
+| DB_PORT             | 3306    | MySQL port                                           |
+| DB_NAME             |         | MySQL database name                                  |
+| DB_USER             |         | MySQL user                                           |
+| DB_PASS             |         | MySQL password                                       |
+| DB_PASS_FILE        |         | MySQL password via secret                            |
+| TZ                  | UTC     | Timezone (e.g. Europe/Zurich)                        |
+| PUID                |         | User ID                                              |
+| PGID                |         | Group ID                                             |
+| PHP_FPM_WORKERS_MIN | 1       | Minimum number of PHP-FPM workers                    |
+| PHP_FPM_WORKERS_MAX | 4       | Maximum number of PHP-FPM workers                    |
 
 ## Enabling/disabling container features
 
-|Key                     |Default                               |Description
-|------------------------|--------------------------------------|------------------------------
-|DISABLE_IPV6            |false                                 |Disable nginx IPv6 socket
-|MEMCACHED_ENABLE        |false                                 |Enable memcached
-|MEMCACHED_HOST          |                                      |memcached IP or hostname
-|MEMCACHED_PORT          |11211                                 |memcached port
-|NGINX_ENABLE            |true                                  |Enable nginx
-|PHPFPM_ENABLE           |true                                  |Enable PHP-FPM
-|RRDCACHED_ENABLE        |true                                  |Enable rrdcached
-|RRDCACHED_CONNECT       |unix:/var/run/rrdcached/rrdcached.sock|rrdcached TCP or unix socket where LibreNMS connects to
-|RRDCACHED_LISTEN        |unix:/var/run/rrdcached/rrdcached.sock|rrdcached TCP or unix socket where rrdcached listens on
-|SKIP_CHOWN              |false                                 |Disable (slow) `chown`ing of files at startup (might help with network storage)
-|SNMPTRAPD_ENABLE        |false                                 |Enable [SNMP Trap Handler](https://docs.librenms.org/Extensions/SNMP-Trap-Handler/)
-|SNMPTRAPD_MIBS          |IF-MIB                                |Passed to snmptrapd via `-m`
-|SNMPTRAPD_MIBDIRS       |/opt/librenms/mibs                    |Passed to snmptrapd via `-M`
-|LIBRENMS_SERVICE_ENABLE |false                                 |Enable librenms-service.py
-|LIBRENMS_SERVICE_OPTS   |""                                    |Options for librenms-service.py (e.g. `-v`)
+| Key                     | Default                                | Description                                                                         |
+|-------------------------|----------------------------------------|-------------------------------------------------------------------------------------|
+| DISABLE_IPV6            | false                                  | Disable nginx IPv6 socket                                                           |
+| MEMCACHED_ENABLE        | false                                  | Enable memcached                                                                    |
+| MEMCACHED_HOST          |                                        | memcached IP or hostname                                                            |
+| MEMCACHED_PORT          | 11211                                  | memcached port                                                                      |
+| NGINX_ENABLE            | true                                   | Enable nginx                                                                        |
+| PHPFPM_ENABLE           | true                                   | Enable PHP-FPM                                                                      |
+| RRDCACHED_ENABLE        | true                                   | Enable rrdcached                                                                    |
+| RRDCACHED_CONNECT       | unix:/var/run/rrdcached/rrdcached.sock | rrdcached TCP or unix socket where LibreNMS connects to                             |
+| RRDCACHED_LISTEN        | unix:/var/run/rrdcached/rrdcached.sock | rrdcached TCP or unix socket where rrdcached listens on                             |
+| SKIP_CHOWN              | false                                  | Disable (slow) `chown`ing of files at startup (might help with network storage)     |
+| SNMPTRAPD_ENABLE        | false                                  | Enable [SNMP Trap Handler](https://docs.librenms.org/Extensions/SNMP-Trap-Handler/) |
+| SNMPTRAPD_MIBS          | IF-MIB                                 | Passed to snmptrapd via `-m`                                                        |
+| SNMPTRAPD_MIBDIRS       | /opt/librenms/mibs                     | Passed to snmptrapd via `-M`                                                        |
+| LIBRENMS_SERVICE_ENABLE | false                                  | Enable librenms-service.py                                                          |
+| LIBRENMS_SERVICE_OPTS   | ""                                     | Options for librenms-service.py (e.g. `-v`)                                         |
 
 ## Enabling/disabling LibreNMS features
 
-|Key                     |Default                               |Description
-|------------------------|--------------------------------------|------------------------------
-|ALERTS_ENABLE           |true                                  |Enable LibreNMS alerts
-|BILLING_CALCULATE_ENABLE|true                                  |Enable LibreNMS billing calculation
-|CHECK_SERVICES_ENABLE   |true                                  |Enable LibreNMS service checks
-|DAILY_ENABLE            |true                                  |Enable LibreNMS daily script
-|DAILY_ON_STARTUP        |false                                 |Enable LibreNMS daily script on startup
-|DISCOVERY_ENABLE        |true                                  |Enable LibreNMS discovery
-|DISCOVERY_THREADS       |1                                     |Number of threads for discovery
-|ENABLE_SYSLOG           |false                                 |Enable LibreNMS syslog ([see here](#syslog))
-|POLL_BILLING_ENABLE     |true                                  |Enable LibreNMS billing polling
-|POLLERS_ENABLE          |true                                  |Enable LibreNMS polling
-|POLLERS                 |8                                     |Number of LibreNMS pollers
-|POLLERS_CRON            |*/5 * * * *                           |Cron schedule for pollers
-|SNMP_SCAN_ENABLE        |false                                 |Enable cron for [snmp-scan](https://docs.librenms.org/#Extensions/Auto-Discovery/#snmp-scan)
-|SNMP_SCAN_CRON          |0 0 * * *                             |Cron schedule for snmp-scan
-|WEATHERMAP_ENABLE       |false                                 |Enable cron for [weathermap](https://github.com/librenms-plugins/Weathermap) ([see here](#Weathermap))
-|WEATHERMAP_CRON         |*/5 * * * *                           |Cron schedule for weathermap
+> :warning: Some values must be wrapped in quotation marks (e.g. cron schedule).
+
+| Key                      | Default       | Description                                                                                            |
+|--------------------------|---------------|--------------------------------------------------------------------------------------------------------|
+| ALERTS_ENABLE            | true          | Enable LibreNMS alerts                                                                                 |
+| BILLING_CALCULATE_ENABLE | true          | Enable LibreNMS billing calculation                                                                    |
+| CHECK_SERVICES_ENABLE    | true          | Enable LibreNMS service checks                                                                         |
+| DAILY_ENABLE             | true          | Enable LibreNMS daily script                                                                           |
+| DAILY_ON_STARTUP         | false         | Enable LibreNMS daily script on startup                                                                |
+| DISCOVERY_ENABLE         | true          | Enable LibreNMS discovery                                                                              |
+| DISCOVERY_THREADS        | 1             | Number of threads for discovery                                                                        |
+| ENABLE_SYSLOG            | false         | Enable LibreNMS syslog ([see here](#syslog))                                                           |
+| POLL_BILLING_ENABLE      | true          | Enable LibreNMS billing polling                                                                        |
+| POLLERS_ENABLE           | true          | Enable LibreNMS polling                                                                                |
+| POLLERS                  | 8             | Number of LibreNMS pollers                                                                             |
+| POLLERS_CRON             | "*/5 * * * *" | Cron schedule for pollers                                                                              |
+| SNMP_SCAN_ENABLE         | false         | Enable cron for [snmp-scan](https://docs.librenms.org/#Extensions/Auto-Discovery/#snmp-scan)           |
+| SNMP_SCAN_CRON           | "0 0 * * *"   | Cron schedule for snmp-scan                                                                            |
+| WEATHERMAP_ENABLE        | false         | Enable cron for [weathermap](https://github.com/librenms-plugins/Weathermap) ([see here](#Weathermap)) |
+| WEATHERMAP_CRON          | "*/5 * * * *" | Cron schedule for weathermap                                                                           |
 
 ## Custom configuration
 
