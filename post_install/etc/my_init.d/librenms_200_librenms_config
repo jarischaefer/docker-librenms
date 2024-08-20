@@ -17,8 +17,10 @@ else
 	fi
 
 	APP_KEY=$(head -n 1 "$APP_KEY_FILE" | tr -d ' ')
-	sed -i '/^APP_KEY/d' /opt/librenms/.env
+	sed -i '/^APP_KEY=/d' /opt/librenms/.env
 	echo "APP_KEY=$APP_KEY" >> /opt/librenms/.env
+
+	sed -i '/^export APP_KEY=/d' /etc/librenms_environment
 	echo "export APP_KEY=\"$APP_KEY\"" >> /etc/librenms_environment
 fi
 
@@ -35,6 +37,7 @@ else
 
 	# Unlike APP_KEY, DB_PASS is loaded inside config.php and therefore not written to .env here
 	DB_PASS=$(head -n 1 "$DB_PASS_FILE" | tr -d ' ')
+	sed -i '/^export DB_PASS=/d' /etc/librenms_environment
 	echo "export DB_PASS=\"$DB_PASS\"" >> /etc/librenms_environment
 fi
 
@@ -42,7 +45,10 @@ requireConfig DB_NAME
 requireConfig BASE_URL
 
 if [[ "$BASE_URL" == https://* ]]; then
+	sed -i '/^SESSION_SECURE_COOKIE=/d' /opt/librenms/.env
 	echo "SESSION_SECURE_COOKIE=true" >> /opt/librenms/.env
+
+	sed -i '/^export SESSION_SECURE_COOKIE=/d' /etc/librenms_environment
 	echo "export SESSION_SECURE_COOKIE=true" >> /etc/librenms_environment
 fi
 
