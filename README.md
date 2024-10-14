@@ -14,7 +14,7 @@ Releases are listed on the [Releases page](https://github.com/jarischaefer/docke
 
 docker-librenms is a customizable Docker image for [LibreNMS](http://www.librenms.org/) based on Ubuntu.
 
-The container runs nginx 1.18+ with HTTP/2 support and PHP 8.2 FPM with [OPCache](http://php.net/manual/en/book.opcache.php)
+The container runs nginx 1.18+ with HTTP/2 support and PHP 8.3 FPM with [OPCache](http://php.net/manual/en/book.opcache.php)
 and [rrdcached](https://oss.oetiker.ch/rrdtool/doc/rrdcached.en.html) for maximum performance.
 
 > :warning: ARM support is experimental, see [here](https://github.com/jarischaefer/docker-librenms/issues/114) for more details.
