@@ -1,4 +1,4 @@
-FROM jarischaefer/baseimage-librenms:4.2
+FROM jarischaefer/baseimage-librenms:4.2-1
 
 EXPOSE 80 443
 
