@@ -1,6 +1,6 @@
 #!/bin/sh -eu
 
-LIBRENMS_VERSION=${LIBRENMS_VERSION:-25.10.0}
+LIBRENMS_VERSION=${LIBRENMS_VERSION:-25.11.0}
 LIBRENMS_WEATHERMAP_VERSION=ea57b454eb042408a6628fc3d8dff8176563547f
 
 # Optional APT caching, speeds up local builds
@@ -8,15 +8,16 @@ LIBRENMS_WEATHERMAP_VERSION=ea57b454eb042408a6628fc3d8dff8176563547f
 
 # Dependencies
 apt update
-apt -yq dist-upgrade
-apt -yq install --no-install-recommends gcc python3-dev
+DEBIAN_FRONTEND=noninteractive apt -yq dist-upgrade
+DEBIAN_FRONTEND=noninteractive apt -yq install --no-install-recommends gcc python3-dev
 
 # LibreNMS and its dependencies
 git clone --branch ${LIBRENMS_VERSION} https://github.com/librenms/librenms.git /opt/librenms
 pip3 install -r /opt/librenms/requirements.txt
+chown -R librenms:librenms /opt/librenms
 
-composer --no-interaction install --working-dir=/opt/librenms --no-dev --prefer-dist
-composer clear-cache
+sudo -u librenms -g librenms composer --no-interaction install --working-dir=/opt/librenms --no-dev --prefer-dist
+sudo -u librenms -g librenms composer clear-cache
 
 # Workaround for initialization order - In EnvHelper.php line 117: Call to undefined function LibreNMS\Util\base_path()
 sed -i 's|"LibreNMS\\\\ComposerHelper::postInstall",|"Illuminate\\\\Foundation\\\\ComposerScripts::postInstall",\n            "LibreNMS\\\\ComposerHelper::postInstall",|g' /opt/librenms/composer.json
