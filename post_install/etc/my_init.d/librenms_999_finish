@@ -1,5 +1,8 @@
 #!/bin/sh -eu
 
+# Temporarily disable MSPHPSQL
+rm /etc/php/8.5/cli/conf.d/30-mssql.ini /etc/php/8.5/fpm/conf.d/30-mssql.ini || true
+
 touch /var/lock/my_init.lock
 
 echo ""
